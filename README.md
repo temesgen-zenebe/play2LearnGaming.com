@@ -1,2 +1,2 @@
-# play2LeranGaming.com
-play2LeranGaming.com Django class project
+# play2LearnGaming.com
+play2LearnGaming.com Django class project
