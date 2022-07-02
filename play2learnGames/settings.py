@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local apps
+    'anagramGame.apps.AnagramgameConfig',
     'pages.apps.PagesConfig',
+    'mathGame.apps.MathgameConfig',
+    
 ]
 
 MIDDLEWARE = [
