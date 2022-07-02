@@ -35,8 +35,8 @@
                                 Games
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Math Game</a>
-                                <a class="dropdown-item" href="#">Anagram Game</a>
+                                <a class="dropdown-item" href="{% url 'mathGame:math-game' %}">Math Game</a>
+                                <a class="dropdown-item" href="{% url 'anagramGame:anagram-game' %}">Anagram Game</a>
                             </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -44,8 +44,8 @@
                                 Scores
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Math Scores</a>
-                                <a class="dropdown-item" href="#">Anagrame Sores</a>
+                                <a class="dropdown-item" href="{% url 'mathGame:math-score' %}">Math Scores</a>
+                                <a class="dropdown-item" href="{% url 'anagramGame:anagram-score' %}">Anagrame Sores</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
