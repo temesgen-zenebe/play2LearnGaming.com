@@ -1,0 +1,61 @@
+{% extends "_base.html" %}
+
+{% block title %}Math game{% endblock %}
+{% block header %}Math game{% endblock %}
+{% block main %}
+
+<div class="container-sm p-1 ">
+  <div class="card border-success mb-3 justify-content-center mx-auto shadow " style="max-width: 42rem;">
+    <div class="card-header bg-transparent border-success text-center  " style="font-size: 17px; ">
+      Start Playing Math Practice Game
+    </div>
+    <div class="card-body text-success">
+
+      <form action="" method="" novalidate >
+       
+        <div class="row g-2 needs-validation p-2">
+          <div class="col-md-6 ">
+           <label for="validationTooltip04" class="form-label text-left text-dark">Operator</label>
+           <select class="form-select" id="validationTooltip04" name="math_operator"  required>
+              <option selected disabled value="">Choose..</option>
+              <option value="+">Addition</option>
+              <option value="-">Subtraction</option>
+              <option value="*">Multiplication</option>
+              <option value="/">Division</option>
+            </select>
+            
+
+          </div>
+           <div class="col-md-4 ">
+           <label for="validationTooltip04" class="form-label text-dark">Maximum Rang</label>
+            <select class="form-select" id="validationTooltip04" name="num_range" required>
+              <option selected disabled value="">Choose...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            
+          </div>
+          <div class="col-md-2 position-relative p-2">
+            <input type="submit" class="btn  btn-outline-primary form-control mt-4" value="Start"/>
+            <!--<button type="button" class="btn  btn-outline-primary form-control mt-4">Start</button>--->
+          </div>
+        </div>
+    </form>
+    <div class="card-footer bg-transparent text-center text-dark border-success">
+      Math game Instraction
+      <hr>
+      <ul class="list-group list-group-flush  text-start" style="font-size: 15px;">
+        <li class="list-group-item "><i class="bi bi-check2-square px-1"></i><small class='text-break'>Set Operates
+            [Addition(+), Subtraction(-), Multiplication(*),and Division(/) ].</small> </li>
+        <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Set number by choosing a
+            number Range from 1 to 100.</small> </li>
+        <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Start game button
+            right.</small> </li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

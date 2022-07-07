@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'anagramGame.apps.AnagramgameConfig',
-    'mathGame.apps.MathgameConfig',
+    'mathFactGame.apps.MathfactgameConfig',
     'pages.apps.PagesConfig',
     
     

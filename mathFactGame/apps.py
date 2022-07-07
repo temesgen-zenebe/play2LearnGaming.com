@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MathgameConfig(AppConfig):
+class MathfactgameConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mathGame'
+    name = 'mathFactGame'

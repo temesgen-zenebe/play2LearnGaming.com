@@ -7,6 +7,6 @@ urlpatterns = [
     #path('anagramGame/', include('anagramGame.urls')),
     #path('mathGame/', include('mathGame.urls')),
     path('', include('anagramGame.urls')),
-    path('', include('mathGame.urls')),
+    path('', include('mathFactGame.urls')),
     path('', include('pages.urls')),
 ]
