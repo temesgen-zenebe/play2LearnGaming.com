@@ -1,0 +1,298 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block javascript %}
+  
+  <script type="text/javascript" src="{% static 'js/math.js' %}" defer></script>
+  <script type="text/javascript">
+    $(document).on('submit','#score-form',function(e){
+        e.preventDefault();
+        $.ajax ({
+            type:'POST',
+            url:'{% url "math_game:scoreMathForm" %}',
+            data:
+            {
+                operator:$("#id_operator").val(),
+                max_range:$("#id_max_range").val(),
+                score:$("#id_score").val(), 
+                point:$("#id_point").val(),
+                ranked:$("#id_ranked").val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                  alert('Saved');
+                    }
+            })
+        });
+  </script>
+  
+  <script type="text/javascript" async>
+    $(document).ready(function(){
+       $("#scoreData").click(function(e){
+          //e.preventDefault();
+        $.ajax({type: "POST",
+                url: '{% url "math_game:scoreMathForm" %}',
+                data: { 
+                       
+                    operator:$("#id_operator").val(),
+                    max_range:$("#id_max_range").val(),
+                    score:$("#id_score").val(), 
+                    point:$("#id_point").val(),
+                    ranked:$("#id_ranked").val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+                },
+                success:function(){
+                       alert('Saved');
+                    }
+        });
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block title %}Math game{% endblock %}
+
+{% block header %}Math game{% endblock %}
+
+{% block main %}
+<div class="container-sm p-1 text-center ">
+    <div class="card border-success mb-3 mx-auto shadow text-center" id="start" style="display: block; max-width: 42rem; ">
+        <div class="card-header  border-success text-center" style="font-size: 17px; ">
+          Start Playing Math Practice Game 
+        </div>
+        <div class=" card-body text-success text-center " >
+            <form  class="row g-2 m-auto needs-validation"  style="max-width: 95%;" novalidate>
+                <div class="col-md-5 text-start">
+                  <select name="operator"  class="form-select" id="validationCustom04" autofocus  required> 
+                    <option selected disabled value="">Operates...</option>
+                    <option value="0">Addition[+]</option>
+                    <option value="1">Division[/]</option>
+                    <option value="2">Multiplication[*]</option>
+                    <option value="3">Subtraction[-]</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid operator.
+                  </div>
+                </div>
+                <div class="col-md-4 text-start">
+                    <select class="selacted-rang form-select" id="validationCustom03" autofocus  required>
+                        <option selected disabled value="">max_Range</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid operator.
+                    </div>
+                </div>
+                
+                <div class="col-md-2 d-grid ">
+                  <button id="button_start" class="btn btn-outline-primary form-label operator-btn" type="submit" >Start</button>
+                </div>
+            </form>
+            
+        </div>
+        <div class="card-footer bg-transparent text-center text-dark border-success">
+            <p>Math Game Instraction</p>
+            <hr>
+            <ul class="list-group list-group-flush  text-start" style="font-size: 15px;">
+            <li class="list-group-item "><i class="bi bi-check2-square px-1"></i><small class='text-break'>Set Operates
+                [Addition(+), Subtraction(-), Multiplication(*),and Division(/) ].</small> </li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Set number by choosing a
+                number Range from 1 to 100.</small> </li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Start game button
+                right.</small> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card border-success mb-3 mx-auto shadow text-center"  id="toggle" style="display: none; max-width: 42rem;">
+            <div class="card-header bg-transparent border-success text-center  " style="font-size: 17px; ">
+                <div class="game_counter d-flex justify-content-between mx-3">
+                    <div class="score_counter score-result-section">
+                       <p> SCORE : <span class="score_result"></span></p>
+                    </div>
+                    <div class="Time-left-section ">
+                        <p>TIME LEFT: <span class="Time-left"></span> <small>sec</small></p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="card-body text-success text-center bg-transparent text-center " >
+                 <div class="row game_section m-3">
+                    <div class=" col-12 m-auto operators-selection-form">
+                        <p class="selected-operators"></p>
+                        <p class="selected_num_range" style="display:none;"></p>
+
+                    </div>
+                    <div class="col-12 m-auto operators-selection-form">
+                        <h1 class="problem"> <strong></strong></h1>
+                    </div>
+                    
+                    <div class="col-8 m-auto">
+                       
+                        <input 
+                            class='answer-input form-control text-center' 
+                            type="text" 
+                            id="user_answer" 
+                            placeholder="Enter you answer..." 
+                            autocomplete="off"
+                            autofocus
+                            required
+                        >
+                    </div>
+                 </div>
+            </div>
+            <div class="card-footer bg-transparent text-center text-dark border-success mx-3 p-2">
+                <div class="row gap-2 m-auto px-1" style="max-width: 50%;">
+                            <button  class="col btn btn-outline-primary input-value"  value="1">1</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="2">2</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="3">3</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="4">4</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="5">5</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="6">6</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="7">7</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="8">8</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="9">9</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="0">0</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="9">-</button>
+                            <button  class="col btn btn-outline-primary input-value"  value="0">.</button>
+                            <button  class="col btn btn-outline-primary input-value-clear"  value="clear">Clear</button>
+                    
+                </div>
+            </div>
+        
+    </div>
+    <div class="card border-success mt-4 mx-auto shadow text-center" id="ownGameScore" style="display: block; max-width: 42rem; ">
+        <div class="card-header border-success text-center " style="font-size: 17px; ">
+            Your Math Practice Game Scores
+        </div>
+        <div class="card-body text-success text-center " style="font-size:12px;">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
+                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
+                    <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Division</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <!--addition-->
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for score in mathScore %}
+                                       
+                                        <tr>
+                                        {% if score.user == user and score.operator == 'Addition[+]' %}:
+                                          <th scope="row">{{ forloop.counter }}</th>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ score.ranked }}</td>
+                                          <td>{{ score.created }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--division-->
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for score in mathScore %}
+                                       
+                                        <tr>
+                                        {% if score.user == user and score.operator == 'Subtraction[-]' %}:
+                                          <th scope="row">{{ forloop.counter }}</th>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ score.ranked }}</td>
+                                          <td>{{ score.created }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+                <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
+            </div>
+        </div>  
+    </div>
+    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: block; max-width: 42rem; ">
+        <form method="post" enctype="multipart/form-data" id="score-form">
+            {% csrf_token %}
+            <p id="id_operator_p"><label for="id_operator">Operator:</label><input type="text" name="operator" maxlength="50" required id="id_operator" value="*"></p>
+            <p id="id_max_range_p"><label for="id_max_range">Max range:</label><input type="number" name="max_range" value="2" required id="id_max_range"></p>
+            <p id="id_score_p"><label for="id_score">Score:</label><input type="number" name="score" value="0" required id="id_score"></p>
+            <p id="id_point_p"><label for="id_point">Point:</label><input type="number" name="point" value="0" required id="id_point"></p>
+            <p id="id_ranked_p"><label for="id_ranked">Ranked:</label><input type="number" name="ranked" value="0" required id="id_ranked"></p>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+</div>
+<!----------overlay results------------>
+<div class="overlay">
+    <div class="overlay-inner ">
+        <h3>MATH FACTS PRACTICE GAME</h3>
+        <div class="py-3">
+            <p id="selected-operators"></p>
+            <p id="selected-rang"></p>
+            <p class="end-message"></p3>
+            <p class="fine-score bodrer">Your Final Score is : <span class="fine-score-result"></span></p>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2 py-3">
+            <button class="btn btn-sm btn-outline-light form-control reset_button">Play Again</button>
+            <button class="btn btn-sm  btn-outline-light form-control resetOperator">Reset</button>
+            <input id="scoreData" type="submit" class="save_score btn btn-sm btn-outline-light form-control" value="Save Score" >
+            <a href="{% url 'math_game:math-game-main' %}" class="btn  btn-sm btn-outline-light form-control " type="button">Exit</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

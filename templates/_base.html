@@ -1,172 +1,204 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/e4ab79068e.js" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Electrolize&family=Play&family=Share+Tech+Mono&display=swap');
-        body{
-            font-family: 'Electrolize','Play', sans-serif, 'Share Tech Mono', monospace;
-            background: #fff;
-            font-size: 16px;
-            
-          }
-    </style>
-    <title>{% block title %}{% endblock %} | Hello, Player!</title>
-  </head>
-  <body>
     
-        <!-- header -->
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
-                <div class="container-fluid mx-3">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block javascript %}{% endblock %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>{% block title %}{% endblock %} | Hello, Player!</title>
+</head>
+
+<body>
+    
+    <!-- header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
+            <div class="container-fluid mx-3">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                    </button>
-                    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'pages:homepage' %}">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'pages:contact-us' %}">Contact</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'pages:homepage' %}">Home <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'pages:contact-us' %}">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Games
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'mathFactGame:math-fact-game' %}">Math Game</a>
-                                <a class="dropdown-item" href="{% url 'anagramGame:anagram-game' %}">Anagram Game</a>
+                                <a class="dropdown-item" href="{% url 'math_game:math-game-main' %}">Math Game</a>
+                                <a class="dropdown-item" href="{% url 'anagram_game:anagram-game-main' %}">Anagram
+                                    Game</a>
                             </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Scores
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'mathFactGame:math-fact-score' %}">Math Scores</a>
-                                <a class="dropdown-item" href="{% url 'anagramGame:anagram-score' %}">Anagrame Sores</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'math_game:math-score' %}">Math Scores</a>
+                                <a class="dropdown-item" href="{% url 'anagram_game:anagram-score' %}">Anagrame
+                                    Sores</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Account
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">Manage account</a>
                                 <a class="dropdown-item" href="#">your comments</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Your Math Scores</a>
                                 <a class="dropdown-item" href="#">Your Anagrame Scores</a>
-                                
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <a class="navbar-brand " href="{% url 'pages:homepage' %}"><i class="bi bi-dpad px-2"></i>Play2LearnGame</a>
+
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
-        <!-- main -->
-        <main>
-            <div class="container-fluid my-5">
-                {% block main %}{% endblock %}
+                <a class="navbar-brand " href="{% url 'pages:homepage' %}"><i
+                        class="bi bi-dpad px-2"></i>Play2LearnGame</a>
             </div>
-        </main>
-        <!-- footer -->
-        <footer>
-            <div class="container-fluid mt-5">
-                <footer class="bg-primary text-center text-white">
+        </nav>
+    </header>
+    <!-- main -->
+    <main>
+        <div class="container-fluid my-5">
+            {% block main %}{% endblock %}
+        </div>
+    </main>
+    <!-- footer -->
+    <footer>
+        <div class="container-fluid mt-5">
+            <footer class="bg-primary text-center text-white">
                 <!-- Grid container -->
                 <div class=" text-white">
                     <ul class="nav justify-content-center">
-                        
+
                         <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'pages:homepage' %}">Home</a>
+                            <a class="nav-link text-white" href="{% url 'pages:homepage' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'pages:about-us' %}">About</a>
+                            <a class="nav-link text-white" href="{% url 'pages:about-us' %}">About</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link text-white active" aria-current="page" href="#">Comments</a>
+                            <a class="nav-link text-white active" aria-current="page" href="#">Comments</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link text-white disabled">Location</a>
+                            <a class="nav-link text-white disabled">Location</a>
                         </li>
                     </ul>
                     <hr>
                 </div>
                 <!-- Grid container -->
                 <div class="container p-4 pb-0">
-                <!-- Section: Form -->
+                    <!-- Section: Form -->
                     <section class="">
                         <form action="">
-                        <!--Grid row-->
-                        <div class="row d-flex justify-content-center">
-                            
-                            <!--Grid column-->
-                            <div class="col-md-5 col-12">
-                            <!-- Email input -->
-                            <div class="form-outline form-white mb-4">
-                                <label for="form5Example2">Sign up for our newsletter</label>
-                                <input type="email" id="form5Example2" class="form-control" placeholder="Email address"/>
-                               
+                            <!--Grid row-->
+                            <div class="row d-flex justify-content-center">
+
+                                <!--Grid column-->
+                                <div class="col-md-5 col-12">
+                                    <!-- Email input -->
+                                    <div class="form-outline form-white mb-4">
+                                        <label for="form5Example2">Sign up for our newsletter</label>
+                                        <input type="email" id="form5Example2" class="form-control"
+                                            placeholder="Email address" />
+
+                                    </div>
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Grid column-->
+                                <div class="col-auto p-2">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-outline-light mt-4">
+                                        Subscribe
+                                    </button>
+                                </div>
+                                <!--Grid column-->
                             </div>
-                            </div>
-                            <!--Grid column-->
-                
-                            <!--Grid column-->
-                            <div class="col-auto p-2">
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-outline-light mt-4">
-                                Subscribe
-                            </button>
-                            </div>
-                            <!--Grid column-->
-                        </div>
-                        <!--Grid row-->
+                            <!--Grid row-->
                         </form>
                     </section>
-                <!-- Section: Form -->
+                    <!-- Section: Form -->
                 </div>
                 <hr>
                 <div class=" d-flex justify-content-center">
-                    <a class="hover-target pe-5" href="https://www.facebook.com/temesgen.tshome"><i class="bi bi-facebook text-white"></i></a>
-                    <a class="hover-target pe-5" href="https://www.linkedin.com/in/temesgen-t-zenebe-9a7980183"><i class="bi bi-linkedin text-white"></i></a>
-                    <a class="hover-target pe-5" href="https://www.github.com/"><i class="bi bi-github text-white"></i></a>
-                    <a class="hover-target pe-5" href="https://www.pinterest.com/"><i class="bi bi-pinterest text-white"></i></a>
+                    <a class="hover-target pe-5" href="https://www.facebook.com/temesgen.tshome"><i
+                            class="bi bi-facebook text-white"></i></a>
+                    <a class="hover-target pe-5" href="https://www.linkedin.com/in/temesgen-t-zenebe-9a7980183"><i
+                            class="bi bi-linkedin text-white"></i></a>
+                    <a class="hover-target pe-5" href="https://www.github.com/"><i
+                            class="bi bi-github text-white"></i></a>
+                    <a class="hover-target pe-5" href="https://www.pinterest.com/"><i
+                            class="bi bi-pinterest text-white"></i></a>
                 </div>
                 <!-- Copyright -->
-                <div class="d-flex justify-content-between p-4 text-center " style="background-color: rgba(0, 0, 0, 0.2); font-size: 13; color: rgb(217, 233, 217);">
-                  <div class="" >
-                        <a class="text-white " style="text-decoration: none;" href="{% url 'pages:homepage' %}"> Terms&Conditions</a>
-                  </div>
-                  <div class="" >
-                       copyright &copy; {% now 'Y' %},
-                       <a class="text-white " style="text-decoration: none;" href="{% url 'pages:homepage' %}"> Play2learnGames</a>
-                   </div>
+                <div class="d-flex justify-content-between p-4 text-center "
+                    style="background-color: rgba(0, 0, 0, 0.2); font-size: 13; color: rgb(217, 233, 217);">
+                    <div class="">
+                        <a class="text-white " style="text-decoration: none;" href="{% url 'pages:homepage' %}">
+                            Terms&Conditions</a>
+                    </div>
+                    <div class="">
+                        copyright &copy; {% now 'Y' %},
+                        <a class="text-white " style="text-decoration: none;" href="{% url 'pages:homepage' %}">
+                            Play2learnGames</a>
+                    </div>
                 </div>
                 <!-- Copyright -->
             </footer>
-                
-            </div>
-        </footer>
+
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+      crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
+
     
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
   
-  </body>
+</body>
+
 </html>

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AnagramgameConfig(AppConfig):
+class AnagramGameConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'anagramGame'
+    name = 'anagram_game'

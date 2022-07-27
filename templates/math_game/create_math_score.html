@@ -1,0 +1,7 @@
+<div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: block; max-width: 42rem; ">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+</div>

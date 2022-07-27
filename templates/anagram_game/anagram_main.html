@@ -1,0 +1,41 @@
+{% extends "_base.html" %}
+
+{% block title %}Anagram game{% endblock %}
+{% block header %}Anagram game{% endblock %}
+{% block main %}
+<div class="container-sm  bg-light p-4 text-center" >
+   
+    <div class="card border-success mb-3 text-center justify-content-center mx-auto" style="max-width: 40rem;">
+        <div class="card-header bg-transparent border-success">Anagram game</div>
+        <div class="card-body text-success">
+          <h6 class="card-title text-start mx-1 py-2">To Start The Game Please Select word size:</h6>
+          <form  class="needs-validation" novalidate>
+            
+            <div class="row g-2">
+              <div class="col-sm-8">
+                <select class="form-select" name='wordSize' id="validationCustom04" aria-label="Default select example" required>
+                  <option selected  disabled value="">Open this select menu</option>
+                  <option value="3">Three</option>
+                  <option value="4">Four</option>
+                  <option value="5">Five</option>
+                  <option value="6">Six</option>
+                  <option value="7">Seven</option>
+                  <option value="8">Eight</option>
+                </select>
+                <div class="invalid-feedback">Please select a valid state.</div>
+              </div>
+              <div class="col-sm-4">
+                <button type="submit" class="btn  btn-outline-primary form-control" >Start</button>
+              </div>
+          </div>
+          </form>
+        </div>
+
+        <div class="card-footer bg-transparent border-success">
+          
+            <p>Very interesting information :</p>
+        </div>
+    </div>
+  
+</div>
+{% endblock %}
