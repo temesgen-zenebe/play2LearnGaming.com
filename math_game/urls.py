@@ -11,4 +11,5 @@ urlpatterns = [
     path('math-score', ScoreMathGameView.as_view(), name='math-score'),
     path('math-game-main/create/', ScoreMathCreateView.as_view(),name='create'),
     path('',ScoreMathForm, name ='scoreMathForm'),
+   
 ]

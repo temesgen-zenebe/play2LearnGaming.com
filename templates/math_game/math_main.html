@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-4 text-start">
                     <select class="selacted-rang form-select" id="validationCustom03" autofocus  required>
-                        <option selected disabled value="">max_Range</option>
+                        <option selected disabled value="">maximam range</option>
                     </select>
                     <div class="invalid-feedback">
                       Please select a valid operator.
@@ -168,7 +168,7 @@
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
-                    <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Division</button>
+                    <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -197,14 +197,16 @@
                                       {% for score in mathScore %}
                                        
                                         <tr>
-                                        {% if score.user == user and score.operator == 'Addition[+]' %}:
+                                         {% if score.user == user %} 
+                                           {% if score.operator == 'Addition[+]' %}:
                                           <th scope="row">{{ forloop.counter }}</th>
                                           <td>{{ score.max_range }}</td>
                                           <td>{{ score.score}}</td>
                                           <td>{{ score.point}}</td>
-                                          <td>{{ score.ranked }}</td>
+                                          <td>{{ forloop.counter }}</td>
                                           <td>{{ score.created }}</td>
-                                          {% endif %}
+                                           {% endif %}
+                                        {% endif %}
                                         </tr>
                                         
                                         {% endfor %}
@@ -215,7 +217,7 @@
                         </div>
                     </div>
                 </div>
-                <!--division-->
+                <!--subtraction-->
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                     <div class="row m-auto p-2">
                         <div class="col-sm-12 p-1 ">
@@ -245,7 +247,7 @@
                                           <td>{{ score.max_range }}</td>
                                           <td>{{ score.score}}</td>
                                           <td>{{ score.point}}</td>
-                                          <td>{{ score.ranked }}</td>
+                                          <td>{{ forloop.counter }}</td>
                                           <td>{{ score.created }}</td>
                                           {% endif %}
                                         </tr>
@@ -258,12 +260,100 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
-                <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
+                 <!--multiplication-->
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for score in mathScore %}
+                                       
+                                        <tr>
+                                         {% if score.user == user %} 
+                                           {% if score.operator == 'Multiplication[*]' %}:
+                                            <th scope="row">{{ forloop.counter1 }}</th>
+                                            <td>{{ score.max_range }}</td>
+                                            <td>{{ score.score}}</td>
+                                            <td>{{ score.point}}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ score.created }}</td>
+                                           {% endif %}
+                                        {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--division-->
+                <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for score in mathScore %}
+                                       
+                                        <tr>
+                                         {% if score.user == user %} 
+                                           {% if score.operator == 'Division[/]' %}:
+                                            <th scope="row">{{ forloop.counter1 }}</th>
+                                            <td>{{ score.max_range }}</td>
+                                            <td>{{ score.score}}</td>
+                                            <td>{{ score.point}}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ score.created }}</td>
+                                           {% endif %}
+                                        {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>  
     </div>
-    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: block; max-width: 42rem; ">
+    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
         <form method="post" enctype="multipart/form-data" id="score-form">
             {% csrf_token %}
             <p id="id_operator_p"><label for="id_operator">Operator:</label><input type="text" name="operator" maxlength="50" required id="id_operator" value="*"></p>

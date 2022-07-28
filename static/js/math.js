@@ -30,7 +30,7 @@ const rankedData = document.querySelector('#id_ranked')
 let state = {
     timeLeft: 0,
     score: 1,
-    timer: 10,
+    timer: 30,
     isPlaying: 1,
     
 }
@@ -38,8 +38,8 @@ let state = {
 // generating and rendering the option for select from filed
 $(function () {
     var $select = $(".selacted-rang");
-    for (i = 1; i <= 100; i++) {
-        $select.append($('<option></option>').val(i).html(i))
+    for (i = 10; i <= 100; i+=10) {
+        $select.append($('<option class="medium"></option>').val(i).html(i))
     }
 });
 
@@ -98,7 +98,6 @@ function starter() {
                 score_Data.value = state.score;
                 let rang = Number(getMaxRangeNumber.options[document.getElementById('validationCustom03').selectedIndex].value)
                 pointData.value = state.score * rang;
-                rankedData.value = rang++;
                 clearInterval(startGameTimer);
             } 
     }
@@ -162,11 +161,10 @@ function updateProblem() {
     state.currentProblem = generateProblem();
     if(state.currentProblem.operator === '/'){
         if(state.currentProblem.numberTwo == 0){state.currentProblem.numberTwo = 1}
+        if(state.currentProblem.numberOne == 0){state.currentProblem.numberOne = 1}
         problemElement.innerHTML = `${state.currentProblem.numberOne} ${state.currentProblem.operator} ${state.currentProblem.numberTwo}`;
-
     } else{
         problemElement.innerHTML = `${state.currentProblem.numberOne} ${state.currentProblem.operator} ${state.currentProblem.numberTwo}`;
-
     }
     ourFieldAnswer.value = "";
     ourFieldAnswer.focus();

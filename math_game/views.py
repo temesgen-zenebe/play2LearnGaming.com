@@ -1,4 +1,5 @@
 from multiprocessing import context
+from django.conf import settings
 from urllib import request
 from django.urls import reverse
 from django.shortcuts import render
@@ -15,6 +16,12 @@ class MathGameView(ListView):
     template_name = 'math_game/math_main.html'
     context_object_name  = 'mathScore'
     paginate_by: 10
+    
+
+    def sorted_rank_list(self):
+        qs = Math_score.objects.all()
+        return qs
+
 
 class MathGameDetailView(DetailView):
     model = Math_score
@@ -34,14 +41,24 @@ class ScoreMathCreateView(CreateView):
 
 
 def ScoreMathForm(request):
+    currentUser = Math_score.objects.filter(user = settings.AUTH_USER_MODEL.id)
     if request.method == 'POST':
-        #user = request.user
+        #user = currentUser
         operator=request.POST.get('operator')
         max_range=request.POST.get('max_range')
         score=request.POST.get('score')
         point=request.POST.get('point')
-        ranked=request.POST.get('ranked')
-        print(score)
-        new = Math_score(operator=operator,max_range=max_range ,score=score, point=point ,ranked=ranked)
+        new = Math_score(operator=operator,max_range=max_range ,score=score, point=point )
         new.save()
     return render(request,"math_game/math_main.html")
+
+
+def Addition_filter(request, slug1, slug2):
+    score_set =  Math_score.objects.filter(user=slug1)
+    score = score_set.filter(operator=slug2).order_by('point')
+    context = {
+                'level': 'point',
+                'scores': score,
+                'listing': 'operator' + slug2 + ' from user' + slug1
+    }
+    return render(request,'math_game/math_main.html', context)

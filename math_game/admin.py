@@ -6,7 +6,7 @@ from .models import Math_score
 class MathScoreAdmin(admin.ModelAdmin):
     model = Math_score
 
-    list_display = ['operator', 'max_range', 'score','ranked','created']
+    list_display = ['id','user' ,'operator', 'max_range', 'score', 'point','created']
 
     def get_readonly_fields(self, request, obj=None):
         if obj: # editing an existing object
