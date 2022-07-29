@@ -30,22 +30,23 @@ class Math_score(models.Model):
 class Addition_score(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE, 
+        on_delete=models.PROTECT, 
         blank= True, 
         null=True,
-        related_name='players'
+        related_name='additionPlayer'
     )
-    slug = models.SlugField(
-        max_length=50, unique=True, null=False, editable=False
-    )
+    operator = models.CharField(max_length=50)
     max_range = models.SmallIntegerField(default=2)
     score = models.IntegerField(default=0)
     point = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=False, editable=False
+    )
 
 
     def get_absolute_url(self):
-        return reverse('math_game:Addition', args=[self.slug])
+        return reverse('math_game:addition', args=[self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -58,3 +59,100 @@ class Addition_score(models.Model):
        
     def __str__(self):
         return self.operator
+class Division_score(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.PROTECT,
+        blank= True, 
+        null=True,
+        related_name='divisionScore'
+    )
+    operator = models.CharField(max_length=50)
+    max_range = models.SmallIntegerField(default=2)
+    score = models.IntegerField(default=0)
+    point = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=False, editable=False
+    )
+
+
+    def get_absolute_url(self):
+        return reverse('math_game:division', args=[self.slug])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            value = str(self)
+            self.slug = unique_slug(value, type(self))
+        super().save(*args, **kwargs)
+
+    class Meta:
+       ordering = ["-point"]
+       
+    def __str__(self):
+        return self.operator
+class Multiplication_score(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.PROTECT,
+        blank= True, 
+        null=True,
+        related_name='multiplicationScore'
+    )
+    operator = models.CharField(max_length=50)
+    max_range = models.SmallIntegerField(default=2)
+    score = models.IntegerField(default=0)
+    point = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=False, editable=False
+    )
+
+
+    def get_absolute_url(self):
+        return reverse('math_game:multiplication', args=[self.slug])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            value = str(self)
+            self.slug = unique_slug(value, type(self))
+        super().save(*args, **kwargs)
+
+    class Meta:
+       ordering = ["-point"]
+       
+    def __str__(self):
+        return self.operator
+class Subtraction_score(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.PROTECT,
+        blank= True, 
+        null=True,
+        related_name='subtractionScore'
+    )
+    operator = models.CharField(max_length=50)
+    max_range = models.SmallIntegerField(default=2)
+    score = models.IntegerField(default=0)
+    point = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=False, editable=False
+    )
+
+
+    def get_absolute_url(self):
+        return reverse('math_game:subtraction', args=[self.slug])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            value = str(self)
+            self.slug = unique_slug(value, type(self))
+        super().save(*args, **kwargs)
+
+    class Meta:
+       ordering = ["-point"]
+       
+    def __str__(self):
+        return self.operator
+    

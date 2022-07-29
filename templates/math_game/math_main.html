@@ -30,14 +30,13 @@
        $("#scoreData").click(function(e){
           //e.preventDefault();
         $.ajax({type: "POST",
-                url: '{% url "math_game:scoreMathForm" %}',
+                url: '{% url "math_game:score-math-list" %}',
                 data: { 
                        
                     operator:$("#id_operator").val(),
                     max_range:$("#id_max_range").val(),
                     score:$("#id_score").val(), 
                     point:$("#id_point").val(),
-                    ranked:$("#id_ranked").val(),
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
                 },
                 success:function(){
@@ -165,10 +164,12 @@
         <div class="card-body text-success text-center " style="font-size:12px;">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                    
+                    <button  class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
                     <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
+                    <a href="{% url 'math_game:score-math-list' %}" >Cancel</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -194,7 +195,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in mathScore %}
+                                      {% for score in Addition %}
                                        
                                         <tr>
                                          {% if score.user == user %} 
@@ -239,7 +240,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in mathScore %}
+                                      {% for score in Subtraction %}
                                        
                                         <tr>
                                         {% if score.user == user and score.operator == 'Subtraction[-]' %}:
@@ -282,7 +283,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in mathScore %}
+                                      {% for score in Multiplication %}
                                        
                                         <tr>
                                          {% if score.user == user %} 
@@ -327,7 +328,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in mathScore %}
+                                      {% for score in Division %}
                                        
                                         <tr>
                                          {% if score.user == user %} 

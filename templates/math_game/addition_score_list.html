@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+
+{% block title %}Math Scores{% endblock %}
+{% block header %}Math Scores{% endblock %}
+{% block main %}
+<div class="container-sm  bg-light p-4 text-center" >
+    
+    <div class="card border-success mb-3 text-center justify-content-center mx-auto" style="max-width: 40rem;">
+        <div class="card-header bg-transparent border-success">Header</div>
+        <div class="card-body text-success">
+            <div class="row m-auto p-2">
+                <div class="col-sm-12 p-1 ">
+                    <div class="card text-center shadow ">
+                        <div class="card-header">
+                            <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                        </div>
+                        <div class="card-body ">
+                        
+                          <table class="table table-sm table-hover border">
+                              <thead class="table-light ">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">maxRange</th>
+                                  <th scope="col">Score</th>
+                                  <th scope="col">Point</th>
+                                  <th scope="col">Rank</th>
+                                  <th scope="col">Date</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              {% for score in additionScore %}
+                               
+                                <tr>
+                                 {% if score.user == user %} 
+                                   {% if score.operator == 'Addition[+]' %}:
+                                  <th scope="row">{{ forloop.counter }}</th>
+                                  <td>{{ score.max_range }}</td>
+                                  <td>{{ score.score}}</td>
+                                  <td>{{ score.point}}</td>
+                                  <td>{{ forloop.counter }}</td>
+                                  <td>{{ score.created }}</td>
+                                   {% endif %}
+                                {% endif %}
+                                </tr>
+                                
+                                {% endfor %}
+                              </tbody>
+                           </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <h5 class="card-title">Success card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="card-footer bg-transparent border-success">Footer
+            100% wide until small breakpoint
+            <p>Very interesting information Math Scores!</p>
+        </div>
+    </div>
+</div>
+  
+{% endblock %}
+
