@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView,ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from django.db.models import Q
 from .models import Math_score
 from .models import Addition_score,Division_score,Multiplication_score,Subtraction_score
 from .forms import MathScoreForm
@@ -55,7 +56,7 @@ class ScoreMathCreateView(CreateView):
 
 
 def ScoreMathForm(request):
-    currentUser = Math_score.objects.filter(user = settings.AUTH_USER_MODEL.id)
+    #currentUser = Math_score.objects.filter(user = settings.AUTH_USER_MODEL.id)
     if request.method == 'POST':
         #user = currentUser
         operator=request.POST.get('operator')
@@ -67,9 +68,10 @@ def ScoreMathForm(request):
     return render(request,"math_game/math_main.html")
 
 
-
 class ScoreMathList(View):
+
     def get(self, request):
+        #operate1 = Addition_score.objects.filter(Q(operator = 'Addition[+]') & Q(max_range = 30))
         operate1 = Addition_score.objects.all().order_by('-point')
         operate2 = Division_score.objects.all().order_by('-point')
         operate3=  Multiplication_score.objects.all().order_by('-point')

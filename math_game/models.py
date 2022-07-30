@@ -22,7 +22,7 @@ class Math_score(models.Model):
 
     class Meta:
        ordering = ["-point"]
-       
+       paginate_by: 5
 
     def __str__(self):
         return self.operator
@@ -56,6 +56,7 @@ class Addition_score(models.Model):
 
     class Meta:
        ordering = ["-point"]
+       paginate_by: 5
        
     def __str__(self):
         return self.operator

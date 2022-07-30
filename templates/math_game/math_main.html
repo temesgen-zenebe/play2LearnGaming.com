@@ -165,7 +165,7 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     
-                    <button  class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                    <button href="{% url 'math_game:score-math-list' %}"  class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
                     <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
@@ -176,47 +176,115 @@
                 <!--addition-->
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                     <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
-                            <div class="card text-center shadow ">
+                        <div class="col-sm-12 p-1" >
+                            <div class="card text-center shadow m-auto" >
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-start">Your Bast 5 Addition[+] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
-                                      <thead class="table-light ">
-                                        <tr>
-                                          <th scope="col">#</th>
-                                          <th scope="col">maxRange</th>
-                                          <th scope="col">Score</th>
-                                          <th scope="col">Point</th>
-                                          <th scope="col">Rank</th>
-                                          <th scope="col">Date</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                      {% for score in Addition %}
-                                       
-                                        <tr>
-                                         {% if score.user == user %} 
-                                           {% if score.operator == 'Addition[+]' %}:
-                                          <th scope="row">{{ forloop.counter }}</th>
-                                          <td>{{ score.max_range }}</td>
-                                          <td>{{ score.score}}</td>
-                                          <td>{{ score.point}}</td>
-                                          <td>{{ forloop.counter }}</td>
-                                          <td>{{ score.created }}</td>
-                                           {% endif %}
-                                        {% endif %}
-                                        </tr>
-                                        
-                                        {% endfor %}
-                                      </tbody>
-                                   </table>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                            <thead class="table-light ">
+                                                <tr>
+                                                <th scope="col">Player</th>
+                                                <th scope="col">maxRange</th>
+                                                <th scope="col">Score</th>
+                                                <th scope="col">Point</th>
+                                                <th scope="col">Rank</th>
+                                                <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for score in Addition %}
+                                            
+                                                <tr>
+                                                {% if score.user == user %} 
+                                                {% if score.operator == 'Addition[+]' %}:
+                                                <th scope="row">{{ score.user }}</th>
+                                                <td>{{ score.max_range }}</td>
+                                                <td>{{ score.score}}</td>
+                                                <td>{{ score.point}}</td>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                {% endif %}
+                                                {% endif %}
+                                                </tr>
+                                                
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
+                    <div class="accordion accordion-flush shadow border m-auto p-1" id="accordionFlushExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                              Maximam Range Number[1-10] Score:
+                            </button>
+                          </h2>
+                          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                        <thead class="table-light ">
+                                            <tr>
+                                            <th scope="col">Player</th>
+                                            <th scope="col">maxRange</th>
+                                            <th scope="col">Score</th>
+                                            <th scope="col">Point</th>
+                                            <th scope="col">Rank</th>
+                                            <th scope="col">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for score in Addition %}
+                                        
+                                            <tr>
+                                            {% if score.user == user %} 
+                                            {% if score.operator == 'Addition[+]' %}:
+                                            <th scope="row">{{ score.user }}</th>
+                                            <td>{{ score.max_range }}</td>
+                                            <td>{{ score.score}}</td>
+                                            <td>{{ score.point}}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ score.created|date:'Y-m-d' }}</td>
+                                            {% endif %}
+                                            {% endif %}
+                                            </tr>
+                                            
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                              Accordion Item #2
+                            </button>
+                          </h2>
+                          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                              Accordion Item #3
+                            </button>
+                          </h2>
+                          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                          </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <!--subtraction-->
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
@@ -224,14 +292,14 @@
                         <div class="col-sm-12 p-1 ">
                             <div class="card text-center shadow ">
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-start">Your Bast 5 Subtraction[-] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                 
                                   <table class="table table-sm table-hover border">
                                       <thead class="table-light ">
                                         <tr>
-                                          <th scope="col">#</th>
+                                          <th scope="col">Player</th>
                                           <th scope="col">maxRange</th>
                                           <th scope="col">Score</th>
                                           <th scope="col">Point</th>
@@ -240,20 +308,23 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in Subtraction %}
+                                        {% for score in Subtraction %}
                                        
                                         <tr>
-                                        {% if score.user == user and score.operator == 'Subtraction[-]' %}:
-                                          <th scope="row">{{ forloop.counter }}</th>
+                                         {% if score.user == user %} 
+                                           {% if score.operator == 'Subtraction[-]' %}:
+                                          <th scope="row">{{ score.user }}</th>
                                           <td>{{ score.max_range }}</td>
                                           <td>{{ score.score}}</td>
                                           <td>{{ score.point}}</td>
                                           <td>{{ forloop.counter }}</td>
-                                          <td>{{ score.created }}</td>
-                                          {% endif %}
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                           {% endif %}
+                                        {% endif %}
                                         </tr>
                                         
                                         {% endfor %}
+                                      
                                       </tbody>
                                    </table>
                                 </div>
@@ -267,14 +338,14 @@
                         <div class="col-sm-12 p-1 ">
                             <div class="card text-center shadow ">
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-start">Your Bast 5 Multiplication[*] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                 
                                   <table class="table table-sm table-hover border">
                                       <thead class="table-light ">
                                         <tr>
-                                          <th scope="col">#</th>
+                                          <th scope="col">Player</th>
                                           <th scope="col">maxRange</th>
                                           <th scope="col">Score</th>
                                           <th scope="col">Point</th>
@@ -288,12 +359,12 @@
                                         <tr>
                                          {% if score.user == user %} 
                                            {% if score.operator == 'Multiplication[*]' %}:
-                                            <th scope="row">{{ forloop.counter1 }}</th>
+                                            <th scope="row">{{ score.user }}</th>
                                             <td>{{ score.max_range }}</td>
                                             <td>{{ score.score}}</td>
                                             <td>{{ score.point}}</td>
                                             <td>{{ forloop.counter }}</td>
-                                            <td>{{ score.created }}</td>
+                                            <td>{{ score.created|date:'Y-m-d' }}</td>
                                            {% endif %}
                                         {% endif %}
                                         </tr>
@@ -312,14 +383,14 @@
                         <div class="col-sm-12 p-1 ">
                             <div class="card text-center shadow ">
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-start">Your Bast 5 Division[/] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                 
                                   <table class="table table-sm table-hover border">
                                       <thead class="table-light ">
                                         <tr>
-                                          <th scope="col">#</th>
+                                          <th scope="col">Player</th>
                                           <th scope="col">maxRange</th>
                                           <th scope="col">Score</th>
                                           <th scope="col">Point</th>
@@ -333,12 +404,12 @@
                                         <tr>
                                          {% if score.user == user %} 
                                            {% if score.operator == 'Division[/]' %}:
-                                            <th scope="row">{{ forloop.counter1 }}</th>
+                                            <th scope="row">{{ score.user  }}</th>
                                             <td>{{ score.max_range }}</td>
                                             <td>{{ score.score}}</td>
                                             <td>{{ score.point}}</td>
                                             <td>{{ forloop.counter }}</td>
-                                            <td>{{ score.created }}</td>
+                                            <td>{{ score.created|date:'Y-m-d' }}</td>
                                            {% endif %}
                                         {% endif %}
                                         </tr>
