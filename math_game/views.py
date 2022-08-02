@@ -71,12 +71,13 @@ def ScoreMathForm(request):
 class ScoreMathList(View):
 
     def get(self, request):
-        #operate1 = Addition_score.objects.filter(Q(operator = 'Addition[+]') & Q(max_range = 30))
+        operate10 = Addition_score.objects.filter(Q(user = request.user) & Q(max_range = 10)).order_by('-point')
         operate1 = Addition_score.objects.all().order_by('-point')
         operate2 = Division_score.objects.all().order_by('-point')
         operate3=  Multiplication_score.objects.all().order_by('-point')
         operate4 = Subtraction_score.objects.all().order_by('-point')
         context = {
+            'Addition10':operate10,
             'Addition':operate1,
             'Division':operate2,
             'Multiplication':operate3,

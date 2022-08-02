@@ -1,41 +1,144 @@
 {% extends "_base.html" %}
-
+{% load static %}
+{% block javascript %}
+  <script type="text/javascript" src="{% static 'js/anagram.js' %}" defer></script>
+ 
+{% endblock %}
 {% block title %}Anagram game{% endblock %}
 {% block header %}Anagram game{% endblock %}
 {% block main %}
-<div class="container-sm  bg-light p-4 text-center" >
-   
-    <div class="card border-success mb-3 text-center justify-content-center mx-auto" style="max-width: 40rem;">
-        <div class="card-header bg-transparent border-success">Anagram game</div>
+<div class="container-sm text-center " >
+    <!--start game setting section-->
+    <div class="card border-success mb-3 text-center justify-content-center mx-auto shadow" id="start2" style="display: block; max-width: 42rem;">
+        <div class="card-header bg-transparent border-success">Anagram Hunt Game</div>
         <div class="card-body text-success">
-          <h6 class="card-title text-start mx-1 py-2">To Start The Game Please Select word size:</h6>
-          <form  class="needs-validation" novalidate>
-            
-            <div class="row g-2">
+          <form class="needs-validation" novalidate>
+            <div class="row g-2 m-auto"  style="max-width:89% ;">
               <div class="col-sm-8">
-                <select class="form-select" name='wordSize' id="validationCustom04" aria-label="Default select example" required>
-                  <option selected  disabled value="">Open this select menu</option>
-                  <option value="3">Three</option>
-                  <option value="4">Four</option>
-                  <option value="5">Five</option>
-                  <option value="6">Six</option>
-                  <option value="7">Seven</option>
-                  <option value="8">Eight</option>
+                <select class="form-select " name='wordSize' id="validationCustom05" aria-label="Default select example" required>
+                  <option selected  disabled value="">select word size..</option>
+                  <option value="0">Three[3]</option>
+                  <option value="1">Four[4]</option>
+                  <option value="2">Five[5]</option>
+                  <option value="3">Six[6]</option>
+                  <option value="4">Seven[7]</option>
+                  <option value="5">Eight[8]</option>
                 </select>
                 <div class="invalid-feedback">Please select a valid state.</div>
               </div>
               <div class="col-sm-4">
-                <button type="submit" class="btn  btn-outline-primary form-control" >Start</button>
+                <button href="{% url 'anagram_game:json-list' %}"  id="startGame" type="submit" class="btn  btn-outline-success form-control" >Start</button>
               </div>
           </div>
           </form>
         </div>
-
-        <div class="card-footer bg-transparent border-success">
-          
-            <p>Very interesting information :</p>
-        </div>
+        <div class="card-footer bg-transparent text-center text-dark border-success">
+          <p>Anagram Hunt Game Instraction</p>
+          <hr>
+          <ul class="list-group list-group-flush  text-start" style="font-size: 15px;">
+            <li class="list-group-item "><i class="bi bi-check2-square px-1"></i><small class='text-break'>Set Word Size From The Option Menu:[3,4,5,6,7,or 8].</small></li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Click Start Button To Start The Game.</small> </li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>You Can Follow up your Score and Rank in LeaderBoards.</small> </li>
+          </ul>
+        </div>   
     </div>
-  
+    <!--playing the game section-->
+    <div class="card border-success mb-3 mx-auto shadow text-center"  id="toggle2" style="display: none; max-width: 42rem;">
+      <div class="card-header bg-transparent border-success text-center  " style="font-size: 17px; ">
+          <div class="game_counter d-flex justify-content-between mx-3">
+              <div class="score_counter score-result-section">
+                <h6> WORD SIZE : <span class="selected-word-size"></span></h6>
+              </div>
+              <div class="score_counter score-result-section">
+                <h6> SCORE : <span class="score_result"></span></h6>
+              </div>
+              <div class="Time-left-section ">
+                <h6>TIME LEFT: <span class="Time-left"></span> <small>sec</small></h6>
+              </div>
+              
+          </div>
+      </div>
+      <div class="card-body text-success text-center bg-transparent text-center " >
+           <div class="row game_section  p-2  m-auto " >
+              <div class="col-12 operators-selection-form  m-3">
+                  <h6 class="question_word text-center">Question Word: 
+                  <strong class="problem large">word</strong></h6> 
+                  
+              </div>
+           </div>
+            <div class="row m-auto gap-3" >  
+              <div class="col-sm-12 m-auto" style="max-width:70% ;">
+                  <input 
+                      class='answer-input form-control text-center' 
+                      type="text" 
+                      id="user_answer" 
+                      placeholder="Enter you answer..." 
+                      autocomplete="off"
+                      autofocus
+                      required
+                  >
+              </div>
+              <div class="col-sm-4 m-auto text-center" style="max-width:70% ;">
+                <button type="button" class="btn btn-sm btn-outline-success form-control" >Submit</button>
+              </div>
+           </div>
+      </div>
+      <div class="card-body text-success text-center bg-transparent text-center " >
+        <div class="row game_section m-3">
+           <div class="col-12 m-auto operators-selection-form">
+            <div class="table-responsive border-success">
+              <table class="table align-middle table-sm table-hover ">
+                <tbody >
+                  <tr class="m-2">
+                    <h6> <small>Reaming Answer</small>: <span class="reaming-answer badge rounded-pill bg-info text-dark mx-1">5</span></h6>
+                  </tr>
+                  <tr >
+                    <td><i class="bi bi-check2-square px-1"></i>seat</td>
+                    <td><i class="bi bi-check2-square px-1"></i>east</td>
+                    <td><i class="bi bi-check2-square px-1"></i>esta</td>
+                    <td><i class="bi bi-check2-square px-1"></i>steal</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+           </div>
+        </div>
+      </div>
+    </div>
+    <!--hidden form working with ajax and js that fallout and saved automatically-->
+    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
+      <form method="post" enctype="multipart/form-data" id="score-form">
+          {% csrf_token %}
+          <p id="id_word_size_p"><label for="id_word_size">Max range:</label><input type="number" name="word_size" value="3" required id="id_word_size"></p>
+          <p id="id_score_p"><label for="id_score">Score:</label><input type="number" name="score" value="0" required id="id_score"></p>
+          <p id="id_point_p"><label for="id_point">Point:</label><input type="number" name="point" value="0" required id="id_point"></p>
+          <p id="id_ranked_p"><label for="id_ranked">Ranked:</label><input type="number" name="ranked" value="0" required id="id_ranked"></p>
+          <input type="submit" value="Save">
+      </form>
+  </div>
+
+  <div class="col-9">
+   <!--accessing anagrame json file use it in js file-->
+   {{ json_data|json_script:"element_id" }}
+  </div>
+</div>
+
+<!----------overlay results------------>
+<div class="overlay">
+  <div class="overlay-inner ">
+      <h3> ANAGRAME HUNT WORD GAME</h3>
+      <div class="py-3">
+          <p id="selected-operators"></p>
+          <p id="selected-rang"></p>
+          <p class="end-message"></p3>
+          <p class="fine-score bodrer">Your Final Score is : <span class="fine-score-result"></span></p>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2 py-3">
+          <button class="btn btn-sm btn-outline-light form-control reset_button">Play Again</button>
+          <button class="btn btn-sm  btn-outline-light form-control resetOperator">Reset</button>
+          <input id="scoreData" type="submit" class="save_score btn btn-sm btn-outline-light form-control" value="Save Score" >
+          <a href="" class="btn  btn-sm btn-outline-light form-control " type="button">Exit</a>
+      </div>
+  </div>
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
@@ -11,3 +12,4 @@ urlpatterns = [
     path('', include('math_game.urls')),
     path('', include('pages.urls')),
 ]
+urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

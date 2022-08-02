@@ -40,7 +40,8 @@
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
                 },
                 success:function(){
-                       alert('Saved');
+                    //reset all classes, variables, and input fields
+                     resetOperatorGameToPlay()
                     }
         });
       });
@@ -91,12 +92,10 @@
             <p>Math Game Instraction</p>
             <hr>
             <ul class="list-group list-group-flush  text-start" style="font-size: 15px;">
-            <li class="list-group-item "><i class="bi bi-check2-square px-1"></i><small class='text-break'>Set Operates
-                [Addition(+), Subtraction(-), Multiplication(*),and Division(/) ].</small> </li>
-            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Set number by choosing a
-                number Range from 1 to 100.</small> </li>
-            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Start game button
-                right.</small> </li>
+            <li class="list-group-item "><i class="bi bi-check2-square px-1"></i><small class='text-break'>Set Operates From The Option Menu:[Addition(+), Subtraction(-), Multiplication(*),and Division(/) ].</small></li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Set Word Size From The Option Menu Range from 1 to 100. </small> </li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>Click Start Button To Start The Game.</small> </li>
+            <li class="list-group-item text-break"><i class="bi bi-check2-square px-1"></i><small>You Can Follow up your Score and rank in leaderBoards.</small> </li>
             </ul>
         </div>
     </div>
@@ -174,7 +173,7 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <!--addition-->
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                     <div class="row m-auto p-2">
                         <div class="col-sm-12 p-1" >
                             <div class="card text-center shadow m-auto" >
@@ -219,10 +218,10 @@
                         </div>
                         
                     </div>
-                    <div class="accordion accordion-flush shadow border m-auto p-1" id="accordionFlushExample">
+                    <div class="accordion accordion-flush shadow border m-auto p-2" id="accordionFlushExample">
                         <div class="accordion-item">
                           <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                               Maximam Range Number[1-10] Score:
                             </button>
                           </h2>
@@ -241,7 +240,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {% for score in Addition %}
+                                        {% for score in Addition10 %}
                                         
                                             <tr>
                                             {% if score.user == user %} 
@@ -450,7 +449,9 @@
         <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2 py-3">
             <button class="btn btn-sm btn-outline-light form-control reset_button">Play Again</button>
             <button class="btn btn-sm  btn-outline-light form-control resetOperator">Reset</button>
-            <input id="scoreData" type="submit" class="save_score btn btn-sm btn-outline-light form-control" value="Save Score" >
+            <a href="{% url 'math_game:math-game-main' %}" >
+              <input  id="scoreData" type="submit" class="save_score btn btn-sm btn-outline-light form-control" value="Save Score" >
+            </a>
             <a href="{% url 'math_game:math-game-main' %}" class="btn  btn-sm btn-outline-light form-control " type="button">Exit</a>
         </div>
     </div>
