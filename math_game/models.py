@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils.timezone import datetime
 from common.utils.text import unique_slug
 from django.urls import reverse
+from django.utils import timezone
 # Create your models here.
 
 
@@ -23,6 +24,10 @@ class Math_score(models.Model):
     class Meta:
        ordering = ["-point"]
        paginate_by: 5
+
+    def createdDate(self):
+        self.created = timezone.now()
+        self.save()
 
     def __str__(self):
         return self.operator

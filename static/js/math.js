@@ -27,13 +27,7 @@ const score_Data = document.querySelector('#id_score')
 const pointData = document.querySelector('#id_point')
 const rankedData = document.querySelector('#id_ranked')  
   
-let state = {
-    timeLeft: 0,
-    score: 1,
-    timer: 30,
-    isPlaying: 1,
-    
-}
+let state = { timeLeft: 0, score: 1, timer: 30, isPlaying: 1,}
 
 // generating and rendering the option for select from filed
 $(function () {
@@ -77,10 +71,6 @@ function starter() {
             } 
     }
 }
-
-
-    
-
   
 function counter() {
     if (state.timer > 0) {

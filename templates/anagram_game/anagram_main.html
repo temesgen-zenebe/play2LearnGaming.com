@@ -17,14 +17,14 @@
               <div class="col-sm-8">
                 <select class="form-select " name='wordSize' id="validationCustom05" aria-label="Default select example" required>
                   <option selected  disabled value="">select word size..</option>
-                  <option value="0">Three[3]</option>
-                  <option value="1">Four[4]</option>
-                  <option value="2">Five[5]</option>
-                  <option value="3">Six[6]</option>
-                  <option value="4">Seven[7]</option>
-                  <option value="5">Eight[8]</option>
+                  <option value="0">3</option>
+                  <option value="1">4</option>
+                  <option value="2">5</option>
+                  <option value="3">6</option>
+                  <option value="4">7</option>
+                  <option value="5">8</option>
                 </select>
-                <div class="invalid-feedback">Please select a valid state.</div>
+                <div class="invalid-feedback">Please select a valid word size!!.</div>
               </div>
               <div class="col-sm-4">
                 <button href="{% url 'anagram_game:json-list' %}"  id="startGame" type="submit" class="btn  btn-outline-success form-control" >Start</button>
@@ -77,27 +77,24 @@
                       autofocus
                       required
                   >
+                  <p class="error-massage"></p>
               </div>
               <div class="col-sm-4 m-auto text-center" style="max-width:70% ;">
-                <button type="button" class="btn btn-sm btn-outline-success form-control" >Submit</button>
+                <button type="button" class="Answer_button btn btn-sm btn-outline-success form-control" >Submit</button>
               </div>
            </div>
       </div>
       <div class="card-body text-success text-center bg-transparent text-center " >
         <div class="row game_section m-3">
            <div class="col-12 m-auto operators-selection-form">
-            <div class="table-responsive border-success">
-              <table class="table align-middle table-sm table-hover ">
-                <tbody >
-                  <tr class="m-2">
-                    <h6> <small>Reaming Answer</small>: <span class="reaming-answer badge rounded-pill bg-info text-dark mx-1">5</span></h6>
-                  </tr>
-                  <tr >
-                    <td><i class="bi bi-check2-square px-1"></i>seat</td>
-                    <td><i class="bi bi-check2-square px-1"></i>east</td>
-                    <td><i class="bi bi-check2-square px-1"></i>esta</td>
-                    <td><i class="bi bi-check2-square px-1"></i>steal</td>
-                  </tr>
+            <div class="table-responsive border-success ">
+              <table class="table_correct align-middle table-sm table-hover text-center ">
+                <thead class="m-2">
+                  <h6> <small>Reaming Answer</small>: <span class="reaming-answer badge rounded-pill bg-info text-dark mx-1">5</span></h6>
+                </thead>
+                <hr>
+                <tbody id="correct-answer" class="d-flex justify-content-md-center m-auto p-1">
+                 
                 </tbody>
               </table>
             </div>
@@ -117,8 +114,8 @@
       </form>
   </div>
 
-  <div class="col-9">
-   <!--accessing anagrame json file use it in js file-->
+  <div class="col-9 hidden">
+   <!--accessing anagrame json file use it in js file--> 
    {{ json_data|json_script:"element_id" }}
   </div>
 </div>
