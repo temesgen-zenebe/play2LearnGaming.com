@@ -424,7 +424,7 @@
             </div>
         </div>  
     </div>
-    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
+    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: block; max-width: 42rem; ">
         <form method="post" enctype="multipart/form-data" id="score-form">
             {% csrf_token %}
             <p id="id_operator_p"><label for="id_operator">Operator:</label><input type="text" name="operator" maxlength="50" required id="id_operator" value="*"></p>

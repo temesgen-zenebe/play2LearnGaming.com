@@ -22,7 +22,7 @@ var jsonData = JSON.parse(document.getElementById('element_id').textContent);
 //console.log(jsonData)
 
 //global variables
-let state = { timeLeft: 0, score: 1, timer: 60, isPlaying: 1 , answersArray:[]}
+let state = { timeLeft: 0, score: 1, timer: 30, isPlaying: 1 , answersArray:[]}
 
 
 //return random number
@@ -78,9 +78,10 @@ function counter() {
     }
 }
 
+
 restartGameToPlayButton.addEventListener('click', restartGameToPlay);
 resetOperator.addEventListener('click', resetOperatorGameToPlay); 
-
+//remove overlay css from body restart Game To Play
 function restartGameToPlay() {
     //remove overlay
     document.body.classList.remove("overlay-is-open");
@@ -91,8 +92,7 @@ function restartGameToPlay() {
     starter();
     cleanTable();
 }
-//remove overlay-is-open css from body
-//reset all classes, variables, and input fields
+//remove overlay css from body reset all classes, variables, and input fields
 function resetOperatorGameToPlay(){
     document.body.classList.remove("overlay-is-open");
     document.getElementById('start2').style.display='block';
@@ -105,6 +105,7 @@ function resetOperatorGameToPlay(){
     cleanTable();
 }
 
+// instantiate the game 
 function init() {
     selectedWordSize.innerHTML = getWordSize.options[document.getElementById('validationCustom05').selectedIndex].text;
     problemUpdate();
@@ -122,6 +123,7 @@ function init() {
         handleInput(e);
     });
 }
+
 //to get the selected word size array
 function generateSelactedAnagramArray() {
     let s = Number(getWordSize.options[document.getElementById('validationCustom05').selectedIndex].value);
@@ -142,7 +144,6 @@ function updateInput() {
     ourFieldAnswer.value = "";
     ourFieldAnswer.focus();
 }
-
 function questionArray() {
     let ran = randInt(0, generateSelactedAnagramArray().length - 1);
     //this.index = this.generateSelactedAnagramArray.findIndex(word => word === this.generateSelactedAnagramArray[ran]);
@@ -213,16 +214,18 @@ function handleInput(e) {
         ErrorMassage.innerHTML = "you must enter answer!!";
     }
 }
+//check the answer and return true or false
 function checkInput(input, questionArrayWords, questionWord) {
     if (input === questionWord.toLowerCase()) { 
         return false;
     }
     else { 
-        return questionArrayWords.some((ArrayWords) =>input.toLowerCase().includes(ArrayWords.toLowerCase()));
+        return questionArrayWords.some(
+            (ArrayWords) =>input.toLowerCase().includes(ArrayWords.toLowerCase())
+        );
     }
 }
-        
-  
+          
 // dynamic function to create table from arrays
 function insertTable(tableData) {
     let tableBody = document.querySelector("#correct-answer");

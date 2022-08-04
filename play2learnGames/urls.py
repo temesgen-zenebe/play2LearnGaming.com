@@ -8,8 +8,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('anagramGame/', include('anagramGame.urls')),
     #path('mathGame/', include('mathGame.urls')),
+    path('', include('pages.urls')),
     path('', include('anagram_game.urls')),
     path('', include('math_game.urls')),
-    path('', include('pages.urls')),
+    
 ]
 urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

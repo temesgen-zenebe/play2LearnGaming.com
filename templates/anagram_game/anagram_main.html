@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+
 {% load static %}
 {% block javascript %}
   <script type="text/javascript" src="{% static 'js/anagram.js' %}" defer></script>
@@ -27,7 +28,7 @@
                 <div class="invalid-feedback">Please select a valid word size!!.</div>
               </div>
               <div class="col-sm-4">
-                <button href="{% url 'anagram_game:json-list' %}"  id="startGame" type="submit" class="btn  btn-outline-success form-control" >Start</button>
+                <button href="{% url 'anagram_game:anagram-game-main' %}"  id="startGame" type="submit" class="btn  btn-outline-success form-control" >Start</button>
               </div>
           </div>
           </form>
@@ -103,19 +104,20 @@
       </div>
     </div>
     <!--hidden form working with ajax and js that fallout and saved automatically-->
-    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
-      <form method="post" enctype="multipart/form-data" id="score-form">
-          {% csrf_token %}
-          <p id="id_word_size_p"><label for="id_word_size">Max range:</label><input type="number" name="word_size" value="3" required id="id_word_size"></p>
-          <p id="id_score_p"><label for="id_score">Score:</label><input type="number" name="score" value="0" required id="id_score"></p>
-          <p id="id_point_p"><label for="id_point">Point:</label><input type="number" name="point" value="0" required id="id_point"></p>
-          <p id="id_ranked_p"><label for="id_ranked">Ranked:</label><input type="number" name="ranked" value="0" required id="id_ranked"></p>
-          <input type="submit" value="Save">
-      </form>
-  </div>
+  
+  <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
+    <form method="post" enctype="multipart/form-data" id="score-form">
+      {% csrf_token %}
+      <p><label for="id_word_size">Word size:</label><input type="text" name="word_size" maxlength="10" required id="id_word_size"></p>
+      <p><label for="id_score">Score:</label><input type="number" name="score" value="0" required id="id_score"></p>
+      <p><label for="id_point">Point:</label><input type="number" name="point" value="0" required id="id_point"></p>
+      <input type="submit" value="Save">
+    </form>
+</div>
 
   <div class="col-9 hidden">
    <!--accessing anagrame json file use it in js file--> 
+   <!--{{json_data}}--> 
    {{ json_data|json_script:"element_id" }}
   </div>
 </div>

@@ -23,7 +23,6 @@ class MathGameView(ListView):
     context_object_name  = 'mathScore'
     paginate_by: 10
     
-
     def sorted_rank_list(self):
         qs = Math_score.objects.all()
         return qs
