@@ -3,7 +3,26 @@
 {% load static %}
 {% block javascript %}
   <script type="text/javascript" src="{% static 'js/anagram.js' %}" defer></script>
- 
+  <script type="text/javascript" async>
+    $(document).ready(function(){
+      $("#scoreData").click(function(e){
+        //e.preventDefault();
+        $.ajax({type: "POST",
+             url: '{% url "anagram_game:score-anagram-list" %}',
+             data: {
+              word_size:$("#id_word_size").val(),
+              score:$("#id_score").val(),
+              point:$("#id_point").val(),
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+            },
+             success:function(){
+              //reset all classes, variables, and input fields
+              resetOperatorGameToPlay()
+            }
+     });
+   });
+ });
+  </script>
 {% endblock %}
 {% block title %}Anagram game{% endblock %}
 {% block header %}Anagram game{% endblock %}
@@ -135,8 +154,10 @@
       <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2 py-3">
           <button class="btn btn-sm btn-outline-light form-control reset_button">Play Again</button>
           <button class="btn btn-sm  btn-outline-light form-control resetOperator">Reset</button>
-          <input id="scoreData" type="submit" class="save_score btn btn-sm btn-outline-light form-control" value="Save Score" >
-          <a href="" class="btn  btn-sm btn-outline-light form-control " type="button">Exit</a>
+          <a href="{% url 'anagram_game:anagram-game-main' %}" >
+            <input id="scoreData" type="submit" class="save_score btn btn-sm btn-outline-light form-control" value="Save Score" >
+          </a>
+          <a href="{% url 'anagram_game:anagram-game-main' %}" class="btn  btn-sm btn-outline-light form-control " type="button">Exit</a>
       </div>
   </div>
 </div>

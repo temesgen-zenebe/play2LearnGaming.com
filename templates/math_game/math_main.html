@@ -2,7 +2,7 @@
 {% load static %}
 {% block javascript %}
   
-  <script type="text/javascript" src="{% static 'js/math.js' %}" defer></script>
+  <script type="text/javascript" src="{% static 'js/math.js' %}" defer ></script>
   <script type="text/javascript">
     $(document).on('submit','#score-form',function(e){
         e.preventDefault();
@@ -24,28 +24,27 @@
             })
         });
   </script>
-  
+    
   <script type="text/javascript" async>
     $(document).ready(function(){
-       $("#scoreData").click(function(e){
-          //e.preventDefault();
+      $("#scoreData").click(function(e){
+        //e.preventDefault();
         $.ajax({type: "POST",
-                url: '{% url "math_game:score-math-list" %}',
-                data: { 
-                       
-                    operator:$("#id_operator").val(),
-                    max_range:$("#id_max_range").val(),
-                    score:$("#id_score").val(), 
-                    point:$("#id_point").val(),
-                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
-                },
-                success:function(){
-                    //reset all classes, variables, and input fields
-                     resetOperatorGameToPlay()
-                    }
-        });
-      });
-    });
+             url: '{% url "math_game:score-math-list" %}',
+             data: {
+              operator:$("#id_operator").val(),
+              max_range:$("#id_max_range").val(),
+              score:$("#id_score").val(),
+              point:$("#id_point").val(),
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+            },
+             success:function(){
+              //reset all classes, variables, and input fields
+              resetOperatorGameToPlay()
+            }
+     });
+   });
+ });
   </script>
 {% endblock %}
 
@@ -424,7 +423,7 @@
             </div>
         </div>  
     </div>
-    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: block; max-width: 42rem; ">
+    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
         <form method="post" enctype="multipart/form-data" id="score-form">
             {% csrf_token %}
             <p id="id_operator_p"><label for="id_operator">Operator:</label><input type="text" name="operator" maxlength="50" required id="id_operator" value="*"></p>

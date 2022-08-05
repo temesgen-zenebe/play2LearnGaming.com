@@ -16,7 +16,7 @@ const AnswerButton = document.querySelector(".Answer_button");
 const word_sizeData = document.querySelector('#id_word_size')
 const score_Data = document.querySelector('#id_score')
 const pointData = document.querySelector('#id_point')
-const rankedData = document.querySelector('#id_ranked')  
+
 //json 
 var jsonData = JSON.parse(document.getElementById('element_id').textContent);
 //console.log(jsonData)
@@ -58,7 +58,7 @@ function starter() {
                 resultEndMessage.textContent = "Time is up!!.";
                 fineScoreResult.innerHTML = state.score;
                 score_Data.value = state.score;
-                let WordSize= Number(getWordSize.options[document.getElementById('validationCustom05').selectedIndex].value)
+                let WordSize= Number(getWordSize.options[document.getElementById('validationCustom05').selectedIndex].text)
                 pointData.value = state.score * WordSize;
                 clearInterval(startGameTimer);
             } 
@@ -127,6 +127,7 @@ function init() {
 //to get the selected word size array
 function generateSelactedAnagramArray() {
     let s = Number(getWordSize.options[document.getElementById('validationCustom05').selectedIndex].value);
+    word_sizeData.value = getWordSize.options[document.getElementById('validationCustom05').selectedIndex].text;
     //console.log(s)
     let selectedArrayAnagram = json2array(jsonData);
    // console.log(selectedArrayAnagram[s])

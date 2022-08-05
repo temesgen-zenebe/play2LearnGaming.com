@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MathGameView,ScoreMathGameView ,MathGameDetailView,ScoreMathCreateView,AdditionView,ScoreMathList
+from .views import ScoreMathList,MathGameView,ScoreMathGameView ,MathGameDetailView,ScoreMathCreateView,AdditionView
 from math_game.views import ScoreMathForm
 from .views import *
   
