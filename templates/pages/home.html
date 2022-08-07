@@ -169,112 +169,241 @@
           <div class="card text-center shadow ">
               <div class="card-header bg-primary text-white">
                   <h6 class="bold ">Anagrame Aunt Game scores</h6>
-              </div>
-              <div class="card-body table-responsive">
-                 <table class="table table-sm table-hover border m-auto">
-                    <thead class="table-light ">
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Player</th>
-                        <th scope="col">Operator</th>
-                        <th scope="col">NumRange</th>
-                        <th scope="col">Score</th>
-                        <th scope="col">Point</th>
-                        <th scope="col">Rank</th>
-                        <th scope="col">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody class="small">
-                      {% for score in mathScore %}
-                      <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ score.user }}</td>
-                        <td>{{ score.operator }}</td>
-                        <td>{{ score.max_range }}</td>
-                        <td>{{ score.score}}</td>
-                        <td>{{ score.point}}</td>
-                        <td>{{ score.ranked }}</td>
-                        <td>{{ score.created|date:'Y-m-d'}}</td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                    
-                 </table>
-              </div>
-              
-          </div>
+              </div> 
+              <div class="text-center m-1">
+                <div class="card-header"><h6 class="bold text-start small">Top 10 Anagram Game Score:</h6></div>
+                <div class="card-body ">
+                    <div class="table-responsive shadow">
+                        <table class="table table-sm table-hover border m-auto">
+                            <thead class="table-light small">
+                                <tr>
+                                    <th scope="col">Player</th>
+                                    <th scope="col">wordSize</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Point</th>
+                                    <th scope="col">Rank</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="small">
+                                {% for score in anagramScore|slice:':10' %}
+                                    <tr>
+                                        <td>{{ score.user }}</td>
+                                        <td>{{ score.word_size }}</td>
+                                        <td>{{ score.score}}</td>
+                                        <td>{{ score.point}}</td>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ score.created|date:'Y-m-d'}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                                    
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+           </div>
         </div>
-        <div class="col-sm-6 p-1 ">
+        
+        <div class="col-sm-6 p-1">
           <div class="card text-center shadow ">
-              <div class="card-header bg-primary text-white">
+              <div class="card-header bg-primary text-white mb-3 ">
                   <h6 class="bold ">Math Facts Practice Game Scores</h6>
               </div>
-              <div class="card-body table-responsive">
-                <table class="table table-sm table-hover border">
-                    <thead class="table-light ">
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Player</th>
-                        <th scope="col">wordSize</th>
-                        <th scope="col">Score</th>
-                        <th scope="col">Point</th>
-                        <th scope="col">Rank</th>
-                        <th scope="col">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody class="small">
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>09/12/2022</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>09/12/2022</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>09/12/2022</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>09/12/2022</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>09/12/2022</td>
-                      </tr>
-                      
-                    </tbody>
-                 </table>
-              </div>
+              <nav>
+                <div class="nav nav-tabs small" id="nav-tab" role="tablist">
+                    
+                    <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
+                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
+                    <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
+                    <!---<a href="{% url 'math_game:score-math-list' %}" >Cancel</a>--->
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <!--addition-->
+                <div class="tab-pane fade show active p-2 small" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Top 5 Addition[+] Math Game Scores:</h6>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                            <thead class="table-light ">
+                                                <tr>
+                                                <th scope="col">Player</th>
+                                                <th scope="col">maxRange</th>
+                                                <th scope="col">Score</th>
+                                                <th scope="col">Point</th>
+                                                <th scope="col">Rank</th>
+                                                <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for score in Addition|slice:':5' %}
+                                            
+                                                <tr>
+                                                
+                                                {% if score.operator == 'Addition[+]' %}:
+                                                <th scope="row">{{ score.user }}</th>
+                                                <td>{{ score.max_range }}</td>
+                                                <td>{{ score.score}}</td>
+                                                <td>{{ score.point}}</td>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                
+                                                {% endif %}
+                                                </tr>
+                                                
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <!--subtraction-->
+                <div class="tab-pane fade p-2 small" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Top 5 Subtraction[-] Math Game Score:</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Subtraction|slice:':5' %}
+                                        <tr>
+                                        {% if score.operator == 'Subtraction[-]' %}:
+                                          <th scope="row">{{ score.user }}</th>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                           
+                                        {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!--multiplication-->
+                <div class="tab-pane fade p-2 small" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Top 5 Multiplication[*] Math Game Score:</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                      {% for score in Multiplication|slice:':5' %}
+                                        <tr>
+                                           {% if score.operator == 'Multiplication[*]' %}:
+                                            <th scope="row">{{ score.user }}</th>
+                                            <td>{{ score.max_range }}</td>
+                                            <td>{{ score.score}}</td>
+                                            <td>{{ score.point}}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ score.created|date:'Y-m-d' }}</td>
+                                           
+                                        {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--division-->
+                <div class="tab-pane fade p-2 small" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+                    <div class="row m-auto p-2">
+                        <div class="col-sm-12 p-1 ">
+                            <div class="card text-center shadow ">
+                                <div class="card-header">
+                                    <h6 class="bold text-start">Top 5 Division[/] Math Game Scores</h6>
+                                </div>
+                                <div class="card-body ">
+                                
+                                  <table class="table table-sm table-hover border">
+                                      <thead class="table-light ">
+                                        <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for score in Division|slice:':5' %}
+                                       
+                                        <tr>
+                                         
+                                           {% if score.operator == 'Division[/]' %}:
+                                            <th scope="row">{{ score.user  }}</th>
+                                            <td>{{ score.max_range }}</td>
+                                            <td>{{ score.score}}</td>
+                                            <td>{{ score.point}}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ score.created|date:'Y-m-d' }}</td>
+                                           
+                                        {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                      </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
+    </div>
 </div>
 
 <div class="card mx-auto " style="max-width: 85%; ">

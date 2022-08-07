@@ -4,10 +4,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # Admin
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
-    #path('anagramGame/', include('anagramGame.urls')),
-    #path('mathGame/', include('mathGame.urls')),
+    
+    # User Management
+    path('account/', include('allauth.urls')),
+
+    # Local Apps
     path('', include('pages.urls')),
     path('', include('anagram_game.urls')),
     path('', include('math_game.urls')),
