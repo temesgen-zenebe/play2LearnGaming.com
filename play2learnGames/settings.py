@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Third-party
-    #'crispy_forms',
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount', 
@@ -51,10 +51,10 @@ INSTALLED_APPS = [
     'anagram_game.apps.AnagramGameConfig',
     'math_game.apps.MathGameConfig',
     'pages.apps.PagesConfig',
-    'users.apps.UsersConfig',
-    
-    
+    'users.apps.UsersConfig',  
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 SITE_ID = 1 
 
 MIDDLEWARE = [
