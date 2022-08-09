@@ -40,7 +40,7 @@
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{% url 'pages:about-us' %}">About</a>
+                            <a class="nav-link " href="{% url 'pages:about-us' %}">About</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -74,10 +74,16 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'account_login'%}">Log in</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'account_signup'%}">Sign up</a></li>
                         {% else %}
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Hi : {{ user.username }}
+                                {% if user.avatar and not form.avatar.errors %}
+                               
+                                <img src="{{ user.avatar.url }}" alt="Avatar"
+                                    class=" img-fluid  user-photo shadow mx-1" style="max-width:22px;"/>
+                                
+                                {% endif %} {{ user.username }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'my-account' %}">Manage account</a>
@@ -91,6 +97,7 @@
                                 </form>
                             </div>
                         </li>
+                        
                         {% endif %}
                     </ul>
                 </div>
