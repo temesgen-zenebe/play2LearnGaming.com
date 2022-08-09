@@ -6,7 +6,7 @@ from .models import Anagram_score
 @admin.register(Anagram_score)
 class AnagrameScoreAdmin(admin.ModelAdmin):
     model = Anagram_score
-    list_display = ['id', 'word_size', 'score', 'point','created']
+    list_display = ['id', 'users', 'word_size', 'score', 'point','created']
 
     def get_readonly_fields(self, request, obj=None):
         if obj: # editing an existing object

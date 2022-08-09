@@ -5,4 +5,4 @@ from .models import Anagram_score
 class AnagrameScoreForm(ModelForm):
     class Meta:
         model = Anagram_score
-        fields = ('word_size' ,'score', 'point')
+        fields = ('users','word_size' ,'score', 'point')

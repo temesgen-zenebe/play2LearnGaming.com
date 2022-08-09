@@ -1,9 +1,11 @@
+from asyncio.windows_events import NULL
 from django.db import models
 from django.conf import settings
 from django.utils.timezone import datetime
 from common.utils.text import unique_slug
 from django.urls import reverse
 from django.utils import timezone
+
 # Create your models here.
 
 
@@ -11,8 +13,7 @@ class Math_score(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE, 
-        blank= True, 
-        null=True,
+        default=NULL,
         related_name='players'
     )
     operator = models.CharField(max_length=50)

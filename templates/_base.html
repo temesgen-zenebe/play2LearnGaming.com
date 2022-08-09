@@ -40,18 +40,24 @@
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'pages:contact-us' %}">Contact</a>
+                            <a class="nav-link text-white" href="{% url 'pages:about-us' %}">About</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Games
                             </a>
+                            {% if not user.is_authenticated %}
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'account_login'%}">Math Game</a>
+                                <a class="dropdown-item" href="{% url 'account_login'%}">Anagram Game</a>
+                            </div>
+                            {% else %}
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'math_game:math-game-main' %}">Math Game</a>
-                                <a class="dropdown-item" href="{% url 'anagram_game:anagram-game-main' %}">Anagram
-                                    Game</a>
+                                <a class="dropdown-item" href="{% url 'anagram_game:anagram-game-main' %}">Anagram Game</a>
                             </div>
+                            {% endif %}
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -64,20 +70,28 @@
                                     Sores</a>
                             </div>
                         </li>
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'account_login'%}">Log in</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup'%}">Sign up</a></li>
+                        {% else %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Account
+                                Hi : {{ user.username }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Manage account</a>
+                                <a class="dropdown-item" href="{% url 'my-account' %}">Manage account</a>
                                 <a class="dropdown-item" href="#">your comments</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Your Math Scores</a>
                                 <a class="dropdown-item" href="#">Your Anagrame Scores</a>
-
+                                <form method="post" action="{% url 'account_logout' %}">
+                                    {% csrf_token %}
+                                    <button class="btn dropdown-item">Log out</button>
+                                </form>
                             </div>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <a class="navbar-brand " href="{% url 'pages:homepage' %}"><i
@@ -102,9 +116,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{% url 'pages:homepage' %}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{% url 'pages:about-us' %}">About</a>
-                        </li>
+                        
+                        {% if  user.is_staff %}
+                        <li class="nav-item text-white"><a class="nav-link  text-white" href="/admin/">Admin</a></li>
+                        {% else %}
+                        <a class="nav-link  text-white" href="{% url 'pages:contact-us' %}">Contact</a>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link text-white active" aria-current="page" href="#">Comments</a>
                         </li>

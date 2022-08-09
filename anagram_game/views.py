@@ -53,6 +53,7 @@ class ScoreAnagrameList(View):
         wordSize=request.POST.get('word_size')
         if(wordSize):
             scoreNew = Anagram_score.objects.create(
+                users = request.user,
                 word_size=request.POST.get('word_size'),
                 score=request.POST.get('score'),
                 point=request.POST.get('point'),

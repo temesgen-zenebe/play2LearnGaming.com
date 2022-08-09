@@ -188,7 +188,7 @@
                             <tbody class="small">
                                 {% for score in anagramScore|slice:':10' %}
                                     <tr>
-                                        <td>{{ score.user }}</td>
+                                        <td>{{ score.users }}</td>
                                         <td>{{ score.word_size }}</td>
                                         <td>{{ score.score}}</td>
                                         <td>{{ score.point}}</td>
@@ -249,7 +249,7 @@
                                                 <tr>
                                                 
                                                 {% if score.operator == 'Addition[+]' %}:
-                                                <th scope="row">{{ score.user }}</th>
+                                                <td>{{ score.user }}</td>
                                                 <td>{{ score.max_range }}</td>
                                                 <td>{{ score.score}}</td>
                                                 <td>{{ score.point}}</td>
@@ -293,7 +293,7 @@
                                         {% for score in Subtraction|slice:':5' %}
                                         <tr>
                                         {% if score.operator == 'Subtraction[-]' %}:
-                                          <th scope="row">{{ score.user }}</th>
+                                          <td>{{ score.user }}</td>
                                           <td>{{ score.max_range }}</td>
                                           <td>{{ score.score}}</td>
                                           <td>{{ score.point}}</td>
@@ -337,7 +337,7 @@
                                       {% for score in Multiplication|slice:':5' %}
                                         <tr>
                                            {% if score.operator == 'Multiplication[*]' %}:
-                                            <th scope="row">{{ score.user }}</th>
+                                            <td>{{ score.user }}</td>
                                             <td>{{ score.max_range }}</td>
                                             <td>{{ score.score}}</td>
                                             <td>{{ score.point}}</td>
@@ -382,7 +382,7 @@
                                         <tr>
                                          
                                            {% if score.operator == 'Division[/]' %}:
-                                            <th scope="row">{{ score.user  }}</th>
+                                            <td>{{ score.user }}</td>
                                             <td>{{ score.max_range }}</td>
                                             <td>{{ score.score}}</td>
                                             <td>{{ score.point}}</td>

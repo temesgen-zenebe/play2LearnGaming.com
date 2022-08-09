@@ -55,9 +55,9 @@ class ScoreMathCreateView(CreateView):
 
 
 def ScoreMathForm(request):
-    #currentUser = Math_score.objects.filter(user = settings.AUTH_USER_MODEL.id)
+    
     if request.method == 'POST':
-        #user = currentUser
+        user = request.user,
         operator=request.POST.get('operator')
         max_range=request.POST.get('max_range')
         score=request.POST.get('score')
@@ -90,6 +90,7 @@ class ScoreMathList(View):
         match operator:
            case 'Addition[+]':
               scoreNew = Addition_score.objects.create(
+                  user = request.user,
                   operator=request.POST.get('operator'),
                   max_range=request.POST.get('max_range'),
                   score=request.POST.get('score'),
@@ -100,6 +101,7 @@ class ScoreMathList(View):
 
            case 'Division[/]':
               scoreNew = Division_score.objects.create(
+                  user = request.user,
                   operator=request.POST.get('operator'),
                   max_range=request.POST.get('max_range'),
                   score=request.POST.get('score'),
@@ -110,6 +112,7 @@ class ScoreMathList(View):
 
            case 'Multiplication[*]':
               scoreNew = Multiplication_score.objects.create(
+                  user = request.user,
                   operator=request.POST.get('operator'),
                   max_range=request.POST.get('max_range'),
                   score=request.POST.get('score'),
@@ -120,6 +123,7 @@ class ScoreMathList(View):
 
            case 'Subtraction[-]':
               scoreNew = Subtraction_score.objects.create(
+                  user = request.user,
                   operator=request.POST.get('operator'),
                   max_range=request.POST.get('max_range'),
                   score=request.POST.get('score'),

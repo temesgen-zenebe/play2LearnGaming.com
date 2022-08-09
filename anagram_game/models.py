@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.db import models
 from django.conf import settings
 from django.utils.timezone import datetime
@@ -9,8 +10,7 @@ class Anagram_score(models.Model):
     users = models.ForeignKey(
             settings.AUTH_USER_MODEL,
             on_delete=models.PROTECT,
-            blank= True, 
-            null=True,
+            default=NULL,
             related_name='anagramPlayer'
     )
     word_size = models.CharField(max_length=10)
