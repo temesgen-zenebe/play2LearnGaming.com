@@ -122,9 +122,46 @@
         </div>
       </div>
     </div>
+    <div class="card border-success mb-3 mx-auto shadow text-center"  id="own-Game-Score" style="display: block; max-width: 42rem;">
+      <div class="card-header bg-transparent border-success text-center ">
+          <h6 class="bold">Top 10 Anagram Game Score</h6>
+      </div> 
+      <div class="text-center m-1">
+        
+        <div class="card-body ">
+            <div class="table-responsive shadow">
+                <table class="table table-sm table-hover border m-auto">
+                    <thead class="table-light small">
+                        <tr>
+                            <th scope="col">Player</th>
+                            <th scope="col">WordSize</th>
+                            <th scope="col">Score</th>
+                            <th scope="col">Point</th>
+                            <th scope="col">Rank</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="small">
+                        {% for score in scoreAnagram|slice:':10' %}
+                            <tr>
+                                <td>{{ score.users }}</td>
+                                <td>{{ score.word_size }}</td>
+                                <td>{{ score.score}}</td>
+                                <td>{{ score.point}}</td>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ score.created|date:'Y-m-d'}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                            
+                </table>
+
+            </div>
+        </div>
+    </div>
+   </div>
     <!--hidden form working with ajax and js that fallout and saved automatically-->
-  
-  <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
+    <div class="card border-success mt-3 mx-auto shadow text-center" id="start" style="display: none; max-width: 42rem; ">
     <form method="post" enctype="multipart/form-data" id="score-form">
       {% csrf_token %}
       <p><label for="id_word_size">Word size:</label><input type="text" name="word_size" maxlength="10" required id="id_word_size"></p>
@@ -132,7 +169,7 @@
       <p><label for="id_point">Point:</label><input type="number" name="point" value="0" required id="id_point"></p>
       <input type="submit" value="Save">
     </form>
-</div>
+    </div>
 
   <div class="col-9 hidden">
    <!--accessing anagrame json file use it in js file--> 

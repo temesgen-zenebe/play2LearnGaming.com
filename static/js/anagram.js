@@ -34,7 +34,7 @@ function randInt(low, high) {
 //game luncher
 function gameLaunch(){
     document.getElementById('start2').style.display='none';
-    //document.getElementById('ownGameScore').style.display='none';
+    document.getElementById('own-Game-Score').style.display='none';
     document.getElementById('toggle2').style.display='block';
     starter();
 }
@@ -96,7 +96,7 @@ function restartGameToPlay() {
 function resetOperatorGameToPlay(){
     document.body.classList.remove("overlay-is-open");
     document.getElementById('start2').style.display='block';
-    //document.getElementById('ownGameScore').style.display='block';
+    document.getElementById('own-Game-Score').style.display='block';
     document.getElementById('toggle2').style.display='none';
     state.score = 0;
     state.timer = 30;
@@ -225,8 +225,7 @@ function checkInput(input, questionArrayWords, questionWord) {
             (ArrayWords) =>input.toLowerCase().includes(ArrayWords.toLowerCase())
         );
     }
-}
-          
+}         
 // dynamic function to create table from arrays
 function insertTable(tableData) {
     let tableBody = document.querySelector("#correct-answer");
