@@ -1,5 +1,6 @@
 from __future__ import division
-from ast import operator
+from ast import Not, operator
+from multiprocessing.dummy import active_children
 from django.shortcuts import render, redirect
 from django.views import View
 from multiprocessing import context
@@ -27,15 +28,22 @@ class MathGameView(ListView):
         qs = Math_score.objects.all()
         return qs
 
-class AdditionView(ListView):
-    model = Addition_score
-    #template_name = 'math_game/math_main.html'
-    context_object_name  = 'additionScore'
-    paginate_by: 10
+class AdditionView(View):
     
-    def sorted_rank_list(self):
-        qs = Addition_score.objects.all()
-        return qs
+    def get(self, request):
+        operate1 = Addition_score.objects.filter(Q(user = request.user)).order_by('-point')
+        operate2 = Division_score.objects.filter(Q(user = request.user)).order_by('-point')
+        operate3 =  Multiplication_score.objects.filter(Q(user = request.user)).order_by('-point')
+        operate4 = Subtraction_score.objects.filter(Q(user = request.user)).order_by('-point')
+        
+        context = {
+            'Addition':operate1,
+            'Division':operate2,
+            'Multiplication':operate3,
+            'Subtraction':operate4, 
+            
+        }
+        return render(request, 'math_game/math_score_list.html', context)
 
 class MathGameDetailView(DetailView):
     model = Math_score

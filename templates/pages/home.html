@@ -98,7 +98,11 @@
                 a given word with in a given Seconds.The game recedes your scores so as 
                 to measure the improvement that players achieved since he/she start playing 
                 the game.</p>
+              {% if not user.is_authenticated %}
+              <a href="{% url 'account_login'%}" class="btn btn-outline-primary btn-sm">Play</a>
+              {% else %}
               <a href="{% url 'anagram_game:anagram-game-main' %}" class="btn btn-outline-primary btn-sm">Play</a>
+              {% endif %}
             </div>
             <div class="card-footer text-muted">
                 <div class="container d-flex justify-content-between"> 
@@ -135,7 +139,11 @@
                 a given Seconds.The game recedes your scores so as to measure the improvement
                 that players achieved since he/she start playing the game.
             </p>
+            {% if not user.is_authenticated %}
+              <a href="{% url 'account_login'%}" class="btn btn-outline-primary btn-sm">Play</a>
+            {% else %}
               <a href="{% url 'math_game:math-game-main' %}" class="btn btn-outline-primary btn-sm">Play</a>
+            {% endif%}
             </div>
             <div class="card-footer text-muted">
                 <div class="container d-flex justify-content-between"> 

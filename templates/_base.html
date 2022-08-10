@@ -89,7 +89,7 @@
                                 <a class="dropdown-item" href="{% url 'my-account' %}">Manage account</a>
                                 <a class="dropdown-item" href="#">your comments</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Your Math Scores</a>
+                                <a class="dropdown-item" href="{% url 'math_game:addition' %}">Your Math Scores</a>
                                 <a class="dropdown-item" href="#">Your Anagrame Scores</a>
                                 <form method="post" action="{% url 'account_logout' %}">
                                     {% csrf_token %}

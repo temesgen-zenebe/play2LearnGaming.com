@@ -3,28 +3,7 @@
 {% block javascript %}
   
   <script type="text/javascript" src="{% static 'js/math.js' %}" defer ></script>
-  <script type="text/javascript">
-    $(document).on('submit','#score-form',function(e){
-        e.preventDefault();
-        $.ajax ({
-            type:'POST',
-            url:'{% url "math_game:scoreMathForm" %}',
-            data:
-            {
-                operator:$("#id_operator").val(),
-                max_range:$("#id_max_range").val(),
-                score:$("#id_score").val(), 
-                point:$("#id_point").val(),
-                ranked:$("#id_ranked").val(),
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-            },
-            success:function(){
-                  alert('Saved');
-                    }
-            })
-        });
-  </script>
-    
+ 
   <script type="text/javascript" async>
     $(document).ready(function(){
       $("#scoreData").click(function(e){
@@ -155,7 +134,7 @@
             </div>
         
     </div>
-    <div class="card border-success mt-4 mx-auto shadow text-center" id="ownGameScore" style="display: block; max-width: 42rem; ">
+    <div class="card border-success mt-4 mx-auto text-center" id="ownGameScore" style="display: block; max-width: 42rem; ">
         <div class="card-header border-success text-center " style="font-size: 17px; ">
             Your Math Practice Game Scores
         </div>
@@ -163,29 +142,29 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     
-                    <button href="{% url 'math_game:score-math-list' %}"  class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
                     <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
-                    <a href="{% url 'math_game:score-math-list' %}" >Cancel</a>
+                    <a class="nav-link" href="{% url 'math_game:score-math-list' %}" >Back</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <!--addition-->
-                <div class="tab-pane fade show active p-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1" >
+                <div class="tab-pane fade show active pt-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <div class="row ">
+                        <div class="col-sm-12 " >
                             <div class="card text-center shadow m-auto" >
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Addition[+] Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-center medium">Bast 5 Addition[+] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-hover border">
+                                        <table class="table shadow table-sm table-hover border">
                                             <thead class="table-light ">
                                                 <tr>
                                                 <th scope="col">Player</th>
-                                                <th scope="col">maxRange</th>
+                                                <th scope="col">MaxRange</th>
                                                 <th scope="col">Score</th>
                                                 <th scope="col">Point</th>
                                                 <th scope="col">Rank</th>
@@ -193,18 +172,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {% for score in Addition %}
+                                            {% for score in Addition|slice:':5' %}
                                             
                                                 <tr>
-                                                {% if score.user == user %} 
+                                                
                                                 {% if score.operator == 'Addition[+]' %}:
-                                                <th scope="row">{{ score.user }}</th>
+                                                <td>{{ score.user }}</td>
                                                 <td>{{ score.max_range }}</td>
                                                 <td>{{ score.score}}</td>
                                                 <td>{{ score.point}}</td>
                                                 <td>{{ forloop.counter }}</td>
                                                 <td>{{ score.created|date:'Y-m-d' }}</td>
-                                                {% endif %}
+                                                
                                                 {% endif %}
                                                 </tr>
                                                 
@@ -215,82 +194,15 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-                    <div class="accordion accordion-flush shadow border m-auto p-2" id="accordionFlushExample">
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                              Maximam Range Number[1-10] Score:
-                            </button>
-                          </h2>
-                          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-hover border">
-                                        <thead class="table-light ">
-                                            <tr>
-                                            <th scope="col">Player</th>
-                                            <th scope="col">maxRange</th>
-                                            <th scope="col">Score</th>
-                                            <th scope="col">Point</th>
-                                            <th scope="col">Rank</th>
-                                            <th scope="col">Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for score in Addition10 %}
-                                        
-                                            <tr>
-                                            {% if score.user == user %} 
-                                            {% if score.operator == 'Addition[+]' %}:
-                                            <th scope="row">{{ score.user }}</th>
-                                            <td>{{ score.max_range }}</td>
-                                            <td>{{ score.score}}</td>
-                                            <td>{{ score.point}}</td>
-                                            <td>{{ forloop.counter }}</td>
-                                            <td>{{ score.created|date:'Y-m-d' }}</td>
-                                            {% endif %}
-                                            {% endif %}
-                                            </tr>
-                                            
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                              Accordion Item #2
-                            </button>
-                          </h2>
-                          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="flush-headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                              Accordion Item #3
-                            </button>
-                          </h2>
-                          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-                          </div>
-                        </div>
-                    </div>
-                    
                 </div>
                 <!--subtraction-->
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
+                <div class="tab-pane fade pt-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <div class="row ">
+                        <div class="col-sm-12 ">
                             <div class="card text-center shadow ">
-                                <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Subtraction[-] Math Facts Practice Game Scores</h6>
+                                <div class="card-header ">
+                                    <h6 class="bold medium text-center">Bast 5 Subtraction[-] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                 
@@ -298,7 +210,7 @@
                                       <thead class="table-light ">
                                         <tr>
                                           <th scope="col">Player</th>
-                                          <th scope="col">maxRange</th>
+                                          <th scope="col">MaxRange</th>
                                           <th scope="col">Score</th>
                                           <th scope="col">Point</th>
                                           <th scope="col">Rank</th>
@@ -306,18 +218,18 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        {% for score in Subtraction %}
+                                        {% for score in Subtraction|slice:':5' %}
                                        
                                         <tr>
-                                         {% if score.user == user %} 
+                                         
                                            {% if score.operator == 'Subtraction[-]' %}:
-                                          <th scope="row">{{ score.user }}</th>
+                                          <td>{{ score.user }}</td>
                                           <td>{{ score.max_range }}</td>
                                           <td>{{ score.score}}</td>
                                           <td>{{ score.point}}</td>
                                           <td>{{ forloop.counter }}</td>
                                           <td>{{ score.created|date:'Y-m-d' }}</td>
-                                           {% endif %}
+                                           
                                         {% endif %}
                                         </tr>
                                         
@@ -331,12 +243,12 @@
                     </div>
                 </div>
                  <!--multiplication-->
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
+                <div class="tab-pane fade pt-3" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                    <div class="row ">
+                        <div class="col-sm-12 ">
                             <div class="card text-center shadow ">
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Multiplication[*] Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-center medium">Bast 5 Multiplication[*] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                 
@@ -344,7 +256,7 @@
                                       <thead class="table-light ">
                                         <tr>
                                           <th scope="col">Player</th>
-                                          <th scope="col">maxRange</th>
+                                          <th scope="col">MaxRange</th>
                                           <th scope="col">Score</th>
                                           <th scope="col">Point</th>
                                           <th scope="col">Rank</th>
@@ -352,18 +264,18 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in Multiplication %}
+                                      {% for score in Multiplication|slice:':5' %}
                                        
                                         <tr>
-                                         {% if score.user == user %} 
+                                          
                                            {% if score.operator == 'Multiplication[*]' %}:
-                                            <th scope="row">{{ score.user }}</th>
+                                            <td>{{ score.user }}</td>
                                             <td>{{ score.max_range }}</td>
                                             <td>{{ score.score}}</td>
                                             <td>{{ score.point}}</td>
                                             <td>{{ forloop.counter }}</td>
                                             <td>{{ score.created|date:'Y-m-d' }}</td>
-                                           {% endif %}
+                                           
                                         {% endif %}
                                         </tr>
                                         
@@ -376,12 +288,12 @@
                     </div>
                 </div>
                 <!--division-->
-                <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
+                <div class="tab-pane fade pt-3" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+                    <div class="row ">
+                        <div class="col-sm-12 ">
                             <div class="card text-center shadow ">
                                 <div class="card-header">
-                                    <h6 class="bold text-start">Your Bast 5 Division[/] Math Facts Practice Game Scores</h6>
+                                    <h6 class="bold text-center medium ">Bast 5 Division[/] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
                                 
@@ -389,7 +301,7 @@
                                       <thead class="table-light ">
                                         <tr>
                                           <th scope="col">Player</th>
-                                          <th scope="col">maxRange</th>
+                                          <th scope="col">MaxRange</th>
                                           <th scope="col">Score</th>
                                           <th scope="col">Point</th>
                                           <th scope="col">Rank</th>
@@ -397,18 +309,18 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                      {% for score in Division %}
+                                      {% for score in Division|slice:':5' %}
                                        
                                         <tr>
-                                         {% if score.user == user %} 
+                                         
                                            {% if score.operator == 'Division[/]' %}:
-                                            <th scope="row">{{ score.user  }}</th>
+                                            <td>{{ score.user  }}</td>
                                             <td>{{ score.max_range }}</td>
                                             <td>{{ score.score}}</td>
                                             <td>{{ score.point}}</td>
                                             <td>{{ forloop.counter }}</td>
                                             <td>{{ score.created|date:'Y-m-d' }}</td>
-                                           {% endif %}
+                                          
                                         {% endif %}
                                         </tr>
                                         
