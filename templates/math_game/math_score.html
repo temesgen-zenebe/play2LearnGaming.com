@@ -3,19 +3,1682 @@
 {% block title %}Math Scores{% endblock %}
 {% block header %}Math Scores{% endblock %}
 {% block main %}
-<div class="container-sm  bg-light p-4 text-center" >
-    
-    <div class="card border-success mb-3 text-center justify-content-center mx-auto" style="max-width: 40rem;">
-        <div class="card-header bg-transparent border-success">Header</div>
-        <div class="card-body text-success">
-          <h5 class="card-title">Success card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="card-footer bg-transparent border-success">Footer
-            100% wide until small breakpoint
-            <p>Very interesting information Math Scores!</p>
-        </div>
+<div class="container-sm p-2 text-center " >
+  <div class="card border-success mx-auto text-center shadow" id="ownGameScore" style="display: block; max-width: 60rem; ">
+    <div class="card-header border-success text-dark text-center " style="font-size: 17px; ">
+        Your Math Practice Game Scores
     </div>
+    <div class="card-body text-success shadow text-center " style="font-size:14px;">
+        <nav>
+            <div class="nav nav-tabs small" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
+                <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
+                <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="false">Comments</button>
+                <a class="nav-link" href="{% url 'math_game:score-math-list' %}" >play</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <!--addition-->
+            <div class="tab-pane fade show active pt-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                      {% if Addition|length > 0 %}
+                      <div class="accordion accordion-flush shadow border " id="accordionFlushExample">
+                               
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                      Maximam Range [10] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body ">
+                                        <div class="table-responsive ">                        
+                                            <table class="table table-sm shadow table-hover border">
+                                                <thead class="table-light small">
+                                                    <tr>
+                                                    <th scope="col">Player</th>
+                                                    <th scope="col">MaxRange</th>
+                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Point</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="small">
+                                                {% for score in Addition|slice:':10' %}    
+                                                  <tr>
+                                                    {% if score.max_range == 10 %}:
+                                                    <td>{{ score.user }}</td>
+                                                    <td>{{ score.max_range }}</td>
+                                                    <td>{{ score.score}}</td>
+                                                    <td>{{ score.point}}</td>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                    
+                                                    {% endif %}
+                                                  </tr>
+                                                  {% empty %}
+                                                    <li>Sorry, there are no score.</li>    
+                                                  {% endfor %}    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingTwo">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                      Maximam Range [20] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 20 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor %} 
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading3">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse3">
+                                      Maximam Range [30] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 30 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading40">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse40" aria-expanded="false" aria-controls="flush-collapse40">
+                                      Maximam Range [40] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse40" class="accordion-collapse collapse" aria-labelledby="flush-heading40" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 40 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading50">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse50" aria-expanded="false" aria-controls="flush-collapse50">
+                                      Maximam Range [50] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse50" class="accordion-collapse collapse" aria-labelledby="flush-heading50" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 50 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% empty %}
+                                                <tr><td>Sorry, there are no score.</td></tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading60">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse60" aria-expanded="false" aria-controls="flush-collapse60">
+                                      Maximam Range [60] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse60" class="accordion-collapse collapse" aria-labelledby="flush-heading60" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-hover border">
+                                                <thead class="table-light small">
+                                                    <tr>
+                                                    <th scope="col">Player</th>
+                                                    <th scope="col">maxRange</th>
+                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Point</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="small">
+                                                {% for score in Addition|slice:':10' %}    
+                                                  <tr>
+                                                    {% if score.max_range == 60 %}:
+                                                    <td>{{ score.user }}</td>
+                                                    <td>{{ score.max_range }}</td>
+                                                    <td>{{ score.score}}</td>
+                                                    <td>{{ score.point}}</td>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                    {% endif %}
+                                                  </tr>
+                                                    
+                                                {% endfor %}    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading70">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse70" aria-expanded="false" aria-controls="flush-collapse70">
+                                      Maximam Range [70] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse70" class="accordion-collapse collapse" aria-labelledby="flush-heading70" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 70 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor %} 
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading80">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse80" aria-expanded="false" aria-controls="flush-collapse80">
+                                      Maximam Range [80] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse80" class="accordion-collapse collapse" aria-labelledby="flush-heading80" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 80 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% empty %}
+                                                <tr><td>Sorry, there are no score.</td></tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading90">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse90" aria-expanded="false" aria-controls="flush-collapse90">
+                                      Maximam Range [90] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse90" class="accordion-collapse collapse" aria-labelledby="flush-heading90" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 90 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading100">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse100" aria-expanded="false" aria-controls="flush-collapse100">
+                                      Maximam Range [100] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse100" class="accordion-collapse collapse" aria-labelledby="flush-heading100" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Addition|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 100 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                      </div>
+                      {% else %}
+                      <div><p>For sure you are not play any of addition games pleace try agin </p></div>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!--subtraction-->
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                <div class="row pt-3">
+                    <div class="col-sm-12 ">
+                      {% if Subtraction|length > 0 %}
+                      <div class="accordion accordion-flush shadow border " id="accordionFlushExample2">
+                               
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading111">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse111" aria-expanded="false" aria-controls="flush-collapse111">
+                                      Maximam Range [10] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse111" class="accordion-collapse collapse" aria-labelledby="flush-heading111" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body ">
+                                        <div class="table-responsive ">                        
+                                            <table class="table table-sm shadow table-hover border">
+                                                <thead class="table-light small">
+                                                    <tr>
+                                                    <th scope="col">Player</th>
+                                                    <th scope="col">MaxRange</th>
+                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Point</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="small">
+                                                {% for score in Subtraction|slice:':10' %}    
+                                                  <tr>
+                                                    {% if score.max_range == 10 %}:
+                                                    <td>{{ score.user }}</td>
+                                                    <td>{{ score.max_range }}</td>
+                                                    <td>{{ score.score}}</td>
+                                                    <td>{{ score.point}}</td>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                    
+                                                    {% endif %}
+                                                  </tr>
+                                                  {% empty %}
+                                                    <li>Sorry, there are no score.</li>    
+                                                  {% endfor %}    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading12">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse12" aria-expanded="false" aria-controls="flush-collapse12">
+                                      Maximam Range [20] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse12" class="accordion-collapse collapse" aria-labelledby="flush-heading12" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 20 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor %} 
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading13">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse13" aria-expanded="false" aria-controls="flush-collapse13">
+                                      Maximam Range [30] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse13" class="accordion-collapse collapse" aria-labelledby="flush-heading13" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 30 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading140">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse140" aria-expanded="false" aria-controls="flush-collapse140">
+                                      Maximam Range [40] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse140" class="accordion-collapse collapse" aria-labelledby="flush-heading140" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 40 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading150">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse150" aria-expanded="false" aria-controls="flush-collapse150">
+                                      Maximam Range [50] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse150" class="accordion-collapse collapse" aria-labelledby="flush-heading150" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 50 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% empty %}
+                                                <tr><td>Sorry, there are no score.</td></tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading160">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse160" aria-expanded="false" aria-controls="flush-collapse160">
+                                      Maximam Range [60] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse160" class="accordion-collapse collapse" aria-labelledby="flush-heading160" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-hover border">
+                                                <thead class="table-light small">
+                                                    <tr>
+                                                    <th scope="col">Player</th>
+                                                    <th scope="col">maxRange</th>
+                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Point</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="small">
+                                                {% for score in Subtraction|slice:':10' %}    
+                                                  <tr>
+                                                    {% if score.max_range == 60 %}:
+                                                    <td>{{ score.user }}</td>
+                                                    <td>{{ score.max_range }}</td>
+                                                    <td>{{ score.score}}</td>
+                                                    <td>{{ score.point}}</td>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                    {% endif %}
+                                                  </tr>
+                                                    
+                                                {% endfor %}    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading170">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse170" aria-expanded="false" aria-controls="flush-collapse170">
+                                      Maximam Range [70] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse170" class="accordion-collapse collapse" aria-labelledby="flush-heading170" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 70 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor %} 
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading180">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse180" aria-expanded="false" aria-controls="flush-collapse180">
+                                      Maximam Range [80] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse180" class="accordion-collapse collapse" aria-labelledby="flush-heading180" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 80 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% empty %}
+                                                <tr><td>Sorry, there are no score.</td></tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading190">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse190" aria-expanded="false" aria-controls="flush-collapse190">
+                                      Maximam Range [90] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse190" class="accordion-collapse collapse" aria-labelledby="flush-heading190" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 90 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-heading1100">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1100" aria-expanded="false" aria-controls="flush-collapse1100">
+                                      Maximam Range [100] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapse1100" class="accordion-collapse collapse" aria-labelledby="flush-heading1100" data-bs-parent="#accordionFlushExample2">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Subtraction|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 100 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                      </div>
+                      {% else %}
+                      <div><p>For sure you are not play any of addition games pleace try agin </p></div>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+             <!--multiplication-->
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+              <div class="row pt-3">
+                <div class="col-sm-12 ">
+                  {% if Multiplication|length > 0 %}
+                  <div class="accordion accordion-flush shadow border " id="accordionFlushExample4">
+                           
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading333">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse333" aria-expanded="false" aria-controls="flush-collapse333">
+                                  Maximam Range [10] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse333" class="accordion-collapse collapse" aria-labelledby="flush-heading333" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body ">
+                                    <div class="table-responsive ">                        
+                                        <table class="table table-sm shadow table-hover border">
+                                            <thead class="table-light small">
+                                                <tr>
+                                                <th scope="col">Player</th>
+                                                <th scope="col">MaxRange</th>
+                                                <th scope="col">Score</th>
+                                                <th scope="col">Point</th>
+                                                <th scope="col">Rank</th>
+                                                <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="small">
+                                            {% for score in Multiplication|slice:':10' %}    
+                                              <tr>
+                                                {% if score.max_range == 10 %}:
+                                                <td>{{ score.user }}</td>
+                                                <td>{{ score.max_range }}</td>
+                                                <td>{{ score.score}}</td>
+                                                <td>{{ score.point}}</td>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                
+                                                {% endif %}
+                                              </tr>
+                                              {% empty %}
+                                                <li>Sorry, there are no score.</li>    
+                                              {% endfor %}    
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading444">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse444" aria-expanded="false" aria-controls="flush-collapse444">
+                                  Maximam Range [20] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse444" class="accordion-collapse collapse" aria-labelledby="flush-heading444" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Subtraction|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 20 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% endfor %} 
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading555">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse555" aria-expanded="false" aria-controls="flush-collapse5555">
+                                  Maximam Range [30] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse555" class="accordion-collapse collapse" aria-labelledby="flush-heading555" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Multiplication|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 30 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% endfor%}  
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading600">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse600" aria-expanded="false" aria-controls="flush-collapse600">
+                                  Maximam Range [40] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse600" class="accordion-collapse collapse" aria-labelledby="flush-heading600" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Multiplication|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 40 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% endfor%}  
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading650">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse650" aria-expanded="false" aria-controls="flush-collapse650">
+                                  Maximam Range [50] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse650" class="accordion-collapse collapse" aria-labelledby="flush-heading650" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Multiplication|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 50 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% empty %}
+                                            <tr><td>Sorry, there are no score.</td></tr>
+                                        {% endfor%}  
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading660">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse660" aria-expanded="false" aria-controls="flush-collapse660">
+                                  Maximam Range [60] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse660" class="accordion-collapse collapse" aria-labelledby="flush-heading660" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                            <thead class="table-light small">
+                                                <tr>
+                                                <th scope="col">Player</th>
+                                                <th scope="col">maxRange</th>
+                                                <th scope="col">Score</th>
+                                                <th scope="col">Point</th>
+                                                <th scope="col">Rank</th>
+                                                <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="small">
+                                            {% for score in Multiplication|slice:':10' %}    
+                                              <tr>
+                                                {% if score.max_range == 60 %}:
+                                                <td>{{ score.user }}</td>
+                                                <td>{{ score.max_range }}</td>
+                                                <td>{{ score.score}}</td>
+                                                <td>{{ score.point}}</td>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                {% endif %}
+                                              </tr>
+                                                
+                                            {% endfor %}    
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading670">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse670" aria-expanded="false" aria-controls="flush-collapse670">
+                                  Maximam Range [70] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse670" class="accordion-collapse collapse" aria-labelledby="flush-heading670" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Subtraction|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 70 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% endfor %} 
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading680">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse680" aria-expanded="false" aria-controls="flush-collapse680">
+                                  Maximam Range [80] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse680" class="accordion-collapse collapse" aria-labelledby="flush-heading680" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Subtraction|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 80 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% empty %}
+                                            <tr><td>Sorry, there are no score.</td></tr>
+                                        {% endfor%}  
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading690">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse690" aria-expanded="false" aria-controls="flush-collapse690">
+                                  Maximam Range [90] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse690" class="accordion-collapse collapse" aria-labelledby="flush-heading690" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Multiplication|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 90 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% endfor%}  
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading16100">
+                                <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse16100" aria-expanded="false" aria-controls="flush-collapse16100">
+                                  Maximam Range [100] Score:
+                                </button>
+                              </h2>
+                              <div id="flush-collapse16100" class="accordion-collapse collapse" aria-labelledby="flush-heading16100" data-bs-parent="#accordionFlushExample4">
+                                <div class="accordion-body">
+                                  <div class="table-responsive">
+                                    <table class="table table-sm table-hover border">
+                                      <thead class="table-light small">
+                                          <tr>
+                                          <th scope="col">Player</th>
+                                          <th scope="col">maxRange</th>
+                                          <th scope="col">Score</th>
+                                          <th scope="col">Point</th>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                        {% for score in Multiplication|slice:':10' %} 
+                                        <tr>
+                                          {% if score.max_range == 100 %}:
+                                          <td>{{ score.user }}</td>
+                                          <td>{{ score.max_range }}</td>
+                                          <td>{{ score.score}}</td>
+                                          <td>{{ score.point}}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{ score.created|date:'Y-m-d' }}</td>
+                                          {% endif %}
+                                        </tr>
+                                        {% endfor%}  
+                                      </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                  </div>
+                  {% else %}
+                  <div><p>For sure you are not play any of addition games pleace try agin </p></div>
+                  {% endif %}
+                </div>
+            </div>
+            </div>
+            <!--division-->
+            <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+                <div class="row m-auto p-2">
+                    <div class="col-sm-12 p-1 ">
+                      {% if Division|length > 0 %}
+                      <div class="accordion accordion-flush shadow border " id="accordionFlushDivision">
+                               
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision10">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision10" aria-expanded="false" aria-controls="flush-collapseDivision10">
+                                      Maximam Range [10] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision10" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision10" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body ">
+                                        <div class="table-responsive ">                        
+                                            <table class="table table-sm shadow table-hover border">
+                                                <thead class="table-light small">
+                                                    <tr>
+                                                    <th scope="col">Player</th>
+                                                    <th scope="col">MaxRange</th>
+                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Point</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="small">
+                                                {% for score in Division|slice:':10' %}    
+                                                  <tr>
+                                                    {% if score.max_range == 10 %}:
+                                                    <td>{{ score.user }}</td>
+                                                    <td>{{ score.max_range }}</td>
+                                                    <td>{{ score.score}}</td>
+                                                    <td>{{ score.point}}</td>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                    
+                                                    {% endif %}
+                                                  </tr>
+                                                  {% empty %}
+                                                    <li>Sorry, there are no score.</li>    
+                                                  {% endfor %}    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision444">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision444" aria-expanded="false" aria-controls="flush-collapseDivision444">
+                                      Maximam Range [20] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision444" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision444" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 20 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor %} 
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision555">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision555" aria-expanded="false" aria-controls="flush-collapseDivision5555">
+                                      Maximam Range [30] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision555" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision555" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 30 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision600">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision600" aria-expanded="false" aria-controls="flush-collapseDivision600">
+                                      Maximam Range [40] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision600" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision600" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 40 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision650">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision650" aria-expanded="false" aria-controls="flush-collapseDivision650">
+                                      Maximam Range [50] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision650" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision650" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 50 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% empty %}
+                                                <tr><td>Sorry, there are no score.</td></tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision660">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision660" aria-expanded="false" aria-controls="flush-collapseDivision660">
+                                      Maximam Range [60] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision660" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision660" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-hover border">
+                                                <thead class="table-light small">
+                                                    <tr>
+                                                    <th scope="col">Player</th>
+                                                    <th scope="col">maxRange</th>
+                                                    <th scope="col">Score</th>
+                                                    <th scope="col">Point</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="small">
+                                                {% for score in Division|slice:':10' %}    
+                                                  <tr>
+                                                    {% if score.max_range == 60 %}:
+                                                    <td>{{ score.user }}</td>
+                                                    <td>{{ score.max_range }}</td>
+                                                    <td>{{ score.score}}</td>
+                                                    <td>{{ score.point}}</td>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                    {% endif %}
+                                                  </tr>
+                                                    
+                                                {% endfor %}    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision670">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision670" aria-expanded="false" aria-controls="flush-collapseDivision670">
+                                      Maximam Range [70] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision670" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision670" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 70 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor %} 
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision680">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision680" aria-expanded="false" aria-controls="flush-collapseDivision680">
+                                      Maximam Range [80] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision680" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision680" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 80 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% empty %}
+                                                <tr><td>Sorry, there are no score.</td></tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision690">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision690" aria-expanded="false" aria-controls="flush-collapseDivision690">
+                                      Maximam Range [90] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision690" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision690" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 90 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="flush-headingDivision16100">
+                                    <button class="accordion-button collapsed medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDivision16100" aria-expanded="false" aria-controls="flush-collapseDivision16100">
+                                      Maximam Range [100] Score:
+                                    </button>
+                                  </h2>
+                                  <div id="flush-collapseDivision16100" class="accordion-collapse collapse" aria-labelledby="flush-headingDivision16100" data-bs-parent="#accordionFlushDivision">
+                                    <div class="accordion-body">
+                                      <div class="table-responsive">
+                                        <table class="table table-sm table-hover border">
+                                          <thead class="table-light small">
+                                              <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">maxRange</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="small">
+                                            {% for score in Division|slice:':10' %} 
+                                            <tr>
+                                              {% if score.max_range == 100 %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                              {% endif %}
+                                            </tr>
+                                            {% endfor%}  
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                      </div>
+                      {% else %}
+                      <div><p>For sure you are not play any of addition games pleace try agin </p></div>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!--comment-->
+            <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+                <div class="row m-auto p-2">
+                    <div class="col-sm-12 p-1 ">
+                      <p>comment go her...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+  </div> 
 </div>
   
 {% endblock %}

@@ -1,10 +1,12 @@
 from multiprocessing import context
+from operator import ge
 from urllib import request
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views import View
+from django.db.models import Q
 from .models import Anagram_score
 from .forms import AnagrameScoreForm
 import json
@@ -30,14 +32,11 @@ class ScoreAnagramCreateView(CreateView):
     template_name = 'anagram_game/create_anagram_score.html'
     success_url = ''
     
-    
-    template_name = 'math_game/create_math_score.html'
-    success_url = ''
 
 class ScoreAnagrameList(View):
 
     def get(self, request):
-        #operate10 = Addition_score.objects.filter(Q(user = request.user) & Q(max_range = 10)).order_by('-point')
+       
         scoreAnagram = Anagram_score.objects.all().order_by('-point')
         
         with open('static/data/anagram.json', 'r') as f:
@@ -61,4 +60,14 @@ class ScoreAnagrameList(View):
             scoreNew.save()
             return redirect('anagram_game:score-anagram-list')
 
-           
+class ScoreUserView(View):
+    def get(self ,request):    
+        userScoreAnagram = Anagram_score.objects.filter(Q(users = request.user)).order_by('-point') 
+        context = { 'userScoreAnagram':userScoreAnagram}
+        return render(request, 'anagram_game/anagram_score_list.html', context)
+
+class ScoreView(View):
+    def get(self ,request):    
+        scoreAnagram = Anagram_score.objects.all().order_by('-point') 
+        context = { 'Score_Anagram':scoreAnagram}
+        return render(request, 'anagram_game/anagram_score.html', context)

@@ -3,5 +3,71 @@
 {% block title %}Anagram Scores{% endblock %}
 {% block header %}Anagram Scores{% endblock %}
 {% block main %}
-  <p>Very interesting information Anagram Scores!</p>
+<div class="container-sm p-2 text-center " >
+  <div class="card border-success mx-auto text-center shadow" id="ownGameScore" style="display: block; max-width: 60rem; ">
+    <div class="card-header border-success text-dark text-center " style="font-size: 17px; ">
+        Top Anagram Hunt Game Scores
+    </div>
+    <div class="card-body text-success shadow text-center " style="font-size:14px;">
+        <nav>
+            <div class="nav nav-tabs medium" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-Anagram-tab" data-bs-toggle="tab" data-bs-target="#nav-Anagram" type="button" role="tab" aria-controls="nav-Anagram" aria-selected="true">Anagram Score</button>
+                <button class="nav-link" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="false">Comments</button>
+                <a class="nav-link" href="{% url 'anagram_game:anagram-game-main' %}" >play</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <!--anagram score-->
+            <div class="tab-pane fade show active pt-3" id="nav-Anagram" role="tabpanel" aria-labelledby="nav-Anagram-tab" tabindex="0">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                      <div class="card text-center">
+                        <div class="text-center">
+                          <div class="card-body ">
+                              <div class="table-responsive shadow">
+                                  <table class="table table-sm table-hover border m-auto">
+                                      <thead class="table-light small">
+                                          <tr>
+                                              <th scope="col">Player</th>
+                                              <th scope="col">wordSize</th>
+                                              <th scope="col">Score</th>
+                                              <th scope="col">Point</th>
+                                              <th scope="col">Rank</th>
+                                              <th scope="col">Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="small">
+                                          {% for score in Score_Anagram|slice:':20' %}
+                                              <tr>
+                                                  <td>{{ score.users }}</td>
+                                                  <td>{{ score.word_size }}</td>
+                                                  <td>{{ score.score}}</td>
+                                                  <td>{{ score.point}}</td>
+                                                  <td>{{ forloop.counter }}</td>
+                                                  <td>{{ score.created|date:'Y-m-d'}}</td>
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                              
+                                  </table>
+          
+                              </div>
+                          </div>
+                      </div>
+                     </div>
+                    </div>
+                </div>
+            </div>
+            <!--comment-->
+            <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab" tabindex="0">
+                <div class="row m-auto p-2">
+                    <div class="col-sm-12 p-1 ">
+                      <p>comment go her...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+  </div> 
+</div>
 {% endblock %}

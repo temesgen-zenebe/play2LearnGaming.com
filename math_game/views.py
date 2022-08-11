@@ -28,12 +28,12 @@ class MathGameView(ListView):
         qs = Math_score.objects.all()
         return qs
 
-class AdditionView(View):
+class MathScoreUserView(View):
     
     def get(self, request):
         operate1 = Addition_score.objects.filter(Q(user = request.user)).order_by('-point')
         operate2 = Division_score.objects.filter(Q(user = request.user)).order_by('-point')
-        operate3 =  Multiplication_score.objects.filter(Q(user = request.user)).order_by('-point')
+        operate3 = Multiplication_score.objects.filter(Q(user = request.user)).order_by('-point')
         operate4 = Subtraction_score.objects.filter(Q(user = request.user)).order_by('-point')
         
         context = {
@@ -78,13 +78,13 @@ def ScoreMathForm(request):
 class ScoreMathList(View):
 
     def get(self, request):
-        operate10 = Addition_score.objects.filter(Q(user = request.user) & Q(max_range = 10)).order_by('-point')
+        #operate10 = Addition_score.objects.filter(Q(user = request.user) & Q(max_range = 10)).order_by('-point')
         operate1 = Addition_score.objects.all().order_by('-point')
         operate2 = Division_score.objects.all().order_by('-point')
         operate3=  Multiplication_score.objects.all().order_by('-point')
         operate4 = Subtraction_score.objects.all().order_by('-point')
         context = {
-            'Addition10':operate10,
+            
             'Addition':operate1,
             'Division':operate2,
             'Multiplication':operate3,
@@ -139,5 +139,20 @@ class ScoreMathList(View):
               )
               scoreNew.save()
               return redirect('math_game:score-math-list')
+
+class AllScoreMathList(View):
+
+    def get(self, request):
+        operate1 = Addition_score.objects.all().order_by('-point')
+        operate2 = Division_score.objects.all().order_by('-point')
+        operate3=  Multiplication_score.objects.all().order_by('-point')
+        operate4 = Subtraction_score.objects.all().order_by('-point')
+        context = {
             
+            'Addition':operate1,
+            'Division':operate2,
+            'Multiplication':operate3,
+            'Subtraction':operate4,
+        }
+        return render(request, 'math_game/math_score.html', context)           
                    

@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+
+{% block title %}anagram Scores{% endblock %}
+{% block header %}anagram Scores{% endblock %}
+{% block main %}
+<div class="container-sm  bg-light p-1 text-center" >
+    <div class="card border-success mb-3 mx-auto shadow text-center"  id="own-Game-Score" style="display: block; max-width: 60rem;">
+        <div class="card-header bg-transparent border-success text-center ">
+            <h6 class="bold">Your Top 10 Anagram Game Score List</h6>
+        </div> 
+        <div class="card-body text-center ">
+              <div class="table-responsive shadow">
+                  <table class="table table-sm table-hover border m-auto">
+                      <thead class="table-light small">
+                          <tr>
+                              <th scope="col">Player</th>
+                              <th scope="col">WordSize</th>
+                              <th scope="col">Score</th>
+                              <th scope="col">Point</th>
+                              <th scope="col">Rank</th>
+                              <th scope="col">Date</th>
+                          </tr>
+                      </thead>
+                      <tbody class="small">
+                          {% for score in userScoreAnagram|slice:':10' %}
+                              <tr>
+                                  <td>{{ score.users }}</td>
+                                  <td>{{ score.word_size }}</td>
+                                  <td>{{ score.score}}</td>
+                                  <td>{{ score.point}}</td>
+                                  <td>{{ forloop.counter }}</td>
+                                  <td>{{ score.created|date:'Y-m-d'}}</td>
+                              </tr>
+                          {% endfor %}
+                      </tbody>
+                              
+                  </table>
+  
+              </div>
+        </div>
+        <div class="card-footer bg-transparent border-success">
+            <p>Very interesting information Math Scores!</p>
+        </div>
+     </div>
+</div>
+  
+{% endblock %}
