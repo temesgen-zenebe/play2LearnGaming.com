@@ -13,18 +13,18 @@
             <div class="nav nav-tabs medium" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-Anagram-tab" data-bs-toggle="tab" data-bs-target="#nav-Anagram" type="button" role="tab" aria-controls="nav-Anagram" aria-selected="true">Anagram Score</button>
                 <button class="nav-link" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="false">Comments</button>
-                <a class="nav-link" href="{% url 'anagram_game:anagram-game-main' %}" >play</a>
+                <a class="nav-link" href="{% url 'anagram_game:anagram-game-main' %}" >Play</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <!--anagram score-->
             <div class="tab-pane fade show active pt-3" id="nav-Anagram" role="tabpanel" aria-labelledby="nav-Anagram-tab" tabindex="0">
-                <div class="row">
+                <div class="row ">
                     <div class="col-sm-12 ">
-                      <div class="card text-center">
+                      <div class="card text-center shadow">
                         <div class="text-center">
                           <div class="card-body ">
-                              <div class="table-responsive shadow">
+                              <div class="table-responsive ">
                                   <table class="table table-sm table-hover border m-auto">
                                       <thead class="table-light small">
                                           <tr>

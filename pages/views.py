@@ -22,11 +22,11 @@ class ContactUsView(TemplateView):
 class PrintGameScore(View):
     def get(self, request):
         #operate10 = Addition_score.objects.filter(Q(user = request.user) & Q(max_range = 10)).order_by('-point')
-        operate1 = Addition_score.objects.all().order_by('-point')
-        operate2 = Division_score.objects.all().order_by('-point')
-        operate3=  Multiplication_score.objects.all().order_by('-point')
-        operate4 = Subtraction_score.objects.all().order_by('-point')
-        anagramScore = Anagram_score.objects.all().order_by('-point')
+        operate1 = Addition_score.objects.all().order_by('-point').distinct('point')
+        operate2 = Division_score.objects.all().order_by('-point').distinct('point')
+        operate3=  Multiplication_score.objects.all().order_by('-point').distinct('point')
+        operate4 = Subtraction_score.objects.all().order_by('-point').distinct('point')
+        anagramScore = Anagram_score.objects.all().order_by('-point').distinct('point')
         context = {
             'Addition':operate1,
             'Division':operate2,

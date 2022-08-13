@@ -14,7 +14,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.db.models import Q
 from .models import Math_score
-from .models import Addition_score,Division_score,Multiplication_score,Subtraction_score
+from .models import (
+    Addition_score,
+    Division_score,
+    Multiplication_score,
+    Subtraction_score,
+    Comment_math,
+)
 from .forms import MathScoreForm
 # Create your views here.
 
@@ -31,10 +37,10 @@ class MathGameView(ListView):
 class MathScoreUserView(View):
     
     def get(self, request):
-        operate1 = Addition_score.objects.filter(Q(user = request.user)).order_by('-point')
-        operate2 = Division_score.objects.filter(Q(user = request.user)).order_by('-point')
-        operate3 = Multiplication_score.objects.filter(Q(user = request.user)).order_by('-point')
-        operate4 = Subtraction_score.objects.filter(Q(user = request.user)).order_by('-point')
+        operate1 = Addition_score.objects.filter(Q(user = request.user)).order_by('-point').distinct('point')
+        operate2 = Division_score.objects.filter(Q(user = request.user)).order_by('-point').distinct('point')
+        operate3 = Multiplication_score.objects.filter(Q(user = request.user)).order_by('-point').distinct('point')
+        operate4 = Subtraction_score.objects.filter(Q(user = request.user)).order_by('-point').distinct('point')
         
         context = {
             'Addition':operate1,
@@ -79,10 +85,10 @@ class ScoreMathList(View):
 
     def get(self, request):
         #operate10 = Addition_score.objects.filter(Q(user = request.user) & Q(max_range = 10)).order_by('-point')
-        operate1 = Addition_score.objects.all().order_by('-point')
-        operate2 = Division_score.objects.all().order_by('-point')
-        operate3=  Multiplication_score.objects.all().order_by('-point')
-        operate4 = Subtraction_score.objects.all().order_by('-point')
+        operate1 = Addition_score.objects.all().order_by('-point').distinct('point')
+        operate2 = Division_score.objects.all().order_by('-point').distinct('point')
+        operate3=  Multiplication_score.objects.all().order_by('-point').distinct('point')
+        operate4 = Subtraction_score.objects.all().order_by('-point').distinct('point')
         context = {
             
             'Addition':operate1,
@@ -143,16 +149,20 @@ class ScoreMathList(View):
 class AllScoreMathList(View):
 
     def get(self, request):
-        operate1 = Addition_score.objects.all().order_by('-point')
-        operate2 = Division_score.objects.all().order_by('-point')
-        operate3=  Multiplication_score.objects.all().order_by('-point')
-        operate4 = Subtraction_score.objects.all().order_by('-point')
+        operate1 = Addition_score.objects.all().order_by('-point').distinct('point')
+        operate2 = Division_score.objects.all().order_by('-point').distinct('point')
+        operate3=  Multiplication_score.objects.all().order_by('-point').distinct('point')
+        operate4 = Subtraction_score.objects.all().order_by('-point').distinct('point')
+        comment = Comment_math.objects.all().order_by('-created')
         context = {
             
             'Addition':operate1,
             'Division':operate2,
             'Multiplication':operate3,
             'Subtraction':operate4,
+            'userComment':comment,
         }
-        return render(request, 'math_game/math_score.html', context)           
-                   
+        return render(request, 'math_game/math_score.html', context)   
+          
+    def post(self, request):
+        pass

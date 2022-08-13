@@ -3,7 +3,6 @@
 {% block javascript %}
   
   <script type="text/javascript" src="{% static 'js/math.js' %}" defer ></script>
- 
   <script type="text/javascript" async>
     $(document).ready(function(){
       $("#scoreData").click(function(e){
@@ -146,7 +145,7 @@
                     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
                     <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
-                    <a class="nav-link" href="{% url 'math_game:score-math-list' %}" >Back</a>
+                    <a class="nav-link" href="{% url 'math_game:score-math-list' %}" >Play</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">

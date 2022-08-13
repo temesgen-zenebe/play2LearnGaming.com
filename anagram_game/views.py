@@ -37,7 +37,7 @@ class ScoreAnagrameList(View):
 
     def get(self, request):
        
-        scoreAnagram = Anagram_score.objects.all().order_by('-point')
+        scoreAnagram = Anagram_score.objects.all().order_by('-point').distinct('point')
         
         with open('static/data/anagram.json', 'r') as f:
             my_json = json.load(f) #anagram json 
@@ -62,12 +62,12 @@ class ScoreAnagrameList(View):
 
 class ScoreUserView(View):
     def get(self ,request):    
-        userScoreAnagram = Anagram_score.objects.filter(Q(users = request.user)).order_by('-point') 
+        userScoreAnagram = Anagram_score.objects.filter(Q(users = request.user)).order_by('-point').distinct('point') 
         context = { 'userScoreAnagram':userScoreAnagram}
         return render(request, 'anagram_game/anagram_score_list.html', context)
 
 class ScoreView(View):
     def get(self ,request):    
-        scoreAnagram = Anagram_score.objects.all().order_by('-point') 
+        scoreAnagram = Anagram_score.objects.all().order_by('-point').distinct('point') 
         context = { 'Score_Anagram':scoreAnagram}
         return render(request, 'anagram_game/anagram_score.html', context)

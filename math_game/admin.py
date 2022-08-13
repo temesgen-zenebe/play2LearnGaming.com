@@ -1,6 +1,13 @@
 from django.contrib import admin
-from .models import Math_score, Addition_score,Multiplication_score,Division_score,Subtraction_score
-
+from .models import (
+    Comment_math,
+    Math_score,
+    Addition_score,
+    Multiplication_score,
+    Division_score,
+    Subtraction_score,
+    
+)
 # Register your models here.
 @admin.register(Math_score)
 class MathScoreAdmin(admin.ModelAdmin):
@@ -57,3 +64,13 @@ class SubtractionScoreAdmin(admin.ModelAdmin):
             return ('slug','point','score','created',)
 
         return ()
+
+@admin.register(Comment_math)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'comment', 'created','game_type', 'active',)
+    list_filter = ('active', 'created')
+    search_fields = ('user', 'game_type', 'body')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)

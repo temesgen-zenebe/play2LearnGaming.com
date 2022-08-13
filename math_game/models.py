@@ -1,4 +1,6 @@
+from ast import Mod
 from asyncio.windows_events import NULL
+from zipapp import create_archive
 from django.db import models
 from django.conf import settings
 from django.utils.timezone import datetime
@@ -7,7 +9,6 @@ from django.urls import reverse
 from django.utils import timezone
 
 # Create your models here.
-
 
 class Math_score(models.Model):
     user = models.ForeignKey(
@@ -162,4 +163,29 @@ class Subtraction_score(models.Model):
        
     def __str__(self):
         return self.operator
-    
+
+class Comment_math(models.Model):
+    GAME_TYPES = (
+        (None, '--Please choose--'),
+        ('Ad', 'Addition'),
+        ('Div', 'Division'),
+        ('Mul', 'Multiplication'),
+        ('Sub', 'Subtraction'),
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, 
+        default=NULL,
+        related_name='player_comment'
+    )
+    game_type = models.CharField(max_length=10, choices=GAME_TYPES)
+    comment = models.TextField(max_length=300)
+    active =  models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+
+    def __str__(self):
+        return 'Comment_math {} by {}'.format(self.user ,self.game_type ,self.comment,self.created)

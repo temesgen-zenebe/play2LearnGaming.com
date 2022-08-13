@@ -64,6 +64,9 @@ body.overlay-is-open .MathFacts-game-play,
 .dislike{
     font-size: 12px;
 }
+.x-small{
+    font-size: 8px;
+}
 .small{
     font-size: 12px;
 }
