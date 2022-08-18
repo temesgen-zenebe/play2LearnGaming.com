@@ -8,6 +8,7 @@ from .views import(
     ScoreMathCreateView,
     MathScoreUserView,
     AllScoreMathList,
+    commentCreateView,
     
 )
 from math_game.views import ScoreMathForm
@@ -22,6 +23,7 @@ urlpatterns = [
     #path('math-game-main/<int:pk>/', MathGameDetailView.as_view(), name='detail'),
     path('math-score', AllScoreMathList.as_view(), name='all-math-score'),
     path('math-score', ScoreMathGameView.as_view(), name='math-score'),
+    path('my-comment/', commentCreateView.as_view(),name='my-comment'),
     #path('math-game-main/create/', ScoreMathCreateView.as_view(),name='create'),
     path('',ScoreMathForm, name ='scoreMathForm'),
 ]

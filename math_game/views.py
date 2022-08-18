@@ -1,7 +1,9 @@
 from __future__ import division
 from ast import Not, operator
 from multiprocessing.dummy import active_children
+from xml.etree.ElementTree import Comment
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from multiprocessing import context
 from django import views
@@ -21,7 +23,7 @@ from .models import (
     Subtraction_score,
     Comment_math,
 )
-from .forms import MathScoreForm
+from .forms import MathScoreForm,CommentForm
 # Create your views here.
 
 class MathGameView(ListView):
@@ -67,6 +69,11 @@ class ScoreMathCreateView(CreateView):
     template_name = 'math_game/create_math_score.html'
     success_url = ''
 
+class commentCreateView(CreateView):
+    model = Comment_math
+    form_class = CommentForm
+    template_name = 'math_game/math_score.html'
+    success_url = reverse_lazy('my-comment')
 
 def ScoreMathForm(request):
     
@@ -146,6 +153,8 @@ class ScoreMathList(View):
               scoreNew.save()
               return redirect('math_game:score-math-list')
 
+
+
 class AllScoreMathList(View):
 
     def get(self, request):
@@ -163,6 +172,12 @@ class AllScoreMathList(View):
             'userComment':comment,
         }
         return render(request, 'math_game/math_score.html', context)   
-          
+
     def post(self, request):
-        pass
+        commentNew = Comment_math.objects.create(
+                  user = request.user,
+                  game_type = request.POST.get('game_type'),
+                  comment = request.POST.get('comment'), 
+              )
+        commentNew.save()
+        return redirect('math_game:all-math-score')

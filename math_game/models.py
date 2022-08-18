@@ -187,5 +187,8 @@ class Comment_math(models.Model):
     class Meta:
         ordering = ['created']
 
+    def get_absolute_url(self):
+        return reverse('my-comment')
+
     def __str__(self):
         return 'Comment_math {} by {}'.format(self.user ,self.game_type ,self.comment,self.created)
