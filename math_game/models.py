@@ -164,6 +164,7 @@ class Subtraction_score(models.Model):
     def __str__(self):
         return self.operator
 
+
 class Comment_math(models.Model):
     GAME_TYPES = (
         (None, '--Please choose--'),

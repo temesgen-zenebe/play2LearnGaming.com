@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'anagram_game.apps.AnagramGameConfig',
     'math_game.apps.MathGameConfig',
     'pages.apps.PagesConfig',
-    'users.apps.UsersConfig',  
+    'users.apps.UsersConfig',
+    
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
