@@ -17,60 +17,33 @@
             </div>
             <div class="col-sm-10 mx-auto">
                 <div class="carousel-inner text-center text-dark py-4">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                        
+                    {% for comment in gameComment %}
+                        {% if forloop.first %} 
+                        <div class="carousel-item active" data-bs-interval="10000">
+                        {% else %}    
+                        <div class="carousel-item" data-bs-interval="10000">   
+                        {% endif %}
                         <div class="user-photo shadow">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" class="img-fluid" alt="testimonial slider">
+                            {% if comment.user.avatar and not form.avatar.errors %}
+                            <img src="{{ comment.user.avatar.url }}" class=" user-photo shadow "  alt="testimonial slider">
+                            {% else %}
+                            <i class="bi bi-person-workspace mx-2" style="font-size: 300px; color: rgb(100, 102, 111);"></i>
+                            {% endif %} 
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-lg-8">
-                              <h5 class="mb-3">Maria Kate</h5>
-                              <p>Photographer</p>
+                              <p class="mb-1 small">{{ comment.user}}</p>
+                              <p class="small">{{ comment.created}}</p>
                               <p class="text-muted">
                                 <i class="fas fa-quote-left pe-1"></i>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
-                                nesciunt sint eligendi reprehenderit reiciendis, quibusdam illo, beatae quia
-                                fugit consequatur laudantium velit magnam error. Consectetur distinctio fugit
-                                doloremque.
+                                {{ comment.comment}}
                               </p>
                             </div>
                           </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="10000">
-                        <div class="user-photo shadow">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp" class="img-fluid" alt="testimonial slider">
+                    
                         </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-lg-8">
-                              <h5 class="mb-3">Anna Deynah</h5>
-                              <p>UX Designer</p>
-                              <p class="text-muted">
-                                <i class="fas fa-quote-left pe-2"></i>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
-                                nesciunt sint eligendi reprehenderit reiciendis, quibusdam illo, beatae quia
-                                fugit consequatur laudantium velit magnam error. Consectetur distinctio fugit
-                                doloremque.
-                              </p>
-                            </div>
-                          </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="10000">
-                        <div class="user-photo shadow">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" class="img-fluid" alt="testimonial slider">
-                        </div>
-                        
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-lg-8">
-                              <h5 class="mb-3">John Doe</h5>
-                              <p>Web Developer</p>
-                              <p class="text-muted">
-                                <i class="fas fa-quote-left pe-2"></i>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et deleniti
-                                nesciunt sint eligendi reprehenderit reiciendis.
-                              </p>
-                            </div>
-                          </div>
-                    </div>
+                    {% endfor %}
+                    
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -198,6 +171,7 @@
         <button type="submit" class="btn btn-sm btn-primary" >submit</button>
         </div>
       </form>
+      
       {% for comment in gameComment %}
         <hr>
         {{ comment.user}}

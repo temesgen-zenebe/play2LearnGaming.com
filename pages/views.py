@@ -1,6 +1,6 @@
 import email
 from typing import ValuesView
-from django.views.generic import TemplateView,CreateView
+from django.views.generic import TemplateView,CreateView,ListView
 from django.views import View
 from multiprocessing import context
 from urllib import request
@@ -23,6 +23,15 @@ class AboutUsView(TemplateView):
 
 class ContactUsView(TemplateView):
     template_name = 'pages/contact_us.html'
+
+class GameCommentListView(ListView):
+   template_name = 'pages/home.html'
+   model = Games_comment
+   context_object_name = 'games_comment'
+
+   def get_queryset(self):
+       comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
+       return comment
     
 class GameCommentCreateView(CreateView):
     model = Games_comment
