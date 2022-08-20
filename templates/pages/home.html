@@ -23,17 +23,18 @@
                         {% else %}    
                         <div class="carousel-item" data-bs-interval="10000">   
                         {% endif %}
-                        <div class="user-photo shadow">
+                        <div class="user-photo mb-1">
                             {% if comment.user.avatar and not form.avatar.errors %}
-                            <img src="{{ comment.user.avatar.url }}" class=" user-photo shadow "  alt="testimonial slider">
+                            
+                            <img src="{{ comment.user.avatar.url }}" class="user-photo shadow " alt="testimonial slider">
                             {% else %}
-                            <i class="bi bi-person-workspace mx-2" style="font-size: 300px; color: rgb(100, 102, 111);"></i>
+                            <i class="bi bi-person-circle m-auto" style="font-size: 50px; color: rgb(98, 137, 252);"></i>
                             {% endif %} 
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-lg-8">
                               <p class="mb-1 small">{{ comment.user}}</p>
-                              <p class="small">{{ comment.created}}</p>
+                              <p class="x-small">{{ comment.created}}</p>
                               <p class="text-muted">
                                 <i class="fas fa-quote-left pe-1"></i>
                                 {{ comment.comment}}
@@ -82,9 +83,14 @@
             </div>
             <div class="card-footer text-muted">
                 <div class="container d-flex justify-content-between"> 
+                    {% if not user.is_authenticated %}
+                    <a href="{% url 'account_login'%}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
+                        comments:<small>({{ gameComment.count }})</small></a>
+                    {% else %}
                     <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
-                        comments us <small>(200)</small>
+                        comments us <small>({{ gameComment.count }})</small>
                     </a>
+                    {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-up-fill"></i> 
                         Like 500
                     </a>
@@ -123,9 +129,14 @@
             </div>
             <div class="card-footer text-muted">
                 <div class="container d-flex justify-content-between"> 
+                    {% if not user.is_authenticated %}
+                    <a type="button"  href="{% url 'account_login'%}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
+                        comments:<small>({{ gameComment.count }})</small></a>
+                    {% else %}
                     <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
-                        comments us <small>(200)</small>
+                        comments us <small>({{ gameComment.count }})</small>
                     </a>
+                    {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-up-fill"></i> 
                         Like 500
                     </a>
@@ -148,7 +159,7 @@
 <!--comment_model-->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog ">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">New message</h5>
@@ -171,21 +182,7 @@
         <button type="submit" class="btn btn-sm btn-primary" >submit</button>
         </div>
       </form>
-      
-      {% for comment in gameComment %}
-        <hr>
-        {{ comment.user}}
-        {{ comment.created}}
-        <hr><br>
-        {{ comment.comment}}
-      {% endfor %}
     </div>
-    
-    </div>
-  </div>
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-
     </div>
   </div>
 </div>

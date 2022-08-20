@@ -63,6 +63,8 @@ body.overlay-is-open .MathFacts-game-play,
 }
 .dislike{
     font-size: 12px;
+    text-decoration: none;
+    color: rgb(78, 76, 76);
 }
 .x-small{
     font-size: 8px;
