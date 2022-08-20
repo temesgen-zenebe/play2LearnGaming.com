@@ -21,14 +21,15 @@
                    <div class="col-sm-12 px-5 border shadow">
                      <div class="my-3 p-3 bg-body rounded ">
                       <div class="d-flex justify-content-between border-bottom pb-2">
-                        <h6 class="">Recent Comments </h6>
+                        <h6 class="">Recent Comments <span class="small">({{my_math_comment.count}})</span></h6>
                         {% if user.is_authenticated %}
                         <button type="button" class="btn btn-sm btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
                           Add Comment </button>
                         {% endif %}
                       </div>
                       {% for comment in my_math_comment|slice:':10' %}  
-                      <div class="d-flex  justify-content-start text-muted pt-3">
+                      <div class="d-flex  justify-content-between text-muted pt-3">
+                        <div class="d-flex  justify-content-start text-muted ">
                         {% if user == comment.user %}
                           {% if user.avatar and not form.avatar.errors %}
                            <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
@@ -41,13 +42,21 @@
                         <p class=" mb-0 small ">
                           <strong class="d-block text-gray-dark">@ {{comment.user}}</strong>
                           <span class="d-block x-small ">{{comment.created|date:'Y-m-d | h-m-s'}}</span>
+                          {% if comment.active %}
+                            <span class="d-block x-small text-primary">public</span>
+                          {% else %}
+                            <span class="d-block x-small text-danger">panding</span>
+                          {% endif %} 
                         </p>
+                        </div>
+                        <div><a href="delete/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
                       </div>
                       <div class="d-flex  justify-content-between text-muted pt-3">
                         <div class="text-muted border-bottom mx-2 ">
                             <p class="mb-1 small">{{comment.comment|linebreaks}}</p>
+                            
                         </div>
-                        <div><a href="delete/{{ comment.id }}" class="" style="font-size:20px "><i class="bi bi-trash-fill"></i></a></div>
+                       
                      </div>
                       {% empty %}
                         <p class="small">Sorry, there are no comments....</p> 
@@ -66,33 +75,41 @@
                 <div class="col-sm-12 px-5 border shadow">
                     <div class="my-3 p-3 bg-body rounded ">
                         <div class="d-flex justify-content-between border-bottom pb-2">
-                            <h6 class="">Recent Comments </h6>
+                            <h6 class="">Recent Comments <span class="small">({{my_anagram_comment.count}})</span></h6>
                             {% if user.is_authenticated %}
                                 <button type="button" class="btn btn-sm btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap">
                                  Add Comment </button>
                             {% endif %}
                         </div>
                         {% for comment in my_anagram_comment|slice:':10' %}
-                        <div class="d-flex  justify-content-start text-muted pt-3">
+                        <div class="d-flex  justify-content-between text-muted pt-3">
+                            <div class="d-flex  justify-content-start text-muted ">
                             {% if user == comment.user %}
-                                {% if user.avatar and not form.avatar.errors %}
-                                <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
-                                {% else %}
-                                 <i class="bi bi-person-workspace mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
-                                {% endif %} 
-                             {% else %}
-                               <i class="bi bi-person-bounding-box mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
-                             {% endif %} 
-                             <p class=" mb-0 small lh-sm ">
-                               <strong class="d-block text-gray-dark">@ {{comment.user}}</strong>
-                               <span class="d-block x-small ">{{comment.created|date:'Y-m-d | h-m-s'}}</span>
-                             </p>
-                        </div>
+                              {% if user.avatar and not form.avatar.errors %}
+                               <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
+                               {% else %}
+                                <i class="bi bi-person-workspace mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
+                               {% endif %} 
+                            {% else %}
+                              <i class="bi bi-person-bounding-box mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
+                            {% endif %} 
+                            <p class=" mb-0 small ">
+                              <strong class="d-block text-gray-dark">@ {{comment.user}}</strong>
+                              <span class="d-block x-small ">{{comment.created|date:'Y-m-d | h-m-s'}}</span>
+                              {% if comment.active %}
+                              <span class="d-block x-small text-primary">public</span>
+                              {% else %}
+                              <span class="d-block x-small text-danger">panding</span>
+                              {% endif %} 
+                            </p>
+                            </div>
+                            <div><a href="delete_anagram/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
+                          </div>
                         <div class="d-flex  justify-content-between text-muted pt-3">
                             <div class="text-muted border-bottom mx-2 ">
                                 <p class="mb-1 small">{{comment.comment|linebreaks}}</p>
                             </div>
-                            <div><a href="delete/{{ comment.id }}" class="" style="font-size:20px "><i class="bi bi-trash-fill"></i></a></div>
+                            
                          </div>
                         
                         {% empty %}

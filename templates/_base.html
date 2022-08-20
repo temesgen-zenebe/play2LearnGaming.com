@@ -99,6 +99,11 @@
                         </li>
                         
                         {% endif %}
+                        {% if request.user.is_superuser %}
+                        <li class="nav-item">
+                            <li class="nav-item text-white"><a class="nav-link  text-white" href="/admin/">Admin</a></li>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <a class="navbar-brand " href="{% url 'pages:homepage' %}"><i
@@ -124,14 +129,14 @@
                             <a class="nav-link text-white" href="{% url 'pages:homepage' %}">Home</a>
                         </li>
                         
-                        {% if  user.is_staff %}
-                        <li class="nav-item text-white"><a class="nav-link  text-white" href="/admin/">Admin</a></li>
-                        {% else %}
-                        <a class="nav-link  text-white" href="{% url 'pages:contact-us' %}">Contact</a>
-                        {% endif %}
+                        {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link text-white active" aria-current="page" href="#">Comments</a>
+                            <a href="{% url 'pages:comment-list' %}" class="nav-link text-white active" aria-current="page" href="#">Comments</a>
                         </li>
+                        {% endif %}
+                        <a class="nav-link  text-white" href="{% url 'pages:contact-us' %}">Contact</a>
+                        
+                        
                         <li class="nav-item">
                             <a class="nav-link text-white disabled">Location</a>
                         </li>

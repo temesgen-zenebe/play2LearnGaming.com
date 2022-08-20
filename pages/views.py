@@ -32,8 +32,8 @@ class ContactUsView(TemplateView):
 class MyCommentsListView(View):
      
      def get(self, request):
-         ana_comment = Comment_Anagram.objects.filter(Q(user = request.user) & Q(active = True)).order_by('-created').distinct('created')
-         math_comment = Comment_math.objects.filter(Q(user = request.user) & Q(active = True)).order_by('-created').distinct('created')
+         ana_comment = Comment_Anagram.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
+         math_comment = Comment_math.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
          context = {
              'my_anagram_comment' : ana_comment,
              'my_math_comment': math_comment,  
@@ -122,8 +122,12 @@ class PrintGameScore(View):
             return render(request,"pages/home.html",{})
 
         
-def delete_math(request, id):
+def deleteCommentMath(request, id):
   member = Comment_math.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse('pages:my_comment'))
     
+def deleteCommentAnagrame(request, id):
+  member = Comment_Anagram.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse('pages:my_comment'))
