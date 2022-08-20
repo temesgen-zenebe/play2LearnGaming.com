@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Anagram_score
+from .models import Anagram_score,Comment_Anagram
 
 
 # Register your models here.
@@ -12,3 +12,14 @@ class AnagrameScoreAdmin(admin.ModelAdmin):
         if obj: # editing an existing object
             return ('score','created')
         return ()
+    
+# Register your models here.
+@admin.register(Comment_Anagram)
+class CommentAnagramGame(admin.ModelAdmin):
+    list_display = ('user', 'game_type','comment', 'created','active',)
+    list_filter = ('active', 'created')
+    search_fields = ('user', 'created')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)

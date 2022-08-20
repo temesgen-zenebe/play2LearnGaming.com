@@ -8,7 +8,7 @@ from django.views.generic.detail import DetailView
 from django.views import View
 from django.db.models import Q
 from .models import Anagram_score
-from .forms import AnagrameScoreForm
+from .forms import AnagrameScoreForm,CommentAnagrameForm
 import json
 
 

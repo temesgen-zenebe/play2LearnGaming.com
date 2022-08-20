@@ -1,20 +1,23 @@
 {% extends "_base.html" %}
-
+{% load static %}
+{% block javascript %}{% endblock %}
 {% block title %}my comments{% endblock %}
 {% block header %}my comments{% endblock %}
 {% block main %}
-<div>
+<h6 class="text-center muted">Manage your comments </h6>
+<hr>
+<div class="container m-auto" style="max-width:90% ">
+    
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">math game comments</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Anagram hunt game comments</button>
-          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">back to play</button>
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">math comments</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Anagram comments</button>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
+    </nav>
+    <div class="tab-content border-top " id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <!--comment-->
-                <div class="row text-start m-3 gap-2 p-2">
+                <div class="row text-start gap-1 p-2">
                    <div class="col-sm-12 p-2 border shadow">
                      <div class="my-3 p-3 bg-body rounded ">
                       <div class="d-flex justify-content-between border-bottom pb-2">
@@ -35,13 +38,13 @@
                         {% else %}
                           <i class="bi bi-person-bounding-box mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
                         {% endif %} 
-                        <p class=" mb-0 small lh-sm ">
+                        <p class=" mb-0 small ">
                           <strong class="d-block text-gray-dark">@ {{comment.user}}</strong>
                           <span class="d-block x-small ">{{comment.created|date:'Y-m-d | h-m-s'}}</span>
                         </p>
                       </div>
                       <div class="text-muted border-bottom mx-2 ">
-                        <p class="mb-1 small lh-sm">{{comment.comment|linebreaks}}</p>
+                        <p class="mb-1 small">{{comment.comment|linebreaks}}</p>
                       </div>
                       {% empty %}
                         <p class="small">Sorry, there are no comments....</p> 
@@ -53,13 +56,53 @@
                      </div>
                    </div>
                 </div>
-             
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-      </div>
+        <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <!--comment-->
+            <div class="row text-start gap-1 p-2">
+                <div class="col-sm-12 p-2 border shadow">
+                    <div class="my-3 p-3 bg-body rounded ">
+                        <div class="d-flex justify-content-between border-bottom pb-2">
+                            <h6 class="">Recent Comments </h6>
+                            {% if user.is_authenticated %}
+                                <button type="button" class="btn btn-sm btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@getbootstrap">
+                                 Add Comment </button>
+                            {% endif %}
+                        </div>
+                        {% for comment in my_anagram_comment|slice:':10' %}
+                        <div class="d-flex  justify-content-start text-muted pt-3">
+                            {% if user == comment.user %}
+                                {% if user.avatar and not form.avatar.errors %}
+                                <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
+                                {% else %}
+                                 <i class="bi bi-person-workspace mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
+                                {% endif %} 
+                             {% else %}
+                               <i class="bi bi-person-bounding-box mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
+                             {% endif %} 
+                             <p class=" mb-0 small lh-sm ">
+                               <strong class="d-block text-gray-dark">@ {{comment.user}}</strong>
+                               <span class="d-block x-small ">{{comment.created|date:'Y-m-d | h-m-s'}}</span>
+                             </p>
+                        </div>
+                        <div class="text-muted border-bottom mx-2 ">
+                            <p class="mb-1 small ">{{comment.comment|linebreaks}}</p>
+                        </div>
+                        {% empty %}
+                            <p class="small">Sorry, there are no comments....</p> 
+                        {% endfor %} 
+                           
+                        <small class="d-block text-start my-1 mx-2 small">
+                            <a href="#">All updates</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+                  
+        </div>
+    </div>
 </div>
-<!--comment_model-->
+<!--comment_model math game-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
@@ -101,4 +144,44 @@
       </div>
     </div>
 </div>   
+<!--comment_model anagrame game-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Comment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+                <div id="div_id_game_type" class="form-group"> 
+                  <label for="id_game_type" class=" requiredField">Game type<span class="asteriskField">*</span> </label> 
+                  <div> 
+                    <select name="game_type" class="select form-control" required id="id_game_type">
+                       <option value="" selected>--Please choose--</option> 
+                       <option value="anagrame">AnagrameHunt</option> 
+                       
+                      </select> 
+                    </div> 
+                  </div> 
+                  <div id="div_id_comment" class="form-group"> 
+                    <label for="id_comment" class=" requiredField">Comment<span class="asteriskField">*</span> </label> 
+                    <div>
+                      <textarea name="comment" cols="40" rows="10" maxlength="300" class="textarea form-control" required id="id_comment"></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form-group text-end">
+                  <button class="btn btn-sm btn-outline-primary" type="submit">Post</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+</div> 
 {% endblock %}
