@@ -6,7 +6,7 @@ from multiprocessing import context
 from urllib import request
 from django.urls import reverse_lazy,reverse
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from anagram_game.models import Anagram_score,Comment_Anagram
 from math_game.models import Addition_score,Division_score,Multiplication_score,Subtraction_score,Comment_math
 from anagram_game.forms import CommentAnagrameForm
@@ -15,6 +15,8 @@ from .models import Games_comment
 from .forms import GameCommentForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q
+from django.template import loader
+
 
 
 class HomePageView(TemplateView):
@@ -118,6 +120,10 @@ class PrintGameScore(View):
             return redirect('pages:math-score-list')
         else:   
             return render(request,"pages/home.html",{})
-        
 
+        
+def delete_math(request, id):
+  member = Comment_math.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse('pages:my_comment'))
     
