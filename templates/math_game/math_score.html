@@ -186,42 +186,15 @@
             <!--comment-->
             <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
                 <div class="row text-start gap-2 p-2">
-                  {% if user.is_authenticated %}
-                  <div class="col-sm-12 p-2 border ">
-                    <div class="content-section m-auto" style="max-width: 40%;">
-                      <form method="POST">
-                        {% csrf_token %}
-                        <fieldset class="form-group"><legend class="border-bottom mb-4">Comment</legend>
-                            <div id="div_id_game_type" class="form-group"> 
-                              <label for="id_game_type" class=" requiredField">Game type<span class="asteriskField">*</span> </label> 
-                              <div> 
-                                <select name="game_type" class="select form-control" required id="id_game_type">
-                                   <option value="" selected>--Please choose--</option> 
-                                   <option value="Ad">Addition</option> 
-                                   <option value="Div">Division</option>
-                                   <option value="Mul">Multiplication</option>
-                                   <option value="Sub">Subtraction</option>
-                                  </select> 
-                                </div> 
-                              </div> 
-                              <div id="div_id_comment" class="form-group"> 
-                                <label for="id_comment" class=" requiredField">Comment<span class="asteriskField">*</span> </label> 
-                                <div>
-                                  <textarea name="comment" cols="40" rows="10" maxlength="300" class="textarea form-control" required id="id_comment"></textarea>
-                                </div>
-                              </div>
-                            </fieldset>
-                            <div class="form-group">
-                              <button class="btn btn-sm btn-outline-primary" type="submit">Post</button>
-                            </div>
-                      </form>
-                      
-                  </div>
-                  </div>
-                  {% endif %} 
                   <div class="col-sm-12 p-2 border shadow">
                     <div class="my-3 p-3 bg-body rounded ">
-                      <h6 class="border-bottom pb-2 mb-0">Recent Comments</h6>
+                      <div class="d-flex justify-content-between border-bottom pb-2">
+                        <h6 class="">Recent Comments </h6>
+                        {% if user.is_authenticated %}
+                        <button type="button" class="btn btn-sm btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
+                          Add Comment </button>
+                        {% endif %}
+                      </div>
                       {% for comment in userComment|slice:':10' %}  
                       <div class="d-flex  justify-content-start text-muted pt-3">
                         {% if user == comment.user %}
@@ -258,5 +231,47 @@
     
   </div> 
 </div>
-  
+
+<!--comment_model-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Comment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {% csrf_token %}
+              <div id="div_id_game_type" class="form-group"> 
+                <label for="id_game_type" class=" requiredField">Game type<span class="asteriskField">*</span> </label> 
+                <div> 
+                  <select name="game_type" class="select form-control" required id="id_game_type">
+                     <option value="" selected>--Please choose--</option> 
+                     <option value="Ad">Addition</option> 
+                     <option value="Div">Division</option>
+                     <option value="Mul">Multiplication</option>
+                     <option value="Sub">Subtraction</option>
+                    </select> 
+                  </div> 
+                </div> 
+                <div id="div_id_comment" class="form-group"> 
+                  <label for="id_comment" class=" requiredField">Comment<span class="asteriskField">*</span> </label> 
+                  <div>
+                    <textarea name="comment" cols="40" rows="10" maxlength="300" class="textarea form-control" required id="id_comment"></textarea>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="form-group text-end">
+                <button class="btn btn-sm btn-outline-primary" type="submit">Post</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>  
 {% endblock %}

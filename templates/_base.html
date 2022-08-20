@@ -87,7 +87,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'my-account' %}">Manage account</a>
-                                <a class="dropdown-item" href="#">your comments</a>
+                                <a class="dropdown-item" href="{% url 'pages:my_comment' %}">your comments</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'math_game:score-math' %}">Your Math Scores</a>
                                 <a class="dropdown-item" href="{% url 'anagram_game:user-anagram-score' %}">Your Anagrame Scores</a>

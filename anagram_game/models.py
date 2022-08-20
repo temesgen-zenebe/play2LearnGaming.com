@@ -38,4 +38,6 @@ class Anagram_score(models.Model):
 
     def __str__(self):
         return self.word_size
-        
+    
+class Comment_Anagram(models.Model):
+    pass
