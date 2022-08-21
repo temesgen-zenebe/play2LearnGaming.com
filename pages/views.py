@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from anagram_game.models import Anagram_score,Comment_Anagram
 from math_game.models import Addition_score,Division_score,Multiplication_score,Subtraction_score,Comment_math
+
 from anagram_game.forms import CommentAnagrameForm
 from math_game.forms import CommentForm 
 from users.models import LoggedUser 
@@ -101,7 +102,7 @@ class PrintGameScore(View):
         anagramScore = Anagram_score.objects.all().order_by('-point').distinct('point')
         comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
         logged_users=LoggedUser.objects.all()
-    
+       
         context = {
             'Addition':operate1,
             'Division':operate2,
@@ -110,6 +111,7 @@ class PrintGameScore(View):
             'anagramScore':anagramScore,
             'gameComment':comment,
             'logged_users': logged_users,
+            
             
         }
         return render(request, 'pages/home.html', context)

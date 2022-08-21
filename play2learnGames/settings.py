@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
     
+    
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

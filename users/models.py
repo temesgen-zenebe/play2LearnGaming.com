@@ -32,10 +32,11 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f'{self.username}'
     
+    
 User = get_user_model()
 
 class LoggedUser(models.Model):
-    users = models.ForeignKey(User, on_delete=models.CASCADE, unique=True ,default="", null=True)
+    users = models.OneToOneField(User, on_delete=models.CASCADE, unique=True ,default="", null=True)
 
     def __unicode__(self):
         return self.users.username
