@@ -30,3 +30,5 @@ class Games_comment(models.Model):
 
     def __str__(self):
         return 'Games_comment {} by {}'.format(self.user,self.comment,self.active,self.created)
+    
+    

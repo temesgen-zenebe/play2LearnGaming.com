@@ -3,9 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
-
-from allauth.account.views import PasswordChangeView
-
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
+from django.utils import timezone
+from allauth.account.views import PasswordChangeView 
 from .forms import CustomUserChangeForm 
 
 

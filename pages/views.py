@@ -1,3 +1,4 @@
+from atexit import register
 import email
 from typing import ValuesView
 from django.views.generic import TemplateView,CreateView,ListView
@@ -10,7 +11,9 @@ from django.http import HttpResponse,HttpResponseRedirect
 from anagram_game.models import Anagram_score,Comment_Anagram
 from math_game.models import Addition_score,Division_score,Multiplication_score,Subtraction_score,Comment_math
 from anagram_game.forms import CommentAnagrameForm
-from math_game.forms import CommentForm  
+from math_game.forms import CommentForm 
+from users.models import LoggedUser 
+from django.contrib.auth import get_user_model
 from .models import Games_comment 
 from .forms import GameCommentForm
 from django.core.exceptions import ValidationError
@@ -34,9 +37,11 @@ class MyCommentsListView(View):
      def get(self, request):
          ana_comment = Comment_Anagram.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
          math_comment = Comment_math.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
+        
          context = {
              'my_anagram_comment' : ana_comment,
              'my_math_comment': math_comment,  
+             
          }
          return render(request, 'pages/my_comment.html', context)
      
@@ -95,6 +100,8 @@ class PrintGameScore(View):
         operate4 = Subtraction_score.objects.all().order_by('-point').distinct('point')
         anagramScore = Anagram_score.objects.all().order_by('-point').distinct('point')
         comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
+        logged_users=LoggedUser.objects.all()
+    
         context = {
             'Addition':operate1,
             'Division':operate2,
@@ -102,6 +109,8 @@ class PrintGameScore(View):
             'Subtraction':operate4,
             'anagramScore':anagramScore,
             'gameComment':comment,
+            'logged_users': logged_users,
+            
         }
         return render(request, 'pages/home.html', context)
     
