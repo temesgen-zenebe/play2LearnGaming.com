@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views import View
 from django.db.models import Q
-from .models import Anagram_score
+from .models import Anagram_score,Comment_Anagram
 from .forms import AnagrameScoreForm,CommentAnagrameForm
 import json
 
@@ -67,7 +67,25 @@ class ScoreUserView(View):
         return render(request, 'anagram_game/anagram_score_list.html', context)
 
 class ScoreView(View):
-    def get(self ,request):    
+    def get(self ,request): 
+           
+        #comment
         scoreAnagram = Anagram_score.objects.all().order_by('-point').distinct('point') 
-        context = { 'Score_Anagram':scoreAnagram}
+        
+        #comment
+        commentAnagram = Comment_Anagram.objects.all().order_by('-created')
+        
+        context = { 
+                    'Score_Anagram':scoreAnagram,
+                    'commentAnagram':commentAnagram
+                }
         return render(request, 'anagram_game/anagram_score.html', context)
+    
+    def post(self, request):
+        commentNew = Comment_Anagram.objects.create(
+                  user = request.user,
+                  game_type = request.POST.get('game_type'),
+                  comment = request.POST.get('comment'), 
+              )
+        commentNew.save()
+        return redirect('anagram_game:all-anagram-score')

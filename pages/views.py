@@ -21,9 +21,10 @@ from .forms import GameCommentForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.template import loader
-from datetime import date, datetime,timedelta
+from datetime import timedelta
 from django.utils import timezone
 
+#get time date 
 today = timezone.now()
 startDate = today - timedelta(days=7)
 endDate = today 
@@ -44,16 +45,39 @@ class MyCommentsListView(View):
      def get(self, request):
          ana_comment = Comment_Anagram.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
          math_comment = Comment_math.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
-        
+         
+         #comment
+         game_comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
          context = {
              'my_anagram_comment' : ana_comment,
              'my_math_comment': math_comment,  
+             'game_comment':game_comment,
              
          }
          return render(request, 'pages/my_comment.html', context)
      
      def post(self, request):
         game = request.POST.get('game_type')
+        email = request.POST.get('email')
+        
+        #GameCommentForm
+        if email == request.POST.get('email'):
+            data = {  
+                'email' : request.POST.get('email'),
+                'comment' : request.POST.get('comment'), 
+            }
+            forms = GameCommentForm(data)
+            if forms.is_valid():
+                commentNew = Games_comment.objects.create(
+                    user = request.user,
+                    email= request.POST.get('email'),
+                    comment = request.POST.get('comment'), 
+                )
+                commentNew.save()
+                return redirect('pages:my_comment')
+            else:   
+                return render(request,"pages/my_comment.html",{})
+            
         #print(game)
         if game == 'anagrame':# anagrame game
             data = {  
@@ -159,5 +183,10 @@ def deleteCommentMath(request, id):
     
 def deleteCommentAnagrame(request, id):
   member = Comment_Anagram.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse('pages:my_comment'))
+
+def deleteGameComment(request, id):
+  member = Games_comment.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse('pages:my_comment'))

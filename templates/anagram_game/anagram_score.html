@@ -13,7 +13,11 @@
             <div class="nav nav-tabs medium" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-Anagram-tab" data-bs-toggle="tab" data-bs-target="#nav-Anagram" type="button" role="tab" aria-controls="nav-Anagram" aria-selected="true">Anagram Score</button>
                 <button class="nav-link" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment" type="button" role="tab" aria-controls="nav-comment" aria-selected="false">Comments</button>
+                {% if user.is_authenticated %}
                 <a class="nav-link" href="{% url 'anagram_game:anagram-game-main' %}" >Play</a>
+                {% else %}
+                <a class="nav-link d-none d-sm-block" href="{% url 'pages:homepage' %}">Play</a>
+                {% endif %}
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -60,14 +64,93 @@
             </div>
             <!--comment-->
             <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab" tabindex="0">
-                <div class="row m-auto p-2">
-                    <div class="col-sm-12 p-1 ">
-                      <p>comment go her...</p>
+                <div class="row text-start gap-2 p-2">
+                    <div class="col-sm-12 p-2 border shadow">
+                      <div class="my-3 p-3 bg-body rounded ">
+                        <div class="d-flex justify-content-between border-bottom pb-2">
+                          <h6 class="">Recent Comments </h6>
+                          {% if user.is_authenticated %}
+                          <button type="button" class="btn btn-sm btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
+                            Add Comment </button>
+                          {% endif %}
+                        </div>
+                        {% for comment in commentAnagram|slice:':10' %}  
+                        <div class="d-flex  justify-content-start text-muted pt-3">
+                          {% if user == comment.user %}
+                            {% if user.avatar and not form.avatar.errors %}
+                             <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
+                             {% else %}
+                              <i class="bi bi-person-workspace mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
+                             {% endif %} 
+                          {% else %}
+                            <i class="bi bi-person-bounding-box mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
+                          {% endif %} 
+                          <p class=" mb-0 small lh-sm ">
+                            <strong class="d-block text-gray-dark">@ {{comment.user}}</strong>
+                            <span class="d-block x-small ">{{comment.created|date:'Y-m-d | h-m-s'}}</span>
+                            {% if comment.active %}
+                              <span class="d-block x-small text-primary">public</span>
+                            {% else %}
+                              <span class="d-block x-small text-danger">panding</span>
+                            {% endif %} 
+                        </p>
+                        </div>
+                        <div class="text-muted border-bottom mx-2 ">
+                          <p class="mb-1 small lh-sm">{{comment.comment|linebreaks}}</p>
+                        </div>
+                        {% empty %}
+                          <p class="small">Sorry, there are no comments....</p> 
+                        {% endfor %} 
+                        
+                        <small class="d-block text-start my-1 mx-2 small">
+                          <a href="#">All updates</a>
+                        </small>
+                      </div>
                     </div>
-                </div>
+                  </div>
             </div>
         </div>
     </div>  
   </div> 
 </div>
+<!--comment_model-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Comment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST">
+                {% csrf_token %}
+                    <div id="div_id_game_type" class="form-group"> 
+                      <label for="id_game_type" class=" requiredField">Game type<span class="asteriskField">*</span> </label> 
+                      <div> 
+                        <select name="game_type" class="select form-control" required id="id_game_type">
+                           <option value="" selected>--Please choose--</option> 
+                           <option value="anagrame">AnagrameHunt</option> 
+                           
+                          </select> 
+                        </div> 
+                      </div> 
+                      <div id="div_id_comment" class="form-group"> 
+                        <label for="id_comment" class=" requiredField">Comment<span class="asteriskField">*</span> </label> 
+                        <div>
+                          <textarea name="comment" cols="40" rows="10" maxlength="300" class="textarea form-control" required id="id_comment"></textarea>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="form-group text-end">
+                      <button class="btn btn-sm btn-outline-primary" type="submit">Post</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

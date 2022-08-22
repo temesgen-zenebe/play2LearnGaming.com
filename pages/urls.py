@@ -13,5 +13,7 @@ urlpatterns = [
     path('my_comment/', MyCommentsListView.as_view(), name='my_comment'),
     path('my_comment/delete/<int:id>', views.deleteCommentMath, name='delete'),
     path('my_comment/delete_anagram/<int:id>', views.deleteCommentAnagrame, name='delete_anagram'),
+    path('my_comment/delete_game/<int:id>', views.deleteGameComment, name='delete_game'),
+    
 ]
 

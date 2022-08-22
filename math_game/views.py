@@ -154,14 +154,17 @@ class ScoreMathList(View):
               return redirect('math_game:score-math-list')
 
 
-
 class AllScoreMathList(View):
 
     def get(self, request):
+        
+        #about games
         operate1 = Addition_score.objects.all().order_by('-point').distinct('point')
         operate2 = Division_score.objects.all().order_by('-point').distinct('point')
         operate3=  Multiplication_score.objects.all().order_by('-point').distinct('point')
         operate4 = Subtraction_score.objects.all().order_by('-point').distinct('point')
+        
+        #comment
         comment = Comment_math.objects.all().order_by('-created')
         context = {
             
