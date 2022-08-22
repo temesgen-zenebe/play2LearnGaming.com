@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
 from django.db import models
 from django.urls import reverse
-
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.contrib.auth.signals import user_logged_in, user_logged_out
