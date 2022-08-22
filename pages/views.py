@@ -39,10 +39,28 @@ class AboutUsView(TemplateView):
 class ContactUsView(TemplateView):
     template_name = 'pages/contact_us.html'
     
+class CommentsListView(View):
+    def post(self, request):
+        #GameCommentForm
+        data = { 
+                'email' : request.POST.get('email'),
+                'comment' : request.POST.get('comment'),
+            }
+        forms = GameCommentForm(data)
+        if forms.is_valid():
+            commentNew = Games_comment.objects.create(
+                user = request.user,
+                email= request.POST.get('email'),
+                comment = request.POST.get('comment'),
+                )
+            commentNew.save()
+            return redirect('pages:comment')
+        else:
+            return render(request,"pages/my_comment.html",{})   
 
 class MyCommentsListView(View):
-     
-     def get(self, request):
+    
+    def get(self, request):
          ana_comment = Comment_Anagram.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
          math_comment = Comment_math.objects.filter(Q(user = request.user) ).order_by('-created').distinct('created')
          
@@ -56,47 +74,26 @@ class MyCommentsListView(View):
          }
          return render(request, 'pages/my_comment.html', context)
      
-     def post(self, request):
-        game = request.POST.get('game_type')
-        email = request.POST.get('email')
-        
-        #GameCommentForm
-        if email == request.POST.get('email'):
-            data = {  
-                'email' : request.POST.get('email'),
-                'comment' : request.POST.get('comment'), 
-            }
-            forms = GameCommentForm(data)
-            if forms.is_valid():
-                commentNew = Games_comment.objects.create(
-                    user = request.user,
-                    email= request.POST.get('email'),
-                    comment = request.POST.get('comment'), 
-                )
-                commentNew.save()
-                return redirect('pages:my_comment')
-            else:   
-                return render(request,"pages/my_comment.html",{})
-            
-        #print(game)
-        if game == 'anagrame':# anagrame game
-            data = {  
-                'game_type' : request.POST.get('game_type'),
-                'comment' : request.POST.get('comment'), 
-            }
-            forms = CommentAnagrameForm(data)
-            if forms.is_valid():
-                commentNew = Comment_Anagram.objects.create(
+    def post(self, request):
+        if request.POST.get('game_type') == 'anagrame':# anagrame game
+                data = {  
+                        'game_type' : request.POST.get('game_type'),
+                        'comment' : request.POST.get('comment'), 
+                        }
+                forms = CommentAnagrameForm(data)
+                if forms.is_valid():
+                    commentNew = Comment_Anagram.objects.create(
                     user = request.user,
                     game_type = request.POST.get('game_type'),
-                    comment = request.POST.get('comment'), 
-                )
-                commentNew.save()
-                return redirect('pages:my_comment')
-            else:   
-                return render(request,"pages/my_comment.html",{})
-        
-        else:# math game
+                    comment = request.POST.get('comment'),
+                    )
+                    commentNew.save()
+                    return redirect('pages:my_comment')
+                else:
+                    return render(request,"pages/my_comment.html",{})
+         
+        else :# math game
+            
             data = {  
                 'game_type' : request.POST.get('game_type'),
                 'comment' : request.POST.get('comment'), 
@@ -112,7 +109,7 @@ class MyCommentsListView(View):
                 return redirect('pages:my_comment')
             else:   
                 return render(request,"pages/my_comment.html",{})
-
+                          
 class GameCommentListView(ListView):
    template_name = 'pages/home.html'
    model = Games_comment

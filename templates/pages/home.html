@@ -87,7 +87,7 @@
                     <a href="{% url 'account_login'%}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
                         comments:<small>({{ gameComment.count }})</small></a>
                     {% else %}
-                    <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
+                    <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ user.email }}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
                         comments us <small>({{ gameComment.count }})</small>
                     </a>
                     {% endif%}

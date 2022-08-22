@@ -8,18 +8,25 @@
 <hr>
 <div class="container m-auto" style="max-width:90% ">
     
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">math comments</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Anagram comments</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-websit" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">About the comment</button>
+    <nav class="d-none  d-md-block d-xl-block d-xxl-none">
+        <div class="nav nav-tabs " id="nav-tab" role="tablist">
+          <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Math Comments</button>
+          <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Anagram Comments</button>
+          <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-websit" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Websit Comments</button>
+        </div>
+      </nav>
+    <nav class="d-block d-sm-none d-md-none">
+        <div class="nav nav-tabs " id="nav-tab" role="tablist">
+          <button class="nav-link active medium" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Math</button>
+          <button class="nav-link medium" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Anagram</button>
+          <button class="nav-link medium" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-websit" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Websit</button>
         </div>
     </nav>
     <div class="tab-content border-top " id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <!--comment math-->
                 <div class="row text-start gap-1 p-2">
-                   <div class="col-sm-12 px-5 border shadow">
+                   <div class="col-sm-12 px-3 border shadow">
                      <div class="my-3 p-3 bg-body rounded ">
                       <div class="d-flex justify-content-between border-bottom pb-2">
                         <h6 class="">Recent Comments <span class="small">({{my_math_comment.count}})</span></h6>
@@ -29,7 +36,7 @@
                         {% endif %}
                       </div>
                       {% for comment in my_math_comment|slice:':10' %}  
-                      <div class="d-flex  justify-content-between text-muted pt-3">
+                      <div class="d-flex  justify-content-between text-muted mx-4 pt-3">
                         <div class="d-flex  justify-content-start text-muted ">
                         {% if user == comment.user %}
                           {% if user.avatar and not form.avatar.errors %}
@@ -50,11 +57,13 @@
                           {% endif %} 
                         </p>
                         </div>
-                        <div><a href="delete/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
+                        {% if user == comment.user %}
+                         <div><a href="delete/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
+                        {% endif %}
                       </div>
-                      <div class="d-flex  justify-content-between text-muted pt-3">
-                        <div class="text-muted border-bottom mx-2 ">
-                            <p class="mb-1 small">{{comment.comment|linebreaks}}</p>
+                      <div class="d-flex  justify-content-between border-bottom  text-muted mx-4 pt-3">
+                        <div class="text-muted small mx-2 ">
+                            <p class="mb-1 ">{{comment.comment|linebreaks}}</p>
                             
                         </div>
                        
@@ -73,7 +82,7 @@
         <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
             <!--comment anagram-->
             <div class="row text-start gap-1 p-2">
-                <div class="col-sm-12 px-5 border shadow">
+                <div class="col-sm-12 px-3 border shadow">
                     <div class="my-3 p-3 bg-body rounded ">
                         <div class="d-flex justify-content-between border-bottom pb-2">
                             <h6 class="">Recent Comments <span class="small">({{my_anagram_comment.count}})</span></h6>
@@ -83,11 +92,11 @@
                             {% endif %}
                         </div>
                         {% for comment in my_anagram_comment|slice:':10' %}
-                        <div class="d-flex  justify-content-between text-muted pt-3">
+                        <div class="d-flex  justify-content-between text-muted mx-4 pt-3">
                             <div class="d-flex  justify-content-start text-muted ">
                             {% if user == comment.user %}
-                              {% if user.avatar and not form.avatar.errors %}
-                               <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
+                              {% if comment.user.avatar and not form.avatar.errors %}
+                               <img src="{{ comment.user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
                                {% else %}
                                 <i class="bi bi-person-workspace mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
                                {% endif %} 
@@ -104,11 +113,13 @@
                               {% endif %} 
                             </p>
                             </div>
+                            {% if user == comment.user %}
                             <div><a href="delete_anagram/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
+                            {% endif %} 
                           </div>
-                        <div class="d-flex  justify-content-between text-muted pt-3">
-                            <div class="text-muted border-bottom mx-2 ">
-                                <p class="mb-1 small">{{comment.comment|linebreaks}}</p>
+                        <div class="d-flex  justify-content-between border-bottom text-muted mx-4 pt-3">
+                            <div class="text-muted small mx-2 ">
+                                <p class="mb-1 ">{{comment.comment|linebreaks}}</p>
                             </div>
                             
                          </div>
@@ -127,9 +138,9 @@
         </div>
         <div class="tab-pane fade " id="nav-websit" role="tabpanel" aria-labelledby="nav-profile-tab">
           <!--game comment -->
-        <div class="row text-start gap-1 p-2">
-              <div class="col-sm-12 px-5 border shadow">
-                <div class="my-3 p-3 bg-body rounded ">
+        <div class="row text-start gap-1 p-3">
+              <div class="col-sm-12 px-3 border shadow">
+                <div class="my-2 p-2 bg-body rounded ">
                       <div class="d-flex justify-content-between border-bottom pb-2">
                           <h6 class="">Recent Comments <span class="small">({{game_comment.count}})</span></h6>
                           {% if user.is_authenticated %}
@@ -138,11 +149,11 @@
                           {% endif %}
                       </div>
                       {% for comment in game_comment|slice:':10' %}
-                      <div class="d-flex  justify-content-between text-muted pt-3">
+                      <div class="d-flex  justify-content-between text-muted mx-4 pt-3">
                           <div class="d-flex  justify-content-start text-muted ">
                           {% if user == comment.user %}
-                            {% if user.avatar and not form.avatar.errors %}
-                             <img src="{{ user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
+                            {% if comment.user.avatar and not form.avatar.errors %}
+                             <img src="{{ comment.user.avatar.url }}" alt="Avatar" class=" img-fluid shadow mx-2" style="max-width:21px; max-height: 21px;"/>      
                              {% else %}
                               <i class="bi bi-person-workspace mx-2" style="font-size: 20px; color: rgb(100, 102, 111);"></i>
                              {% endif %} 
@@ -159,10 +170,12 @@
                             {% endif %} 
                           </p>
                           </div>
-                          <div><a href="delete_game/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
+                          {% if user == comment.user %}
+                           <div><a href="delete_game/{{ comment.id }}" class="text-dark" style="font-size:20px "><i class="bi bi-trash"></i></a></div>
+                          {% endif %} 
                         </div>
-                      <div class="d-flex  justify-content-between text-muted pt-3">
-                          <div class="text-muted border-bottom mx-2 ">
+                      <div class="d-flex  justify-content-between border-bottom  text-muted mx-4 pt-3">
+                          <div class="text-muted mx-2 small">
                               <p class="mb-1 small">{{comment.comment|linebreaks}}</p>
                           </div>
                           
