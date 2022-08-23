@@ -1,7 +1,223 @@
 {% extends "_base.html" %}
-
+{% load static %}
 {% block title %}About Us{% endblock %}
 {% block header %}About Us{% endblock %}
 {% block main %}
-  <p>Very interesting information about us!</p>
+<div class="container">
+  <div class="row gap-2">
+    <div class="col-sm-12">
+      
+      <div class="card text-white bg-primary  shadow mb-3" style="max-width: 100rem;">
+        <img src="{% static 'images/play2earning-about-us.jpg' %}"  class=" rounded-start " alt="...">
+        <div class="card-img-overlay text-center m-auto p-2 ">
+          <h5 class="card-title my-3">play2learnGameing.com</h5>
+          <p class="card-text my-4"><i class="bi bi-chat-left-quote px-2"></i> Our Bast Gift of the future </p>
+        </div>
+      </div>
+     
+    </div>
+    <div class="col-sm-12 ">
+      <div class="card border-success text-center mb-3" style="max-width: 100rem;">
+        <div class="card-header">ALL ABOUT US</div>
+        <div class="card-body text-success">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active small" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">VISION</button>
+              <button class="nav-link small" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">MISSION</button>
+              <button class="nav-link small" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">VALUES</button>
+              <button class="nav-link small" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Funders & Teams</button>
+            </div>
+          </nav>
+          <div class="tab-content mx-3" id="nav-tabContent ">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+              <div class="card my-3 shadow">
+                <div class="card-body border px-5 m-4">
+                  <h5 class="card-title">OUR VISION</h5>
+                  <p class="card-text text-start ">
+                    To entertain, inform and inspire people around 
+                    the globe through the power of creative minds and innovative 
+                    technologies that make peoples entertain and learn as the same time.
+                  </p>
+                  
+                </div>
+                <img src="{% static 'images/mission.jpeg' %}" class="img-thumbnail img-b m-auto" alt="..." style="max-width: 95%;">
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+              <div class="card my-3 shadow">
+                <div class="card-body border px-5 m-4">
+                  <h5 class="card-title">OUR MISSION</h5>
+                  <p class="card-text text-start">
+                  
+                    Behind every great human achievement, there is a team. 
+                    From medicine and space travel, to disaster response and pizza deliveries,
+                    our products help teams all over the planet advance humanity through the 
+                    power of software. Our mission is to help unleash the potential of every team.
+                  </p>
+                  
+                </div>
+                <img src="{% static 'images/visionco.png' %}" class="img-thumbnail img-b m-auto p-2" style="max-width: 98%;" alt="...">
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+              <div class="card my-3 shadow" >
+                
+                <div class="card-header border m-1">
+                   <h5 class="card-title">OUR VALUES</h5>
+                </div>
+                <div class="card-body ">
+                  <div class="row ">
+                    <div class="col-sm-6 ">
+                      <div class="card border border-0 ">
+                        <div class="card-body ">
+                          <ul class="list-group list-group-horizontal-xxl text-start px-2 ">
+                    
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Innovation</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Integrity</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Making a difference</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Passion</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Persistence</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Self-improvement</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Sustainability</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Teamwork</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Transparency</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Trust</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Vulnerability</li> 
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="card border border-0">
+                        <div class="card-body ">
+                          <ul class="list-group list-group-horizontal-xxl text-start px-2">
+                    
+                            <li class="list-group-item "><i class="bi bi-check2-square px-2"></i>Accountability</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Boldness</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Collaboration</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Continuous improvement</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Curiosity</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Customer commitment</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Diversity</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Honesty</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Humility</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Inclusion</li> 
+                            <li class="list-group-item"><i class="bi bi-check2-square px-2"></i>Innovation</li> 
+                            
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-2 p-2">
+                  <img src="{% static 'images/Personal-Values.jpg' %}" class="img-thumbnail img-b m-auto" alt="..." style="max-width: 100%;">
+                  <p class="card-textsmall "><small class="text-muted">Last updated 3 mins ago</small></p>
+                  </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+              <div class="row row-cols-1 row-cols-md-5 g-4 my-3">
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="{% static 'images/CEO_FUNDER.png' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">Temesgen T Zenebe</h6>
+                      <p class="card-text muted small">CEO & Founder</p>
+                      <p class="card-text muted small">temf2022@gmail.com</p>
+                      
+                    </div>
+                    <div class="card-footer bg-light">
+                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="{% static 'images/team61.png' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">William Smith</h6>
+                      <p class="card-text muted small">System Administration </p>
+                      <p class="card-text muted small">WILLIAMS_ad@gmail.com</p>
+                      
+                    </div>
+                    <div class="card-footer bg-light">
+                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="{% static 'images/team3.png' %}"  class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">Mike Ross</h6>
+                      <p class="card-text muted small">Tech Designer & Founder</p>
+                      <p class="card-text muted small">MikeRoss@gmail.com</p>
+                      
+                    </div>
+                    <div class="card-footer bg-light">
+                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="{% static 'images/businessman.jpg' %}"  class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">Tomas Danil</h6>
+                      <p class="card-text muted small">software Egineer </p>
+                      <p class="card-text muted small">DanilTomas@gmail.com</p>
+                      
+                    </div>
+                    <div class="card-footer bg-light">
+                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <img src="{% static 'images/dataPrivacy.png' %}"  class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h6 class="card-title">Dr.hellen ethial</h6>
+                      <p class="card-text muted small">Data Privacy </p>
+                      <p class="card-text muted small">hellen@gmail.com</p>
+                      
+                    </div>
+                    <div class="card-footer bg-light">
+                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+              <div class="row row-cols-1 row-cols-md-2 g-4 my-3">
+                <div class="col">
+                  <img src="{% static 'images/business-growth.jpg' %}" class="card-img-top" alt="...">
+                </div>
+                <div class="col">
+                  <div class="card border-success mb-3" style="max-width: 100rem;">
+                    <div class="card-header">About Team</div>
+                    <div class="card-body text-success text-start">
+                      <h5 class="card-title">Our Success Story</h5>
+                      <p class="card-text ">
+                        Quickly incentivize impactful action items before tactical collaboration and 
+                        idea-sharing within our team. Monotonically engage technologies-driven intellectual 
+                        capital through wireless opportunities. Progressively creative games aimed 
+                        performance-based and knowledge-based services for webapp function.
+                        The moto and mindset of the team is impowring humans by using technologies in the 
+                        form of games that can easly learn a users while playing and entirtning using the given game. 
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

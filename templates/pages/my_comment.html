@@ -138,15 +138,11 @@
         </div>
         <div class="tab-pane fade " id="nav-websit" role="tabpanel" aria-labelledby="nav-profile-tab">
           <!--game comment -->
-        <div class="row text-start gap-1 p-3">
+          <div class="row text-start gap-1 p-3">
               <div class="col-sm-12 px-3 border shadow">
                 <div class="my-2 p-2 bg-body rounded ">
                       <div class="d-flex justify-content-between border-bottom pb-2">
-                          <h6 class="">Recent Comments <span class="small">({{game_comment.count}})</span></h6>
-                          {% if user.is_authenticated %}
-                              <button type="button" class="btn btn-sm btn-outline-primary " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@getbootstrap">
-                               Add Comment </button>
-                          {% endif %}
+                          <h6>Recent Comments <span class="small">({{game_comment.count}})</span></h6>
                       </div>
                       {% for comment in game_comment|slice:':10' %}
                       <div class="d-flex  justify-content-between text-muted mx-4 pt-3">
@@ -188,11 +184,10 @@
                       <small class="d-block text-start my-1 mx-2 small">
                           <a href="#">All updates</a>
                       </small>
-                  </div>
                 </div>
-          </div>
-                
-         </div>
+              </div>
+          </div>     
+        </div>
     </div>
 </div>
 <!--comment_model math game-->
@@ -277,32 +272,5 @@
       </div>
     </div>
 </div> 
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form method="POST">
-        {% csrf_token %}
-        <div class="modal-body border-top text-start small">
-          <div class="mb-3">
-            <label for="id_email" class="col-form-label">Recipient:</label>
-            <input type="email" class="form-control" name="email" id="id_email">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Comment:</label>
-            <textarea class="form-control" name="comment" id="id_comment"></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-sm btn-primary" >submit</button>
-        </div>
-      </form>
-    </div>
-    </div>
-  </div>
-</div>
+
 {% endblock %}

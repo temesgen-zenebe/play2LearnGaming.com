@@ -39,25 +39,6 @@ class AboutUsView(TemplateView):
 class ContactUsView(TemplateView):
     template_name = 'pages/contact_us.html'
     
-class CommentsListView(View):
-    def post(self, request):
-        #GameCommentForm
-        data = { 
-                'email' : request.POST.get('email'),
-                'comment' : request.POST.get('comment'),
-            }
-        forms = GameCommentForm(data)
-        if forms.is_valid():
-            commentNew = Games_comment.objects.create(
-                user = request.user,
-                email= request.POST.get('email'),
-                comment = request.POST.get('comment'),
-                )
-            commentNew.save()
-            return redirect('pages:comment')
-        else:
-            return render(request,"pages/my_comment.html",{})   
-
 class MyCommentsListView(View):
     
     def get(self, request):
