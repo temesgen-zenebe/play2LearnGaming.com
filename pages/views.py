@@ -1,28 +1,27 @@
-from atexit import register
-import email
-import numbers
-from typing import ValuesView
-from django.views.generic import TemplateView,CreateView,ListView
+
+from django.views.generic import TemplateView,ListView
 from django.views import View
-from multiprocessing import context
-from urllib import request
-from django.urls import reverse_lazy,reverse
+from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from anagram_game.models import Anagram_score,Comment_Anagram
 from math_game.models import Addition_score,Division_score,Multiplication_score,Subtraction_score,Comment_math
-from django.contrib.auth.models import User
 from anagram_game.forms import CommentAnagrameForm
 from math_game.forms import CommentForm 
 from users.models import LoggedUser 
 from django.contrib.auth import get_user_model
+from django.db.models import F
 from .models import Games_comment 
 from .forms import GameCommentForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from django.template import loader
 from datetime import timedelta
 from django.utils import timezone
+from django.contrib import messages
+from django.core.validators import validate_email
+from .models import SubscribedUsers,SiteVisitersCounter
+
+
 
 #get time date 
 today = timezone.now()
@@ -32,7 +31,7 @@ endDate = today
 
 class HomePageView(TemplateView):
     template_name = 'pages/home.html'
-
+     
 class AboutUsView(TemplateView):
     template_name = 'pages/about_us.html'
 
@@ -69,6 +68,7 @@ class MyCommentsListView(View):
                     comment = request.POST.get('comment'),
                     )
                     commentNew.save()
+                    messages.success(request, 'your comment submited successfully !!.')
                     return redirect('pages:my_comment')
                 else:
                     return render(request,"pages/my_comment.html",{})
@@ -100,8 +100,10 @@ class GameCommentListView(ListView):
        comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
        return comment
     
+
+
 class PrintGameScore(View):
-   
+     
     def get(self, request):
         
         #about math game
@@ -119,9 +121,13 @@ class PrintGameScore(View):
         logged_users=LoggedUser.objects.all()
         numbers_users = get_user_model().objects.all().count()
         weekly_signup = get_user_model().objects.filter(date_joined__range=[startDate,endDate]).count()
+        
         #print(weekly_signup)
         num_visits = request.session.get('num_visits', 0)
         request.session['num_visits'] = num_visits + 1
+        numVisits = request.session['num_visits']
+        num = numVisits
+        total = num + numVisits
         context = {
             'Addition':operate1,
             'Division':operate2,
@@ -132,7 +138,7 @@ class PrintGameScore(View):
             'logged_users': logged_users,
             'numbers_users': numbers_users,
             'weekly_signup':weekly_signup,
-            'num_visits': num_visits
+            'num_visits': total
         
         }
         return render(request, 'pages/home.html', context)
@@ -152,8 +158,7 @@ class PrintGameScore(View):
             return redirect('pages:math-score-list')
         else:   
             return render(request,"pages/home.html",{})
-        
-       
+
 def deleteCommentMath(request, id):
   member = Comment_math.objects.get(id=id)
   member.delete()
@@ -168,3 +173,66 @@ def deleteGameComment(request, id):
   member = Games_comment.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse('pages:my_comment'))
+
+        
+def subscribe(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', None)
+        email = request.POST.get('email', None)
+
+        if not name or not email:
+            messages.error(request, "You must type legit name and email to subscribe to a Newsletter")
+            return redirect("/")
+
+        if get_user_model().objects.filter(email=email).first():
+            messages.error(request, f"Found registered user with associated {email} email. You must login to subscribe or unsubscribe.")
+            return redirect(request.META.get("HTTP_REFERER", "/")) 
+
+        subscribe_user = SubscribedUsers.objects.filter(email=email).first()
+        if subscribe_user:
+            messages.error(request, f"{email} email address is already subscriber.")
+            return redirect(request.META.get("HTTP_REFERER", "/"))  
+
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            messages.error(request, e.messages[0])
+            return redirect("/")
+
+        subscribe_model_instance = SubscribedUsers()
+        subscribe_model_instance.name = name
+        subscribe_model_instance.email = email
+        subscribe_model_instance.save()
+        messages.success(request, f'{email} email was successfully subscribed to our newsletter!')
+        return redirect(request.META.get("HTTP_REFERER", "/"))  
+    if request.method == 'POST':
+        name = request.POST.get('name', None)
+        email = request.POST.get('email', None)
+
+        if not name or not email:
+            messages.error(request, "You must type legit name and email to subscribe to a Newsletter")
+            return redirect("/")
+
+        if get_user_model().objects.filter(email=email).first():
+            messages.error(request, f"Found registered user with associated {email} email. You must login to subscribe or unsubscribe.")
+            return redirect(request.META.get("HTTP_REFERER", "/")) 
+
+        subscribe_user = SubscribedUsers.objects.filter(email=email).first()
+        if subscribe_user:
+            messages.error(request, f"{email} email address is already subscriber.")
+            return redirect(request.META.get("HTTP_REFERER", "/"))  
+
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            messages.error(request, e.messages[0])
+            return redirect("/")
+
+        subscribe_model_instance = SubscribedUsers()
+        subscribe_model_instance.name = name
+        subscribe_model_instance.email = email
+        subscribe_model_instance.save()
+        messages.success(request, f'{email} email was successfully subscribed to our newsletter!')
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+        
+       

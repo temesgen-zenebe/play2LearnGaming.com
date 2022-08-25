@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Games_comment
+from .models import Games_comment, SubscribedUsers,SiteVisitersCounter
  
 # Register your models here.
 @admin.register(Games_comment)
@@ -11,3 +11,13 @@ class GamesComment(admin.ModelAdmin):
 
     def approve_comments(self, request, queryset):
         queryset.update(active=True)
+        
+        
+
+@admin.register(SubscribedUsers )
+class SubscribedUsersAdmin(admin.ModelAdmin):
+    list_display = ('email', 'name', 'created_date')
+    
+@admin.register(SiteVisitersCounter)
+class SiteVisitersCounterAdmin(admin.ModelAdmin):
+    list_display = ('visits_num', 'updated_date')

@@ -3,12 +3,13 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from .models import LoggedUser
+from .models import CustomUser
 
-CustomUser = get_user_model()
+CustomUsers = get_user_model()
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    model = CustomUser
+    model = CustomUsers
 
     add_fieldsets = UserAdmin.add_fieldsets + (
         ('Optional Fields', {
@@ -23,3 +24,7 @@ class LoggedUserAdmin(admin.ModelAdmin):
     list_display = ('id' ,'users',)
     list_filter = ('id' ,'users',)
     search_fields = ('users',)
+
+
+
+

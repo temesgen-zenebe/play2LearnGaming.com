@@ -60,11 +60,11 @@
                             {% endif %}
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Scores
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <a class="dropdown-item" href="{% url 'math_game:math-score' %}">Math Scores</a>
                                 <a class="dropdown-item" href="{% url 'anagram_game:anagram-score' %}">Anagrame
                                     Sores</a>
@@ -76,7 +76,7 @@
                         {% else %}
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {% if user.avatar and not form.avatar.errors %}
                                
@@ -85,7 +85,7 @@
                                 
                                 {% endif %} {{ user.username }}
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                 <a class="dropdown-item" href="{% url 'my-account' %}">Manage account</a>
                                 <a class="dropdown-item" href="{% url 'pages:my_comment' %}">your comments</a>
                                 <div class="dropdown-divider"></div>
@@ -114,12 +114,16 @@
     <!-- main -->
     <main>
         <div class="container-fluid my-5">
-            {% block main %}{% endblock %}
+            {% block main %}
+            
+            
+            {% endblock %}
         </div>
+        
     </main>
     <!-- footer -->
     <footer>
-        <div class="container-fluid mt-5">
+        <div class="container-fluid m-auto p-3 rounded" style="max-width: 99%;">
             <footer class="bg-primary text-center text-white">
                 <!-- Grid container -->
                 <div class=" text-white">
@@ -131,8 +135,8 @@
                         
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ user.email }}" class="nav-link text-white">
-                                comments us 
+                            <a href="{% url 'pages:my_comment' %}" type="button" class="nav-link text-white">
+                                comments
                             </a>
                             
                         </li>
@@ -142,41 +146,7 @@
                     </ul>
                     <hr>
                 </div>
-                <!-- Grid container -->
-                <div class="container p-4 pb-0">
-                    <!-- Section: Form -->
-                    <section class="">
-                        <form action="">
-                            <!--Grid row-->
-                            <div class="row d-flex justify-content-center">
-
-                                <!--Grid column-->
-                                <div class="col-md-5 col-12">
-                                    <!-- Email input -->
-                                    <div class="form-outline form-white mb-4">
-                                        <label for="form5Example2">Sign up for our newsletter</label>
-                                        <input type="email" id="form5Example2" class="form-control"
-                                            placeholder="Email address" />
-
-                                    </div>
-                                </div>
-                                <!--Grid column-->
-
-                                <!--Grid column-->
-                                <div class="col-auto p-2">
-                                    <!-- Submit button -->
-                                    <button type="submit" class="btn btn-outline-light mt-4">
-                                        Subscribe
-                                    </button>
-                                </div>
-                                <!--Grid column-->
-                            </div>
-                            <!--Grid row-->
-                        </form>
-                    </section>
-                    <!-- Section: Form -->
-                </div>
-                <hr>
+                
                 <div class=" d-flex justify-content-center">
                     <a class="hover-target pe-5" href="https://www.facebook.com/temesgen.tshome"><i
                             class="bi bi-facebook text-white"></i></a>
@@ -188,13 +158,14 @@
                             class="bi bi-pinterest text-white"></i></a>
                 </div>
                 <!-- Copyright -->
-                <div class="d-flex justify-content-between p-4 text-center "
+                <hr>
+                <div class="d-flex justify-content-between p-4 text-center bg-primary  "
                     style="background-color: rgba(0, 0, 0, 0.2); font-size: 13; color: rgb(217, 233, 217);">
-                    <div class="">
+                    <div class="small">
                         <a class="text-white " style="text-decoration: none;" href="{% url 'pages:homepage' %}">
                             Terms&Conditions</a>
                     </div>
-                    <div class="">
+                    <div class="small">
                         copyright &copy; {% now 'Y' %},
                         <a class="text-white " style="text-decoration: none;" href="{% url 'pages:homepage' %}">
                             Play2learnGames</a>

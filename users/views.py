@@ -8,7 +8,10 @@ from django.contrib.sessions.models import Session
 from django.utils import timezone
 from allauth.account.views import PasswordChangeView 
 from .forms import CustomUserChangeForm 
-
+from django.shortcuts import render, redirect
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.contrib import messages
 
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     success_url = reverse_lazy('my-account')
@@ -21,3 +24,4 @@ class MyAccountPageView(SuccessMessageMixin,LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+ 

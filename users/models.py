@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.utils import timezone
 
 def validate_avatar(value):
     w, h = get_image_dimensions(value)
@@ -52,3 +53,5 @@ class LoggedUser(models.Model):
 
     user_logged_in.connect(login_user)
     user_logged_out.connect(logout_user)
+    
+

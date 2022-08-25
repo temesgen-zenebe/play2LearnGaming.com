@@ -2,10 +2,38 @@
 {% load static %}
 {% block javascript %}
 <script type="text/javascript" src="{% static 'js/comment-model.js' %}" defer ></script>
+<script type="text/javascript" async> 
+    window.onload = (event)=> {
+        let myAlert = document.querySelector('.toast');
+        let bsAlert = new  bootstrap.Toast(myAlert);
+        bsAlert.show();
+    }
+</script>
 {% endblock %}
 {% block title %}Home{% endblock %}
 {% block main %}
+{% if messages %}
 
+
+<div role="" aria-live="assertive" aria-atomic="true" class="toast my-3 mx-auto rounded shadow " style="max-width: 100%;" data-bs-delay="2000">
+    <div class="d-flex jestfing-content-between p-1 bg-primary text-white">
+      <img src="{% static 'images/favicon.png' %}" class="rounded me-2" alt="company logo">
+      <strong class="me-auto">PLAY2LERAN GRUPS</strong>
+      <button type="button" class="btn-close text-white" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <hr class="text-white">
+    <div class="toast-body">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+      <p class="text-center"><small >{% now 'm' %} mins ago</small></p>
+   </div>
+
+<!--Toast End-->
+{% endif %}
 <!-- Carousel wrapper -->
 <section id="testimonial-slider" >
     <div class="container border shadow">
@@ -133,8 +161,8 @@
                     <a type="button"  href="{% url 'account_login'%}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
                         comments:<small>({{ gameComment.count }})</small></a>
                     {% else %}
-                    <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
-                        comments us <small>({{ gameComment.count }})</small>
+                    <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{user.email}}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
+                        comments us <small class='mx-1'>({{ gameComment.count }})</small>
                     </a>
                     {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-up-fill"></i> 
@@ -157,7 +185,8 @@
         </div>
       </div>
     </div>
-</div>
+</div> 
+
 <!--comment_model-->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -172,11 +201,11 @@
         <div class="modal-body border-top text-start small">
           <div class="mb-3">
             <label for="id_email" class="col-form-label">Recipient:</label>
-            <input type="email" class="form-control" name="email" id="id_email">
+            <input type="email" class="form-control" name="email" id="id_email" required>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Comment:</label>
-            <textarea class="form-control" name="comment" id="id_comment"></textarea>
+            <textarea class="form-control" name="comment" id="id_comment" required></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -190,18 +219,222 @@
 </div>
 
 <!--information about games users-->
-<div class="container my-5">
-    <div class="row g-1">
+<div class="container my-5 mx-auto" style="max-width: 85%;">
+    <div class="row g-3">
+        <!--math-->
+        <div class="col-sm-12 p-1">
+            <div class="card text-center shadow ">
+                <div class="card-header bg-primary text-white mb-3 ">
+                    <h6 class="bold ">Top 5 Math Facts Practice Game Scores</h6>
+                </div>
+                <nav>
+                  <div class="nav nav-tabs small" id="nav-tab" role="tablist">
+                      
+                      <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
+                      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
+                      <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
+                      <!--<a href="{% url 'math_game:score-math-list' %}" >Cancel</a>-->
+                  </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                  <!--addition-->
+                  <div class="tab-pane fade show active p-2 small" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                      <div class="row m-auto p-2">
+                          <div class="col-sm-12 p-1 ">
+                              {% if Addition|first %}
+                              <div class="card text-center ">
+                                  <div class="card-body ">
+                                      <div class="table-responsive">
+                                          <table class="table table-sm table-hover border">
+                                              <thead class="table-light ">
+                                                  <tr>
+                                                  <th scope="col">Player</th>
+                                                  <th scope="col">maxRange</th>
+                                                  <th scope="col">Score</th>
+                                                  <th scope="col">Point</th>
+                                                  <th scope="col">Rank</th>
+                                                  <th scope="col">Date</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                              {% for score in Addition|slice:':5' %}
+                                              
+                                                  <tr>
+                                                  
+                                                  {% if score.operator == 'Addition[+]' %}:
+                                                  <td>{{ score.user }}</td>
+                                                  <td>{{ score.max_range }}</td>
+                                                  <td>{{ score.score}}</td>
+                                                  <td>{{ score.point}}</td>
+                                                  <td>{{ forloop.counter }}</td>
+                                                  <td>{{ score.created|date:'Y-m-d' }}</td>
+                                                  
+                                                  {% endif %}
+                                                  </tr>
+                                                  
+                                                  {% endfor %}
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                              {% else  %}
+                              <div class="card-body alert alert-primary" role="alert" ><p>I Guss you or others still not play any Addition math fact game try one!!</p></div>
+                              {% endif%}
+                          </div>
+                      </div> 
+                  </div>
+                  <!--subtraction-->
+                  <div class="tab-pane fade p-2 small" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                      <div class="row m-auto p-2">
+                          <div class="col-sm-12 p-1 ">
+                              {% if Subtraction|first %}
+                              <div class="card text-center">
+                                  <div class="card-body ">
+                                  
+                                    <table class="table table-sm table-hover border">
+                                        <thead class="table-light ">
+                                          <tr>
+                                            <th scope="col">Player</th>
+                                            <th scope="col">maxRange</th>
+                                            <th scope="col">Score</th>
+                                            <th scope="col">Point</th>
+                                            <th scope="col">Rank</th>
+                                            <th scope="col">Date</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody class="small">
+                                          {% for score in Subtraction|slice:':5' %}
+                                          <tr>
+                                          {% if score.operator == 'Subtraction[-]' %}:
+                                            <td>{{ score.user }}</td>
+                                            <td>{{ score.max_range }}</td>
+                                            <td>{{ score.score}}</td>
+                                            <td>{{ score.point}}</td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ score.created|date:'Y-m-d' }}</td>
+                                             
+                                          {% endif %}
+                                          </tr>
+                                          
+                                          {% endfor %}
+                                        
+                                        </tbody>
+                                     </table>
+                                  </div>
+                              </div>
+                              {% else  %}
+                               <div class="card-body alert alert-primary" role="alert" ><p> I Guss you or others still not play any Subtraction math fact game try one!!</p></div>
+                              {% endif%}
+                          </div>
+                      </div>
+                  </div>
+                   <!--multiplication-->
+                  <div class="tab-pane fade p-2 small" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                      <div class="row m-auto p-2">
+                          <div class="col-sm-12 p-1 ">
+                              {% if Multiplication|first %}
+                              <div class="card text-center">
+                                  
+                                  <div class="card-body ">
+                                  
+                                    <table class="table table-sm table-hover border">
+                                        <thead class="table-light ">
+                                          <tr>
+                                            <th scope="col">Player</th>
+                                            <th scope="col">maxRange</th>
+                                            <th scope="col">Score</th>
+                                            <th scope="col">Point</th>
+                                            <th scope="col">Rank</th>
+                                            <th scope="col">Date</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody class="small">
+                                        {% for score in Multiplication|slice:':5' %}
+                                          <tr>
+                                             {% if score.operator == 'Multiplication[*]' %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                             
+                                          {% endif %}
+                                          </tr>
+                                          
+                                          {% endfor %}
+                                        </tbody>
+                                     </table>
+                                  </div>
+                              </div>
+                              {% else  %}
+                                  <div class="card-body alert alert-primary" role="alert" ><p>I Guss no One still not play any Multiplication math fuct game try one !!</p></div>
+                              {% endif%}
+                          </div>
+                      </div>
+                  </div>
+                  <!--division-->
+                  <div class="tab-pane fade p-2 small" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+                      <div class="row m-auto p-2">
+                          <div class="col-sm-12 p-1 ">
+                              {% if Division|first %}
+                              <div class="card text-center ">
+                                 
+                                  <div class="card-body ">
+                                  
+                                    <table class="table table-sm table-hover border">
+                                        <thead class="table-light ">
+                                          <tr>
+                                            <th scope="col">Player</th>
+                                            <th scope="col">maxRange</th>
+                                            <th scope="col">Score</th>
+                                            <th scope="col">Point</th>
+                                            <th scope="col">Rank</th>
+                                            <th scope="col">Date</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for score in Division|slice:':5' %}
+                                         
+                                          <tr>
+                                           
+                                             {% if score.operator == 'Division[/]' %}:
+                                              <td>{{ score.user }}</td>
+                                              <td>{{ score.max_range }}</td>
+                                              <td>{{ score.score}}</td>
+                                              <td>{{ score.point}}</td>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ score.created|date:'Y-m-d' }}</td>
+                                             
+                                          {% endif %}
+                                          </tr>
+                                          
+                                          {% endfor %}
+                                        </tbody>
+                                     </table>
+                                  </div>
+                              </div>
+                              {% else  %}
+                              <div class="card-body alert alert-primary" role="alert" ><p>I Guss no One still not play any Division math fuct game try one !!</p></div>
+                              {% endif%}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
         <!--anagram-->
-        <div class="col-sm-6 p-1 ">
+        <div class="col-sm-12 p-1 ">
           <div class="card text-center shadow ">
               <div class="card-header bg-primary text-white">
                   <h6 class="bold ">Top 10 Anagrame Aunt Game scores</h6>
               </div> 
               <div class="text-center m-1">
-                
+                {% if anagramScore|first %}
                 <div class="card-body ">
-                    <div class="table-responsive shadow">
+                    <div class="table-responsive ">
                         <table class="table table-sm table-hover border m-auto">
                             <thead class="table-light small">
                                 <tr>
@@ -230,204 +463,19 @@
 
                     </div>
                 </div>
+                {% else  %}
+                 <div class="card-body alert alert-info"" role="alert" ><p> I Guss you or others still not play any anagram Hunt game try one!!</p></div>
+                {% endif%}
             </div>
            </div>
         </div>
-        <!--math-->
-        <div class="col-sm-6 p-1">
-          <div class="card text-center shadow ">
-              <div class="card-header bg-primary text-white mb-3 ">
-                  <h6 class="bold ">Top 5 Math Facts Practice Game Scores</h6>
-              </div>
-              <nav>
-                <div class="nav nav-tabs small" id="nav-tab" role="tablist">
-                    
-                    <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
-                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
-                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Multiplication</button>
-                    <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Division</button>
-                    <!--<a href="{% url 'math_game:score-math-list' %}" >Cancel</a>-->
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <!--addition-->
-                <div class="tab-pane fade show active p-2 small" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
-                            <div class="card text-center shadow ">
-                    
-                                <div class="card-body ">
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-hover border">
-                                            <thead class="table-light ">
-                                                <tr>
-                                                <th scope="col">Player</th>
-                                                <th scope="col">maxRange</th>
-                                                <th scope="col">Score</th>
-                                                <th scope="col">Point</th>
-                                                <th scope="col">Rank</th>
-                                                <th scope="col">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for score in Addition|slice:':5' %}
-                                            
-                                                <tr>
-                                                
-                                                {% if score.operator == 'Addition[+]' %}:
-                                                <td>{{ score.user }}</td>
-                                                <td>{{ score.max_range }}</td>
-                                                <td>{{ score.score}}</td>
-                                                <td>{{ score.point}}</td>
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>{{ score.created|date:'Y-m-d' }}</td>
-                                                
-                                                {% endif %}
-                                                </tr>
-                                                
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-                <!--subtraction-->
-                <div class="tab-pane fade p-2 small" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
-                            <div class="card text-center shadow ">
-                                <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
-                                      <thead class="table-light ">
-                                        <tr>
-                                          <th scope="col">Player</th>
-                                          <th scope="col">maxRange</th>
-                                          <th scope="col">Score</th>
-                                          <th scope="col">Point</th>
-                                          <th scope="col">Rank</th>
-                                          <th scope="col">Date</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody class="small">
-                                        {% for score in Subtraction|slice:':5' %}
-                                        <tr>
-                                        {% if score.operator == 'Subtraction[-]' %}:
-                                          <td>{{ score.user }}</td>
-                                          <td>{{ score.max_range }}</td>
-                                          <td>{{ score.score}}</td>
-                                          <td>{{ score.point}}</td>
-                                          <td>{{ forloop.counter }}</td>
-                                          <td>{{ score.created|date:'Y-m-d' }}</td>
-                                           
-                                        {% endif %}
-                                        </tr>
-                                        
-                                        {% endfor %}
-                                      
-                                      </tbody>
-                                   </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <!--multiplication-->
-                <div class="tab-pane fade p-2 small" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
-                            <div class="card text-center shadow ">
-                                
-                                <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
-                                      <thead class="table-light ">
-                                        <tr>
-                                          <th scope="col">Player</th>
-                                          <th scope="col">maxRange</th>
-                                          <th scope="col">Score</th>
-                                          <th scope="col">Point</th>
-                                          <th scope="col">Rank</th>
-                                          <th scope="col">Date</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody class="small">
-                                      {% for score in Multiplication|slice:':5' %}
-                                        <tr>
-                                           {% if score.operator == 'Multiplication[*]' %}:
-                                            <td>{{ score.user }}</td>
-                                            <td>{{ score.max_range }}</td>
-                                            <td>{{ score.score}}</td>
-                                            <td>{{ score.point}}</td>
-                                            <td>{{ forloop.counter }}</td>
-                                            <td>{{ score.created|date:'Y-m-d' }}</td>
-                                           
-                                        {% endif %}
-                                        </tr>
-                                        
-                                        {% endfor %}
-                                      </tbody>
-                                   </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--division-->
-                <div class="tab-pane fade p-2 small" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
-                    <div class="row m-auto p-2">
-                        <div class="col-sm-12 p-1 ">
-                            <div class="card text-center shadow ">
-                               
-                                <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
-                                      <thead class="table-light ">
-                                        <tr>
-                                          <th scope="col">Player</th>
-                                          <th scope="col">maxRange</th>
-                                          <th scope="col">Score</th>
-                                          <th scope="col">Point</th>
-                                          <th scope="col">Rank</th>
-                                          <th scope="col">Date</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                      {% for score in Division|slice:':5' %}
-                                       
-                                        <tr>
-                                         
-                                           {% if score.operator == 'Division[/]' %}:
-                                            <td>{{ score.user }}</td>
-                                            <td>{{ score.max_range }}</td>
-                                            <td>{{ score.score}}</td>
-                                            <td>{{ score.point}}</td>
-                                            <td>{{ forloop.counter }}</td>
-                                            <td>{{ score.created|date:'Y-m-d' }}</td>
-                                           
-                                        {% endif %}
-                                        </tr>
-                                        
-                                        {% endfor %}
-                                      </tbody>
-                                   </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
+        
     </div>
 </div>
-
-<div class="card mx-auto " style="max-width: 85%; ">
+<!--about activitse and numbers -->
+<div class="my-5 mx-auto " style="max-width: 85%; ">
         <div class="card-body text-dark">
-            <div class="row row-cols-1 row-cols-md-5 g-3">
+            <div class="row row-cols-2 row-cols-md-5 g-3">
                 <div class="col ">
                 <div class="card w-100 h-auto text-center shadow ">
                     <i class="bi bi-people-fill" style="font-size: 35px;"></i>
@@ -478,7 +526,7 @@
   
 </div>
 
-<div class="card mx-auto border my-5" style="max-width: 85%; ">
+<div class="card my-5 mx-auto " style="max-width: 85%; ">
     <div class="card-header bg-primary text-white text-center"> <h6>Get Play2learnGames Products in Online Stores</h6> </div>
     <div class="card-body text-dark " style="font-size: 12.5px;">
         <div class="row row-cols-1 row-cols-md-5 g-3">
@@ -536,4 +584,48 @@
     </div>
 
 </div>
+
+<!-- Grid container -->
+{% if not user.is_authenticated %}
+<div class="container bg-primary pb-2 my-5 mx-auto shadow rounded" style="max-width: 85%;">
+    <!-- Section: Form -->
+    
+    <section class="">
+        <form action="{% url 'pages:subscribe' %}" method="post">
+            <!--Grid row-->
+            <h6 class="pt-2 text-center text-white">Subscribe for our newsletter </h6>
+            <div class="row d-flex justify-content-center">
+                {% csrf_token %}
+                <!--Grid column-->
+                <div class="col-sm-5 col-4">
+                    <div class="form-outline form-white mb-2">
+                        <label for="name"></label>
+                        <input id="name" name="name" class="form-control form-control-sm" placeholder="Your Name"/>
+                    </div>
+                </div>
+                <!--Grid column-->
+                <div class="col-sm-5 col-4">
+                    <!-- Email input -->
+                    <div class="form-outline form-white mb-2">
+                        <label for="email"></label>
+                        <input id="email" name="email" type="email"  class="form-control form-control-sm"
+                            placeholder="Email address" />
+                        
+                    </div>
+                </div>
+                <!--Grid column-->
+                <div class="col-auto p-2">
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-sm btn-outline-light mt-3">
+                        Subscribe
+                    </button>
+                </div>
+                
+            </div>
+            <!--Grid row-->
+        </form>
+    </section>
+    
+</div>
+{% endif %}
 {% endblock %}
