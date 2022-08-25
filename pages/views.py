@@ -121,13 +121,15 @@ class PrintGameScore(View):
         logged_users=LoggedUser.objects.all()
         numbers_users = get_user_model().objects.all().count()
         weekly_signup = get_user_model().objects.filter(date_joined__range=[startDate,endDate]).count()
+        #SubscribedUsers
         
+        Subscribed_users = SubscribedUsers.objects.all().count()
         #print(weekly_signup)
         num_visits = request.session.get('num_visits', 0)
         request.session['num_visits'] = num_visits + 1
         numVisits = request.session['num_visits']
         num = numVisits
-        total = num + numVisits
+        totalNumVisits = num + numVisits
         context = {
             'Addition':operate1,
             'Division':operate2,
@@ -138,7 +140,8 @@ class PrintGameScore(View):
             'logged_users': logged_users,
             'numbers_users': numbers_users,
             'weekly_signup':weekly_signup,
-            'num_visits': total
+            'num_visits': totalNumVisits,
+            'Subscribed_users':Subscribed_users
         
         }
         return render(request, 'pages/home.html', context)
