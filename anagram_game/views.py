@@ -6,6 +6,7 @@ from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views import View
+from django.contrib import messages
 from django.db.models import Q
 from .models import Anagram_score,Comment_Anagram
 from .forms import AnagrameScoreForm,CommentAnagrameForm
@@ -58,6 +59,7 @@ class ScoreAnagrameList(View):
                 point=request.POST.get('point'),
              )
             scoreNew.save()
+            messages.success(request, f'{request.user} : your score was successfully saved!')
             return redirect('anagram_game:score-anagram-list')
 
 class ScoreUserView(View):

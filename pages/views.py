@@ -19,14 +19,32 @@ from datetime import timedelta
 from django.utils import timezone
 from django.contrib import messages
 from django.core.validators import validate_email
-from .models import SubscribedUsers,SiteVisitersCounter
-
-
+from .models import SubscribedUsers,SiteVisitersCounter,Contact
+from .forms import ContactForm
+from common.utils.email import send_email
+from django.conf import settings
 
 #get time date 
 today = timezone.now()
 startDate = today - timedelta(days=7)
 endDate = today 
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            to = form.cleaned_data["email"]
+            subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
+            sender = 'temf2006@gmail.com'
+            content = form.cleaned_data['message']
+            send_email(to, subject, content, sender)
+            return render(request, 'pages/success.html')
+    form = ContactForm()
+    context = {'form': form}
+    return render(request, 'pages/contact_us.html', context)
+
 
 
 class HomePageView(TemplateView):

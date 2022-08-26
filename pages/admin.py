@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Games_comment, SubscribedUsers,SiteVisitersCounter
+from .models import Games_comment, SubscribedUsers,SiteVisitersCounter,Contact
  
 # Register your models here.
 @admin.register(Games_comment)
@@ -21,3 +21,8 @@ class SubscribedUsersAdmin(admin.ModelAdmin):
 @admin.register(SiteVisitersCounter)
 class SiteVisitersCounterAdmin(admin.ModelAdmin):
     list_display = ('visits_num', 'updated_date')
+    
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+     list_display = ('full_name','email','subject','message','created_date')

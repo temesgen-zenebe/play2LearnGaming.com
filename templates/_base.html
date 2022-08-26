@@ -114,10 +114,27 @@
     <!-- main -->
     <main>
         <div class="container-fluid my-5">
-            {% block main %}
+            {% if messages %}
+            <div role="" aria-live="assertive" aria-atomic="true" class="toast my-3 mx-auto rounded shadow " style="max-width: 100%;" data-bs-delay="2000">
+                <div class="d-flex jestfing-content-between p-1 bg-primary text-white">
+                  <img src="{% static 'images/favicon.png' %}" class="rounded me-2" alt="company logo">
+                  <strong class="me-auto">PLAY2LERAN GRUPS</strong>
+                  <button type="button" class="btn-close text-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <hr class="text-white">
+                <div class="toast-body">
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                  <p class="text-center"><small >{% now 'm' %} mins ago</small></p>
+               </div>
             
-            
-            {% endblock %}
+            <!--Toast End-->
+            {% endif %}
+            {% block main %}{% endblock %}
         </div>
         
     </main>
@@ -141,8 +158,9 @@
                             
                         </li>
                         {% endif %}
-                        <a class="nav-link  text-white" href="{% url 'pages:contact-us' %}">Contact</a>
-                        
+                        {% if not user.is_authenticated %}
+                          <a class="nav-link  text-white" href="{% url 'pages:contact-us' %}">Contact</a>
+                        {% endif %}
                     </ul>
                     <hr>
                 </div>

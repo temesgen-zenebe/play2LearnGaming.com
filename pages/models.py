@@ -46,3 +46,13 @@ class SiteVisitersCounter(models.Model):
     
     def __str__(self):
         return  str(self.visits_num )
+    
+class Contact(models.Model):
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+    created_date = models.DateTimeField('created', default=timezone.now)
+
+    def __str__(self):
+        return self.email
