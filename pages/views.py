@@ -49,6 +49,7 @@ def owners_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
+            form.save()
             sender = 'temf2006@gmail.com'# system email
             subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
             to = 'egolebearingplc@gmail.com'# admin email
