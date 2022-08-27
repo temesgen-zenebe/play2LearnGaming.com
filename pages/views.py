@@ -70,6 +70,9 @@ class AboutUsView(TemplateView):
 class ContactUsView(TemplateView):
     template_name = 'pages/contact_us.html'
     
+class TermsPolicesView(TemplateView):
+    template_name = 'pages/terms_Polices.html'
+    
 class MyCommentsListView(View):
     
     def get(self, request):
