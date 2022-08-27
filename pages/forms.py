@@ -1,4 +1,5 @@
 from dataclasses import field
+from tkinter import Widget
 from django.forms import ModelForm
 from .models import Games_comment,Contact
 
@@ -13,3 +14,6 @@ class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = ('full_name','email','subject','message')
+        labels = {
+            'email': "Email",
+        }

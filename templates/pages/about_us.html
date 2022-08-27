@@ -1,5 +1,9 @@
 {% extends "_base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% block javascript %}
+  <script type="text/javascript" src="{% static 'js/sand-email-owenrs.js' %}" defer ></script>
+{% endblock %}
 {% block title %}About Us{% endblock %}
 {% block header %}About Us{% endblock %}
 {% block main %}
@@ -124,13 +128,14 @@
                   <div class="card h-100">
                     <img src="{% static 'images/CEO_FUNDER.png' %}" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h6 class="card-title">Temesgen T Zenebe</h6>
-                      <p class="card-text muted small">CEO & Founder</p>
+                      <h6 class="card-title ownerName1">Temesgen T Zenebe</h6>
+                      <p class="card-text muted small">CEO and Founder</p>
                       <p class="card-text muted small">temf2022@gmail.com</p>
+                      <p class="card-text muted small ownerEmail d-none">egolebearingplc@gmail.com</p>
                       
                     </div>
                     <div class="card-footer bg-light">
-                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                      <button type="button" value="1"  class="btn btn-sm btn-outline-primary ownerButton1" data-bs-toggle="modal" data-bs-target="#exampleModal33">sand email</button>
                     </div>
                   </div>
                 </div>
@@ -138,13 +143,14 @@
                   <div class="card h-100">
                     <img src="{% static 'images/team61.png' %}" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h6 class="card-title">William Smith</h6>
+                      <h6 class="card-title ownerName2">William Smith</h6>
                       <p class="card-text muted small">System Administration </p>
                       <p class="card-text muted small">WILLIAMS_ad@gmail.com</p>
+                      <p class="card-text muted small ownerEmail d-none">egolebearingplc@gmail.com</p>
                       
                     </div>
                     <div class="card-footer bg-light">
-                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                      <button type="button"  value="2" class="btn btn-sm btn-outline-primary ownerButton2" data-bs-toggle="modal" data-bs-target="#exampleModal33">sand email</button>
                     </div>
                   </div>
                 </div>
@@ -152,13 +158,14 @@
                   <div class="card h-100">
                     <img src="{% static 'images/team3.png' %}"  class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h6 class="card-title">Mike Ross</h6>
+                      <h6 class="card-title ownerName3">Mike Ross</h6>
                       <p class="card-text muted small">Tech Designer & Founder</p>
                       <p class="card-text muted small">MikeRoss@gmail.com</p>
+                      <p class="card-text muted small ownerEmail d-none">egolebearingplc@gmail.com</p>
                       
                     </div>
                     <div class="card-footer bg-light">
-                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                      <button type="button" value="3" class="btn btn-sm btn-outline-primary ownerButton3" data-bs-toggle="modal" data-bs-target="#exampleModal33">sand email</button>
                     </div>
                   </div>
                 </div>
@@ -166,13 +173,14 @@
                   <div class="card h-100">
                     <img src="{% static 'images/businessman.jpg' %}"  class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h6 class="card-title">Tomas Danil</h6>
+                      <h6 class="card-title ownerName4">Tomas Danil</h6>
                       <p class="card-text muted small">software Egineer </p>
                       <p class="card-text muted small">DanilTomas@gmail.com</p>
+                      <p class="card-text muted small ownerEmail d-none">egolebearingplc@gmail.com</p>
                       
                     </div>
                     <div class="card-footer bg-light">
-                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                      <button type="button"  value="4" class="btn btn-sm btn-outline-primary ownerButton4" data-bs-toggle="modal" data-bs-target="#exampleModal33">sand email</button>
                     </div>
                   </div>
                 </div>
@@ -180,13 +188,14 @@
                   <div class="card h-100">
                     <img src="{% static 'images/dataPrivacy.png' %}"  class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h6 class="card-title">Dr.Frehiwot Kehali</h6>
+                      <h6 class="card-title ownerName5">Dr.Frehiwot Kehali</h6>
                       <p class="card-text muted small">Data Privacy </p>
                       <p class="card-text muted small">hellen@gmail.com</p>
+                      <p class="card-text muted small ownerEmail d-none">egolebearingplc@gmail.com</p>
                       
                     </div>
                     <div class="card-footer bg-light">
-                      <button type="button" class="btn btn-sm btn-outline-primary">sand email</button>
+                      <button type="button"  value="5" class="btn btn-sm btn-outline-primary ownerButton5" data-bs-toggle="modal" data-bs-target="#exampleModal33">sand email</button>
                     </div>
                   </div>
                 </div>
@@ -221,4 +230,35 @@
   </div>
 </div>
 
+ <!--is_authenticated more user frandly-->
+ {% if user.is_authenticated %}
+ <div class="d-none">
+  <p class='user_name'>{{user.username}}</p>
+  <p class='user_email'>{{user.email}}</p>
+ </div>
+ {% endif%}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal33" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Email To :<span class="ownerEmailTitle px-2"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card border-success shadow my-3 p-3">
+          <div class="card-body text-start  " >
+            <form action="" method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="submit" value="Submit" class="btn btn-outline-primary btn-sm ownerButton">
+           </form>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
 {% endblock %}

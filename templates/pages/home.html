@@ -1,18 +1,25 @@
 {% extends "_base.html" %}
 {% load static %}
 {% block javascript %}
-<script type="text/javascript" src="{% static 'js/comment-model.js' %}" defer ></script>
-<script type="text/javascript" async> 
-    window.onload = (event)=> {
-        let myAlert = document.querySelector('.toast');
-        let bsAlert = new  bootstrap.Toast(myAlert);
-        bsAlert.show();
-    }
-</script>
+   <script type="text/javascript" src="{% static 'js/comment-model.js' %}" defer ></script>
 {% endblock %}
 {% block title %}Home{% endblock %}
 {% block main %}
-
+<!--subscribe massage confeiramtion -->
+<div class="container  my-5 ">
+ {% if messages %}
+    <div class="alert alert-success alert-dismissible fade show text-center  " role="alert" data-bs-delay="3000">
+        <strong>Thanks for Subscribed us!!</strong>
+        <ul class="list-group list-group-horizontal-xxl text-start p-2 ">
+                    
+            {% for message in messages %} 
+                <li{% if message.tags %} class="{{ message.tags }}  list-group-item  alert-success"{% endif %}><i class="bi bi-check2-square px-2"></i> {{ message }}</li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+ {% endif %}
+</div >
 <!-- Carousel wrapper -->
 <section id="testimonial-slider" >
     <div class="container border shadow">

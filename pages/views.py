@@ -35,9 +35,9 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            to = form.cleaned_data["email"]
+            sender = 'temf2006@gmail.com'# system email
             subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
-            sender = 'temf2006@gmail.com'
+            to = 'egolebearingplc@gmail.com'# admin email
             content = form.cleaned_data['message']
             send_email(to, subject, content, sender)
             return render(request, 'pages/success.html')
@@ -45,6 +45,19 @@ def contact_view(request):
     context = {'form': form}
     return render(request, 'pages/contact_us.html', context)
 
+def owners_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            sender = 'temf2006@gmail.com'# system email
+            subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
+            to = 'egolebearingplc@gmail.com'# admin email
+            content = form.cleaned_data['message']
+            send_email(to, subject, content, sender)
+            return render(request, 'pages/success.html')
+    form = ContactForm()
+    context = {'form': form}
+    return render(request, 'pages/about_us.html', context)
 
 
 class HomePageView(TemplateView):

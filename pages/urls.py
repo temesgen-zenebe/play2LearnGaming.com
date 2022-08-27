@@ -3,13 +3,15 @@ from .views import *
 from . import views
 from .views import HomePageView,AboutUsView,ContactUsView, GameCommentListView, MyCommentsListView
 from pages import views as contact_views
+from pages import views as owners_views
 app_name = 'pages'
 urlpatterns = [
     path('', PrintGameScore.as_view(), name="math-score-list"),
     path('', GameCommentListView.as_view(), name="comment-list"),
     path('', HomePageView.as_view(), name='homepage'),
-     path('subscribe/', views.subscribe, name='subscribe'),
+    path('subscribe/', views.subscribe, name='subscribe'),
     path('my_comment/', MyCommentsListView.as_view(), name='my_comment'),
+    path('about-us/', owners_views.owners_view, name='owners'),
     path('about-us/', AboutUsView.as_view(), name='about-us'),
     path('contact-us/', contact_views.contact_view, name='contact'),
     path('contact-us/', ContactUsView.as_view(), name='contact-us'), 
