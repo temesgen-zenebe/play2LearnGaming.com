@@ -12,8 +12,6 @@ class GamesComment(admin.ModelAdmin):
     def approve_comments(self, request, queryset):
         queryset.update(active=True)
         
-        
-
 @admin.register(SubscribedUsers )
 class SubscribedUsersAdmin(admin.ModelAdmin):
     list_display = ('email', 'name', 'created_date')
