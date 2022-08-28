@@ -1,7 +1,14 @@
 from django.urls import path
 from .views import *
 from . import views
-from .views import HomePageView,AboutUsView,ContactUsView, TermsPolicesView,GameCommentListView, MyCommentsListView
+from .views import (
+    HomePageView,
+    AboutUsView,
+    ContactUsView,
+    TermsPolicesView,
+    GameCommentListView, 
+    MyCommentsListView,
+    )
 from pages import views as contact_views
 from pages import views as owners_views
 app_name = 'pages'

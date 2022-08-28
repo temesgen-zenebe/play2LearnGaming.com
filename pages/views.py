@@ -1,4 +1,5 @@
-
+import json
+from django.http import JsonResponse
 from django.views.generic import TemplateView,ListView
 from django.views import View
 from django.urls import reverse
@@ -11,7 +12,7 @@ from math_game.forms import CommentForm
 from users.models import LoggedUser 
 from django.contrib.auth import get_user_model
 from django.db.models import F
-from .models import Games_comment 
+from .models import Games_comment
 from .forms import GameCommentForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -28,38 +29,6 @@ from django.conf import settings
 today = timezone.now()
 startDate = today - timedelta(days=7)
 endDate = today 
-
-
-def contact_view(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            sender = 'temf2006@gmail.com'# system email
-            subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
-            to = 'egolebearingplc@gmail.com'# admin email
-            content = form.cleaned_data['message']
-            send_email(to, subject, content, sender)
-            return render(request, 'pages/success.html')
-    form = ContactForm()
-    context = {'form': form}
-    return render(request, 'pages/contact_us.html', context)
-
-def owners_view(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            sender = 'temf2006@gmail.com'# system email
-            subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
-            to = 'egolebearingplc@gmail.com'# admin email
-            content = form.cleaned_data['message']
-            send_email(to, subject, content, sender)
-            return render(request, 'pages/success.html')
-    form = ContactForm()
-    context = {'form': form}
-    return render(request, 'pages/about_us.html', context)
-
 
 class HomePageView(TemplateView):
     template_name = 'pages/home.html'
@@ -81,6 +50,7 @@ class MyCommentsListView(View):
          
          #comment
          game_comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
+        
          context = {
              'my_anagram_comment' : ana_comment,
              'my_math_comment': math_comment,  
@@ -135,8 +105,6 @@ class GameCommentListView(ListView):
        comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
        return comment
     
-
-
 class PrintGameScore(View):
      
     def get(self, request):
@@ -156,9 +124,10 @@ class PrintGameScore(View):
         logged_users=LoggedUser.objects.all()
         numbers_users = get_user_model().objects.all().count()
         weekly_signup = get_user_model().objects.filter(date_joined__range=[startDate,endDate]).count()
-        #SubscribedUsers
         
+        #SubscribedUsers
         Subscribed_users = SubscribedUsers.objects.all().count()
+        
         #print(weekly_signup)
         num_visits = request.session.get('num_visits', 0)
         request.session['num_visits'] = num_visits + 1
@@ -176,8 +145,7 @@ class PrintGameScore(View):
             'numbers_users': numbers_users,
             'weekly_signup':weekly_signup,
             'num_visits': totalNumVisits,
-            'Subscribed_users':Subscribed_users
-        
+            'Subscribed_users':Subscribed_users,
         }
         return render(request, 'pages/home.html', context)
     
@@ -273,4 +241,32 @@ def subscribe(request):
         messages.success(request, f'{email} email was successfully subscribed to our newsletter!')
         return redirect(request.META.get("HTTP_REFERER", "/"))
         
-       
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            sender = 'temf2006@gmail.com'# system email
+            subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
+            to = 'egolebearingplc@gmail.com'# admin email
+            content = form.cleaned_data['message']
+            send_email(to, subject, content, sender)
+            return render(request, 'pages/success.html')
+    form = ContactForm()
+    context = {'form': form}
+    return render(request, 'pages/contact_us.html', context)
+
+def owners_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            sender = 'temf2006@gmail.com'# system email
+            subject = f'New contact {form.cleaned_data["email"]}: {form.cleaned_data["subject"]}'
+            to = 'egolebearingplc@gmail.com'# admin email
+            content = form.cleaned_data['message']
+            send_email(to, subject, content, sender)
+            return render(request, 'pages/success.html')
+    form = ContactForm()
+    context = {'form': form}
+    return render(request, 'pages/about_us.html', context)

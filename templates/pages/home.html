@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load static %}
 {% block javascript %}
+   
    <script type="text/javascript" src="{% static 'js/comment-model.js' %}" defer ></script>
 {% endblock %}
 {% block title %}Home{% endblock %}
@@ -105,12 +106,14 @@
                         comments us <small>({{ gameComment.count }})</small>
                     </a>
                     {% endif%}
+                    {% if not user.is_authenticated %}
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-up-fill"></i> 
-                        Like 500
+                        Like 2000
                     </a>
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-down-fill"></i>
-                        Dislike 51
+                        Dislike 12
                     </a>
+                    {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-play-circle-fill"></i>
                         {{logged_users.count }} Live 
                     </a>
@@ -151,13 +154,14 @@
                         comments us <small class='mx-1'>({{ gameComment.count }})</small>
                     </a>
                     {% endif%}
+                    {% if not user.is_authenticated %}
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-up-fill"></i> 
-                        Like 500
+                        Like 5000
                     </a>
                     <a class="dislike px-auto "><i class="bi bi-hand-thumbs-down-fill"></i>
                         Dislike 51
                     </a>
-                    
+                    {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-play-circle-fill"></i>
                        {{ logged_users.count}} Live 
                     </a>
@@ -450,7 +454,7 @@
                     </div>
                 </div>
                 {% else  %}
-                 <div class="card-body alert alert-info"" role="alert" ><p> I Guss you or others still not play any anagram Hunt game try one!!</p></div>
+                 <div class="card-body alert alert-info" role="alert" ><p> I Guss you or others still not play any anagram Hunt game try one!!</p></div>
                 {% endif%}
             </div>
            </div>
