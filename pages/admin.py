@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Games_comment, SubscribedUsers,SiteVisitersCounter,Contact
+from .models import Games_comment, SubscribedUsers,SiteVisitersCounter,Contact,GamesInf,GameVote
  
 # Register your models here.
 @admin.register(Games_comment)
@@ -26,3 +26,17 @@ class SiteVisitersCounterAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
      list_display = ('full_name','email','subject','message','created_date')
+     
+@admin.register(GameVote)
+class GameVoteAdmin(admin.ModelAdmin):
+    model = GameVote
+    list_display = ['game_type', 'user', 'vote']
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj: # editing an existing object
+            return ('created', 'updated')
+        return ()
+    
+@admin.register(GamesInf)
+class GamesInfAdmin(admin.ModelAdmin):
+     list_display = ('id','game_name')

@@ -56,3 +56,43 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email
+    
+class GamesInf(models.Model):
+    game_name = models.CharField(max_length=20) 
+    
+    
+    @property
+    def num_votes(self):
+        return self.gamevotes.count()
+
+    @property
+    def num_likes(self):
+        return self.gamevotes.filter(vote=1).count()
+
+    @property
+    def num_dislikes(self):
+        return self.gamevotes.filter(vote=-1).count()
+     
+    def __str__(self):
+        return self.game_name
+    
+    
+class GameVote(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name='gamevotes'
+    )
+    game_type = models.ForeignKey(
+        GamesInf, on_delete=models.CASCADE,
+        related_name='gamevotes'
+    )
+    vote = models.SmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'game_type'], name='one_vote_per_user_per_game_type'
+            )
+        ]
