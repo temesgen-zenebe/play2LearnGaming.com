@@ -20,9 +20,9 @@
               //reset all classes, variables, and input fields
               resetOperatorGameToPlay()
             }
+       });
      });
    });
- });
   </script>
 {% endblock %}
 
@@ -159,6 +159,7 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive">
+                                        {% if Addition %}
                                         <table class="table shadow table-sm table-hover border">
                                             <thead class="table-light ">
                                                 <tr>
@@ -189,6 +190,9 @@
                                                 {% endfor %}
                                             </tbody>
                                         </table>
+                                        {% else %}
+                                        <h6>oops no one playing Addition game !! try one.</6>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -204,8 +208,8 @@
                                     <h6 class="bold medium text-center">Bast 5 Subtraction[-] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
+                                 {% if Subtraction %}
+                                    <table class="table table-sm table-hover border">
                                       <thead class="table-light ">
                                         <tr>
                                           <th scope="col">Player</th>
@@ -235,7 +239,11 @@
                                         {% endfor %}
                                       
                                       </tbody>
-                                   </table>
+                                    </table>
+                                {% else %}
+                                   <h6>Oops no one playing Subtraction game !! try one.</6>
+                                {% endif %}
+
                                 </div>
                             </div>
                         </div>
@@ -250,8 +258,8 @@
                                     <h6 class="bold text-center medium">Bast 5 Multiplication[*] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
+                                {% if Multiplication %}
+                                   <table class="table table-sm table-hover border">
                                       <thead class="table-light ">
                                         <tr>
                                           <th scope="col">Player</th>
@@ -281,6 +289,9 @@
                                         {% endfor %}
                                       </tbody>
                                    </table>
+                                {% else %}
+                                   <h6>oops it's looks like no one playing Multiplication game !! try one.</6>
+                                {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -295,8 +306,8 @@
                                     <h6 class="bold text-center medium ">Bast 5 Division[/] Math Facts Practice Game Scores</h6>
                                 </div>
                                 <div class="card-body ">
-                                
-                                  <table class="table table-sm table-hover border">
+                                {% if Division %}
+                                    <table class="table table-sm table-hover border">
                                       <thead class="table-light ">
                                         <tr>
                                           <th scope="col">Player</th>
@@ -326,6 +337,9 @@
                                         {% endfor %}
                                       </tbody>
                                    </table>
+                                {% else %}
+                                   <h6>oops it's looks like no one playing Division game !! try one.</6>
+                                {% endif %}
                                 </div>
                             </div>
                         </div>
