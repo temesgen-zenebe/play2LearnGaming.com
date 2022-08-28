@@ -26,9 +26,14 @@
     <div class="container border shadow">
         <div id="carouselExampleDark" class="carousel carousel-dark slide text-center py-4" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                {% for comment in gameComment %}
+                {% if forloop.first %} 
+                   <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="active d-none" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
+                  {% else %} 
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="d-none" aria-label="Slide  {{ forloop.counter0 }}"></button>
+                  {% endif %}
+                {% endfor %}
+                
             </div>
             <div class="col-sm-10 mx-auto">
                 <div class="carousel-inner text-center text-dark py-4">

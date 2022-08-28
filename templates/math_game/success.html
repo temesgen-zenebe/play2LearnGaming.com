@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% block title %}your score successfully Submitted{% endblock %}
+{% block main %}
+<div class="alert alert-success alert-dismissible fade show text-center  " role="alert" data-bs-delay="3000">
+  <div class="card border-primary m-auto mb-3 p-3 text-center"
+    style="max-width: 50rem">
+    <h6>your score successfully saved check out the loderbord for you rank .</p>
+        <a href="{% url 'math_game:math-game-main' %}" class="btn btn-outline-primary btn-sm">OK</a>
+  </div>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endblock %}
