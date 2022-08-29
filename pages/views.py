@@ -9,7 +9,6 @@ from anagram_game.models import Anagram_score,Comment_Anagram
 from math_game.models import Addition_score,Division_score,Multiplication_score,Subtraction_score,Comment_math
 from anagram_game.forms import CommentAnagrameForm
 from math_game.forms import CommentForm 
-from users.models import LoggedUser 
 from django.contrib.auth import get_user_model
 from django.db.models import F
 from .models import Games_comment
@@ -20,10 +19,11 @@ from datetime import timedelta
 from django.utils import timezone
 from django.contrib import messages
 from django.core.validators import validate_email
-from .models import SubscribedUsers,SiteVisitersCounter,Contact
+from .models import SubscribedUsers,Contact
 from .forms import ContactForm
 from common.utils.email import send_email
 from django.conf import settings
+from itertools import chain
 
 #get time date 
 today = timezone.now()
@@ -116,12 +116,17 @@ class PrintGameScore(View):
         operate4 = Subtraction_score.objects.all().order_by('-point').distinct('point')
         # about 
         anagramScore = Anagram_score.objects.all().order_by('-point').distinct('point')
-        
+       
+        #comment chain
+        ana_comment = Comment_Anagram.objects.filter(Q(active = True)).order_by('-created').distinct('created')
+        math_comment = Comment_math.objects.filter(Q(active = True)).order_by('-created').distinct('created')
+        game_comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
         #comment
-        comment = Games_comment.objects.filter(Q(active = True)).order_by('-created').distinct('created')
+        comment = sorted(chain(ana_comment, math_comment, game_comment), key=lambda instance: instance.created)
+        #list(chain(ana_comment, math_comment, game_comment))
         
         #user information 
-        logged_users=LoggedUser.objects.all()
+        
         numbers_users = get_user_model().objects.all().count()
         weekly_signup = get_user_model().objects.filter(date_joined__range=[startDate,endDate]).count()
         
@@ -134,6 +139,7 @@ class PrintGameScore(View):
         numVisits = request.session['num_visits']
         num = numVisits
         totalNumVisits = num + numVisits
+        logged_users = num
         context = {
             'Addition':operate1,
             'Division':operate2,

@@ -6,38 +6,24 @@
 {% endblock %}
 {% block title %}Home{% endblock %}
 {% block main %}
-<!--subscribe massage confeiramtion -->
-<div class="container  my-5 ">
- {% if messages %}
-    <div class="alert alert-success alert-dismissible fade show text-center  " role="alert" data-bs-delay="3000">
-        <strong>Thanks for Subscribed us!!</strong>
-        <ul class="list-group list-group-horizontal-xxl text-start p-2 ">
-                    
-            {% for message in messages %} 
-                <li{% if message.tags %} class="{{ message.tags }}  list-group-item  alert-success"{% endif %}><i class="bi bi-check2-square px-2"></i> {{ message }}</li>
-            {% endfor %}
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
- {% endif %}
-</div >
+
 <!-- Carousel wrapper -->
 <section id="testimonial-slider" >
     <div class="container border shadow">
         <div id="carouselExampleDark" class="carousel carousel-dark slide text-center py-4" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                {% for comment in gameComment %}
+                {% for comment in gameComment|slice:':10' %}
                 {% if forloop.first %} 
-                   <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="active d-none" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
+                   <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="active text-light " aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
                   {% else %} 
-                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="d-none" aria-label="Slide  {{ forloop.counter0 }}"></button>
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="" aria-label="Slide  {{ forloop.counter0 }}"></button>
                   {% endif %}
                 {% endfor %}
                 
             </div>
             <div class="col-sm-10 mx-auto">
                 <div class="carousel-inner text-center text-dark py-4">
-                    {% for comment in gameComment %}
+                    {% for comment in gameComment|slice:':10' %}
                         {% if forloop.first %} 
                         <div class="carousel-item active" data-bs-interval="10000">
                         {% else %}    
@@ -120,7 +106,7 @@
                     </a>
                     {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-play-circle-fill"></i>
-                        {{logged_users.count }} Live 
+                        {{logged_users }} Live 
                     </a>
                     <a class="dislike px-auto "><i class="bi bi-share-fill"></i>
                         Share 
@@ -168,7 +154,7 @@
                     </a>
                     {% endif%}
                     <a class="dislike px-auto "><i class="bi bi-play-circle-fill"></i>
-                       {{ logged_users.count}} Live 
+                       {{ logged_users }} Live 
                     </a>
                    
                     <a class="dislike px-auto "><i class="bi bi-share-fill"></i>
@@ -520,6 +506,7 @@
   
 </div>
 
+<!--e-commers seaction-->
 <div class="card my-5 mx-auto " style="max-width: 85%; ">
     <div class="card-header bg-primary text-white text-center"> <h6>Get Play2learnGames Products in Online Stores</h6> </div>
     <div class="card-body text-dark " style="font-size: 12.5px;">
@@ -528,7 +515,7 @@
                 <div class="card w-100 h-auto shadow ">
                     <img src="https://m.media-amazon.com/images/I/41naQLpqJwS._AC_SR160,200_.jpg" style="max-width: 100px; max-height: 100px;" class="img-fluid card-img-top rounded-start mx-auto" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">25.00$</h5>
+                        <h5 class="card-title">$24.90</h5>
                         <p class="card-text">Men's play2learnGameing.com Sport Set Summer Outfit 2 Piece Set Short Sleeve T Shirts and Shorts Stylish Casual Sweatsuit Set</p>
                         <a href="https://www.amazon.com/gp/product/B0B3SSZL3D/ref=ewc_pr_img_5?smid=A2TETRRJZ9GR02&psc=1" type="button" class="btn btn-outline-primary btn-sm">Buy</a>
                     </div>
@@ -538,7 +525,7 @@
                 <div class="card w-100 h-auto shadow ">
                     <img src="https://m.media-amazon.com/images/I/51tsfQxXCcS._AC_AA152_.jpg" style="max-width: 100px; max-height: 100px;" class="img-fluid card-img-top rounded-start mx-auto" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">25.00$</h5>
+                        <h5 class="card-title">$26.00</h5>
                         <p class="card-text">Men's play2learnGameing.com Sport Set Summer Outfit 2 Piece Set Short Sleeve T Shirts and Shorts Stylish Casual Sweatsuit Set</p>
                         <a href="https://www.amazon.com/gp/product/B09YYVHTDG/ref=ewc_pr_img_2?smid=A1MU6D4NQGYZN9&psc=1" type="button" class="btn btn-outline-primary btn-sm">Buy</a>
                     </div>
@@ -548,7 +535,7 @@
                 <div class="card w-100 h-auto shadow ">
                     <img src="https://m.media-amazon.com/images/I/51PiVi3Hn6L._AC_AA152_.jpg" style="max-width: 100px; max-height: 100px;" class="img-fluid card-img-top rounded-start mx-auto" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">25.00$</h5>
+                        <h5 class="card-title">$35.99</h5>
                         <p class="card-text">Men's play2learnGameing.com Sport Set Summer Outfit 2 Piece Set Short Sleeve T Shirts and Shorts Stylish Casual Sweatsuit Set</p>
                         <a href="https://www.amazon.com/gp/product/B09Y3G8ZPM/ref=ewc_pr_img_4?smid=AOT94B2IXK4V8&psc=1" type="button" class="btn btn-outline-primary btn-sm">Buy</a>
                     </div>
@@ -558,7 +545,7 @@
                 <div class="card w-100 h-auto shadow ">
                     <img src="https://m.media-amazon.com/images/I/311M+ApgzyS._AC_SR320,400_.jpg" style="max-width: 100px; max-height: 100px;" class="img-fluid card-img-top rounded-start mx-auto" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">25.00$</h5>
+                        <h5 class="card-title">$25.00</h5>
                         <p class="card-text">Men's play2learnGameing.com Sport Set Summer Outfit 2 Piece Set Short Sleeve T Shirts and Shorts Stylish Casual Sweatsuit Set</p>
                         <a href="https://www.amazon.com/gp/slredirect/picassoRedirect.html/ref=sspa_dk_detail_0?ie=UTF8&adId=A091826527X3JOSSI0U5Z&qualifier=1656680129&id=4244016292811341&widgetName=sp_detail&url=%2Fdp%2FB09YM81V9G%2Fref%3Dsspa_dk_detail_0%3Fpsc%3D1%26pd_rd_i%3DB09YM81V9G%26pd_rd_w%3Djl7wk%26content-id%3Damzn1.sym.999c0877-3704-4f0f-9726-eebf80846a35%26pf_rd_p%3D999c0877-3704-4f0f-9726-eebf80846a35%26pf_rd_r%3DVY2QP4K3Y5XANGF16X9X%26pd_rd_wg%3DxcYwn%26pd_rd_r%3D7cdb4b70-18a5-4daf-b78d-89c616bc37a0%26s%3Dapparel&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw" type="button" class="btn btn-outline-primary btn-sm">Buy</a>
                     </div>
@@ -568,7 +555,7 @@
                 <div class="card w-100 h-auto shadow ">
                     <img src="https://m.media-amazon.com/images/I/71Y48Ls0m9L._AC_AA152_.jpg" style="max-width: 100px; max-height: 100px;" class="img-fluid card-img-top rounded-start mx-auto" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">25.00$</h5>
+                        <h5 class="card-title">$25.00</h5>
                         <p class="card-text">Men's play2learnGameing.com  Sport Set Summer Outfit 2 Piece Set Short Sleeve T Shirts and Shorts Stylish Casual Sweatsuit Set</p>
                         <a href="https://www.amazon.com/gp/product/B09YYSSCFK/ref=ewc_pr_img_1?smid=A1MU6D4NQGYZN9&psc=1" type="button" class="btn btn-outline-primary btn-sm">Buy</a>
                     </div>

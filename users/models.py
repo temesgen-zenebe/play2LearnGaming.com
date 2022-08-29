@@ -5,7 +5,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.conf import settings
-from django.contrib.auth.signals import user_logged_in, user_logged_out
+
 from django.utils import timezone
 
 def validate_avatar(value):
@@ -33,25 +33,5 @@ class CustomUser(AbstractUser):
         return f'{self.username}'
     
     
-User = get_user_model()
 
-class LoggedUser(models.Model):
-    users = models.OneToOneField(User, on_delete=models.CASCADE, unique=True ,default="", null=True)
-
-    def __unicode__(self):
-        return self.users.username
-
-    def login_user(sender, request, user, **kwargs):
-        LoggedUser(users=user).save()
-
-    def logout_user(sender, request, user, **kwargs):
-        try:
-            u = LoggedUser.objects.get(users=user)
-            u.delete()
-        except LoggedUser.DoesNotExist:
-            pass
-
-    user_logged_in.connect(login_user)
-    user_logged_out.connect(logout_user)
-    
 

@@ -39,14 +39,7 @@ class SubscribedUsers(models.Model):
     def __str__(self):
         return self.email  
     
-      
-class SiteVisitersCounter(models.Model):
-    visits_num = models.IntegerField(default=1)
-    updated_date = models.DateTimeField('Date updated', default=timezone.now)
-    
-    def __str__(self):
-        return  str(self.visits_num )
-    
+   
 class Contact(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField()

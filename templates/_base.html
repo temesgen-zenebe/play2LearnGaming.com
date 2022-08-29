@@ -114,9 +114,24 @@
     <!-- main -->
     <main>
         <div class="container-fluid my-5">
+               <!--subscribe massage confeiramtion -->
+            <div class="container  my-5 ">
+              {% if messages %}
+              <div class="alert alert-success alert-dismissible fade show text-center  " role="alert" data-bs-delay="3000">
+               <strong>Thanks for Subscribed us!!</strong>
+               <ul class="list-group list-group-horizontal-xxl text-start p-2 ">    
+                 {% for message in messages %} 
+                   <li{% if message.tags %} class="{{ message.tags }}  list-group-item  alert-success"{% endif %}><i class="bi bi-check2-square px-2"></i> {{ message }}</li>
+                 {% endfor %}
+                 </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+               </div>
+               {% endif %}
+            </div >
+            
+            <!--main block-->
             {% block main %}{% endblock %}
         </div>
-        
     </main>
     <!-- footer -->
     <footer>
