@@ -119,6 +119,7 @@ class ScoreMathList(View):
                   point=request.POST.get('point'),
               )
               scoreNew.save()
+              messages.success(request, f'{request.user} : your score was successfully saved!')
               return redirect('math_game:score-math-list')
 
            case 'Division[/]':
@@ -130,6 +131,7 @@ class ScoreMathList(View):
                   point=request.POST.get('point'),
               )
               scoreNew.save()
+              messages.success(request, f'{request.user} : your score was successfully saved!')
               return redirect('math_game:score-math-list')
 
            case 'Multiplication[*]':
@@ -141,6 +143,7 @@ class ScoreMathList(View):
                   point=request.POST.get('point'),
               )
               scoreNew.save()
+              messages.success(request, f'{request.user} : your score was successfully saved!')
               return redirect('math_game:score-math-list')
 
            case 'Subtraction[-]':
@@ -152,6 +155,7 @@ class ScoreMathList(View):
                   point=request.POST.get('point'),
               )
               scoreNew.save()
+              messages.success(request, f'{request.user} : your score was successfully saved!')
               return redirect('math_game:score-math-list')
 
 
@@ -184,4 +188,5 @@ class AllScoreMathList(View):
                   comment = request.POST.get('comment'), 
               )
         commentNew.save()
+        messages.success(request, f'{request.user} : your comment was successfully submited!')
         return redirect('math_game:all-math-score')

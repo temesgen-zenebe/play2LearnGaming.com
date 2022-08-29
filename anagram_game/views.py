@@ -90,4 +90,5 @@ class ScoreView(View):
                   comment = request.POST.get('comment'), 
               )
         commentNew.save()
+        messages.success(request, f'{request.user} : your comment was successfully submited!')
         return redirect('anagram_game:all-anagram-score')

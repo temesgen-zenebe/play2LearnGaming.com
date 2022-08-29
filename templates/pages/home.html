@@ -8,22 +8,23 @@
 {% block main %}
 
 <!-- Carousel wrapper -->
-<section id="testimonial-slider" >
+<div class="container my-3 mx-auto rounded" style="max-width: 85%;">
+  <section id="testimonial-slider" >
     <div class="container border shadow">
         <div id="carouselExampleDark" class="carousel carousel-dark slide text-center py-4" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                {% for comment in gameComment|slice:':10' %}
+                {% for comment in gameComment|slice:':20' %}
                 {% if forloop.first %} 
                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="active text-light " aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
                   {% else %} 
-                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="" aria-label="Slide  {{ forloop.counter0 }}"></button>
+                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="text-light" aria-label="Slide  {{ forloop.counter0 }}"></button>
                   {% endif %}
                 {% endfor %}
                 
             </div>
             <div class="col-sm-10 mx-auto">
                 <div class="carousel-inner text-center text-dark py-4">
-                    {% for comment in gameComment|slice:':10' %}
+                    {% for comment in gameComment|slice:':20' %}
                         {% if forloop.first %} 
                         <div class="carousel-item active" data-bs-interval="10000">
                         {% else %}    
@@ -63,8 +64,8 @@
             </button>
         </div>
     </div>
-</section>
-
+  </section>
+</div>
 <!----Games -->
 <div class="container  my-5 ">
     <div class="row g-1">
