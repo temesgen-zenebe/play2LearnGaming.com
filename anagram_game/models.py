@@ -9,6 +9,7 @@ from ast import Mod
 from zipapp import create_archive
 
 
+
 class Anagram_score(models.Model):
   
     users = models.ForeignKey(

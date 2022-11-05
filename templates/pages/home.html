@@ -15,9 +15,20 @@
             <div class="carousel-indicators">
                 {% for comment in gameComment|slice:':20' %}
                 {% if forloop.first %} 
-                   <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="active text-light " aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
+                   <button type="button" 
+                    data-bs-target="#carouselExampleDark"
+                    data-bs-slide-to="{{ forloop.counter0 }}" 
+                    class="active text-light "
+                    aria-current="true" 
+                    aria-label="Slide 
+                    {{ forloop.counter0 }}"></button>
                   {% else %} 
-                  <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}" class="text-light" aria-label="Slide  {{ forloop.counter0 }}"></button>
+                  <button type="button"
+                   data-bs-target="#carouselExampleDark" 
+                   data-bs-slide-to="{{ forloop.counter0 }}" 
+                   class="text-light" 
+                   aria-label="Slide  
+                   {{ forloop.counter0 }}"></button>
                   {% endif %}
                 {% endfor %}
                 
@@ -611,3 +622,11 @@
 </div>
 {% endif %}
 {% endblock %}
+
+
+
+
+
+
+
+  
