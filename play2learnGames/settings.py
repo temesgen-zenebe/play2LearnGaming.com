@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
+
+DATABASES = { 'default' : dj_database_url.config()}
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q_p7g+cxd$=$&tbi&l!*3fi(2f*-zsfgyerfe79t*#x$pj^nj0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['play2learn-gaming.herokuapp.com']
 
 
 # Application definition
@@ -100,6 +103,7 @@ WSGI_APPLICATION = 'play2learnGames.wsgi.application'
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }"""
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -110,7 +114,7 @@ DATABASES = {
         'PORT': 5432
     }
 }
-
+"""
 # EMAIL
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
