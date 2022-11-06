@@ -1,0 +1,2 @@
+Requirement already satisfied: pypiwin32 in c:\webucator\class_project\play2learngaming.com\.venv\lib\site-packages (223)
+Requirement already satisfied: pywin32>=223 in c:\webucator\class_project\play2learngaming.com\.venv\lib\site-packages (from pypiwin32) (305)
