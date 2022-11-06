@@ -13,12 +13,8 @@ import os
 from pathlib import Path
 import dj_database_url
 
-DATABASES = { 'default' : dj_database_url.config()}
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -31,7 +27,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['play2learn-gaming.herokuapp.com']
 
-
+INTERNAL_IPS = [ 
+    # Necessary for the Debug Toolbar
+    '127.0.0.1',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,6 +49,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount', 
+    'debug_toolbar',
 
     # Local apps
     'anagram_game.apps.AnagramGameConfig',
@@ -59,13 +59,15 @@ INSTALLED_APPS = [
     
     
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1 
 
+#Crispy Forms with bootstrap4
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,6 +76,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
+if DEBUG:
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+
 
 ROOT_URLCONF = 'play2learnGames.urls'
 
@@ -95,9 +100,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'play2learnGames.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+DATABASES = { 'default' : dj_database_url.config()}
 
 """DATABASES = {
     'default': {
@@ -168,6 +176,8 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300 # Default 300
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login' # Default: '/'
 ACCOUNT_USERNAME_REQUIRED = False # Default: True
 
+#create a custom SignupForm class
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -183,32 +193,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-
 STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-#STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-#STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MEDIA_URL = '/media/'
-
 MEDIA_ROOT = BASE_DIR / 'media'
+
+STATICFILES_DIRS = [ 
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 # BOTTOM OF settings.py
 if os.environ.get('ENVIRONMENT') != 'production':
-    try:
-        from .local_settings import *
-    except ImportError:
-        pass
-    
+    from .local_settings import *
 # DON'T PUT ANYTHING BELOW THIS
