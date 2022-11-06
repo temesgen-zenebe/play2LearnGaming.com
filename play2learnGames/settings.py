@@ -103,18 +103,7 @@ WSGI_APPLICATION = 'play2learnGames.wsgi.application'
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }"""
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'play2learngames',
-        'USER': 'postgres',
-        'PASSWORD': '1117t',
-        'HOST': 'localhost',
-        'PORT': 5432
-    }
-}
-"""
+
 # EMAIL
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
