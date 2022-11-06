@@ -206,9 +206,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # BOTTOM OF settings.py
 if os.environ.get('ENVIRONMENT') != 'production':
-    try:
-        from .local_settings import *
-    except ImportError:
-        pass
+    from .local_settings import *
+    
     
 # DON'T PUT ANYTHING BELOW THIS
