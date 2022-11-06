@@ -15,9 +15,10 @@ import dj_database_url
 
 DATABASES = { 'default' : dj_database_url.config()}
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -102,7 +103,18 @@ WSGI_APPLICATION = 'play2learnGames.wsgi.application'
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }"""
-
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'play2learngames',
+        'USER': 'postgres',
+        'PASSWORD': '1117t',
+        'HOST': 'localhost',
+        'PORT': 5432
+    }
+}
+"""
 # EMAIL
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -168,11 +180,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-# Local Static File Settings
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
-#STATIC_URL
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static') 
 
 STATIC_URL = '/static/'
 
@@ -180,7 +187,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -191,7 +198,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if os.environ.get('ENVIRONMENT') != 'production':
     from .local_settings import *
 # DON'T PUT ANYTHING BELOW THIS
-
-# Configure Django App for Heroku.
-import django_on_heroku 
-django_on_heroku.settings(locals(),staticfiles=False)
