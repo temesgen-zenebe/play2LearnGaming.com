@@ -181,6 +181,7 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -189,15 +190,33 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-STATIC_URL = '/static/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATICFILES_DIRS = [ 
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'play2learn-game-django' # REPLACE WITH YOUR BUCKET NAME
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_DEFAULT_ACL = None # Use S3 bucket's setting
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+#AWS_LOCATION = '/static/'
+#AWS_HEADERS = {'Access-Control-Allow-Origin':'*'}
+
+STATICFILES_STORAGE = 'play2learnGames.storage_backends.StaticStorage'
+DEFAULT_FILE_STORAGE = 'play2learnGames.storage_backends.PublicMediaStorage'
+PRIVATE_FILE_STORAGE = 'play2learnGames.storage_backends.PrivateMediaStorage'
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+MEDIA_URL =  f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
+#STATIC_URL = '/static/'
+#MEDIA_URL =  '/media/'
+
+STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 

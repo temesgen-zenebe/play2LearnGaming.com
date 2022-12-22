@@ -79,3 +79,121 @@ body.overlay-is-open .MathFacts-game-play,
     font-size: 20px;
     margin: 10px;
 }
+
+
+
+
+
+
+
+.P4w39d {
+    display: flex;
+    padding-top: 24px;
+}
+
+.Te9Tpc {
+    column-gap: 24px;
+    display: grid;
+    box-flex: 1;
+    flex-grow: 1;
+    grid-template-columns: max-content auto;
+}
+
+.jILTFe:not(:disabled) {
+    color: #202124;
+}
+
+.jILTFe {
+    color: #202124;
+    fill: #202124;
+    stop-color: #202124;
+   
+    line-height: 4rem;
+    font-size: 2.5rem;
+    letter-spacing: 0;
+    font-weight: 300;
+}
+.o9hhOd, .I26one, .iXRFPc {
+    display: inline-block;
+}
+.deXnLd {
+    height: 16px;
+    width: 16px;
+}
+
+.Z1Dz7b:not(:disabled) {
+    color: #01875f;
+}
+.Z1Dz7b {
+    color: #01875f;
+    fill: #01875f;
+    stop-color: #01875f;
+}
+
+.Bp7T9b, .deXnLd, .F7XJmb {
+    display: inline-block;
+    text-align: left;
+}
+.EHUI5b:not(:disabled) {
+    color: #5f6368;
+}
+
+.EHUI5b {
+    color: #5f6368;
+    fill: #5f6368;
+    stop-color: #5f6368;
+    font-family: Roboto,Arial,sans-serif;
+    line-height: 1rem;
+    font-size: .75rem;
+    letter-spacing: .025em;
+    font-weight: 400;
+    margin-top: 0.5rem;
+}
+.JzwBgb {
+    display: grid;
+    grid-template-columns: max-content auto;
+    align-items: center;
+}
+
+.deXnLd {
+    height: 16px;
+    width: 16px;
+}
+
+.Qjdn7d {
+    font-family: Roboto,Arial,sans-serif;
+    line-height: 1rem;
+    font-size: .75rem;
+    letter-spacing: .025em;
+    font-weight: 400;
+    padding-right: 16px;
+}
+
+.RJfYGf:not(:disabled) {
+    background-color: #e8eaed;
+}
+
+.RJfYGf {
+    border-radius: 9999px;
+    background-color: #e8eaed;
+    height: 10px;
+}
+
+element.style {
+    width: 79.79316840439593%;
+}
+.wcB8se:not(:disabled) {
+    background-color: #01875f;
+}
+.RutFAf {
+    height: 100%;
+    border-radius: inherit;
+}
+.wcB8se {
+    background-color: #01875f;
+}
+.JzwBgb {
+    display: grid;
+    grid-template-columns: max-content auto;
+    align-items: center;
+}
