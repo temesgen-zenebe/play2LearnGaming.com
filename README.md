@@ -1,7 +1,10 @@
-# play2LearnGaming.com
-play2LearnGaming.com Django class project
-
-## Math Practice Site for Learning Django
-I am using this site to learn.
-[Django play2LearnGaming](https://www.play2LearnGaming.com).
-
+# play2LearnGaming.com (Django project)[Django play2LearnGaming](https://www.play2LearnGaming.com).
+![project preview](static/images/image-1.png)
+![project preview](static/images/image-2.png)
+![project preview](static/images/image-3.png)
+![project preview](static/images/image-4.png)
+![project preview](static/images/image-5.png)
+![project preview](static/images/image-6.png)
+![project preview](static/images/image-7.png)
+![project preview](static/images/image-8.png)
+![project preview](static/images/image-9.png)
