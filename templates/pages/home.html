@@ -8,9 +8,9 @@
 {% block main %}
 
 <!-- Carousel wrapper -->
-<div class="container my-3 mx-auto rounded" style="max-width: 85%;">
+<div class="container-fluid my-3 mx-auto rounded" style="max-width: 100%;">
   <section id="testimonial-slider" >
-    <div class="container border shadow">
+    <div class="container-fluid border shadow">
         <div id="carouselExampleDark" class="carousel carousel-dark slide text-center py-4" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 {% for comment in gameComment|slice:':20' %}
@@ -79,7 +79,7 @@
   </section>
 </div>
 <!----Games -->
-<div class="container  my-5 ">
+<div class="container-fluid  my-5 ">
     <div class="row g-1">
       <div class="col-sm-6 p-1 ">
         <div class="card text-center shadow ">
@@ -88,12 +88,9 @@
             </div>
             <div class="card-body ">
               <p class="card-text text-start px-3">
-                An anagram is a word made by rearranging the letters of another word. 
-                For example, post, pots, opts, tops, and spot are all anagrams of stop.
-                The objective of the Anagram Hunt game is to find all the anagrams for 
-                a given word with in a given Seconds.The game recedes your scores so as 
-                to measure the improvement that players achieved since he/she start playing 
-                the game.</p>
+                Uncover word magic with anagrams – words created by rearranging letters. 
+                Discover "stop" and its anagrams: post, pots, opts, tops, spot. 
+                Engage in the Anagram Hunt game, swiftly spotting anagrams and tracking your scores to measure improvement in seconds.</p>
               {% if not user.is_authenticated %}
               <a href="{% url 'account_login'%}" class="btn btn-outline-primary btn-sm">Play</a>
               {% else %}
@@ -186,7 +183,7 @@
                 </div>           
             </div>
             <div class="card-footer text-muted">
-                <div class="container d-flex justify-content-between"> 
+                <div class="container-fluid d-flex justify-content-between"> 
                     {% if not user.is_authenticated %}
                       <a href="{% url 'account_login'%}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
                         comments:<small>({{ gameComment.count }})</small></a>
@@ -221,11 +218,8 @@
             </div>
             <div class="card-body ">
               <p class="card-text text-start px-4">
-                Math facts game are basic calculations game that anyone can play and learn 
-                in order to improve basic math calculating skills like[addition,abstraction,
-                multiplication,and division ] and to do any arithmetic more quickly with in 
-                a given Seconds.The game recedes your scores so as to measure the improvement
-                that players achieved since he/she start playing the game.
+                Immerse yourself in math games, crafted for all to boost basic calculating skills—addition, abstraction, multiplication, and division.
+                Achieve swift arithmetic within seconds and monitor scores for visible progress since starting the game.
             </p>
             {% if not user.is_authenticated %}
               <a href="{% url 'account_login'%}" class="btn btn-outline-primary btn-sm">Play</a>
@@ -319,7 +313,7 @@
                 </div>   
             </div>
             <div class="card-footer text-muted">
-                <div class="container d-flex justify-content-between"> 
+                <div class="container-fluid d-flex justify-content-between"> 
                     {% if not user.is_authenticated %}
                     <a type="button"  href="{% url 'account_login'%}" class="dislike px-auto "><i class="bi bi-chat-left-quote-fill"></i>
                         comments:<small>({{ gameComment.count }})</small></a>
@@ -383,16 +377,16 @@
 </div>
 
 <!--information about games users-->
-<div class="container my-5 mx-auto" style="max-width: 85%;">
+<div class="container-fluid my-3 mx-auto" style="max-width: 98%;">
     <div class="row g-3">
         <!--math-->
         <div class="col-sm-12 p-1">
             <div class="card text-center shadow ">
                 <div class="card-header bg-primary text-white mb-3 ">
-                    <h6 class="bold ">Top 5 Math Facts Practice Game Scores</h6>
+                    <h6 class="bold">Top 5 Math Facts Practice Game Scores</h6>
                 </div>
                 <nav>
-                  <div class="nav nav-tabs small" id="nav-tab" role="tablist">
+                  <div class="nav nav-tabs small mx-2" id="nav-tab" role="tablist">
                       
                       <button class="nav-link active " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Addition</button>
                       <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subtraction</button>
@@ -407,7 +401,7 @@
                       <div class="row m-auto p-2">
                           <div class="col-sm-12 p-1 ">
                               {% if Addition|first %}
-                              <div class="card text-center ">
+                              <div class="card text-center">
                                   <div class="card-body ">
                                       <div class="table-responsive">
                                           <table class="table table-sm table-hover border">
@@ -636,7 +630,7 @@
     </div>
 </div>
 <!--about activitse and numbers -->
-<div class="my-5 mx-auto " style="max-width: 85%; ">
+<div class="my-5 mx-auto " style="max-width: 98%;">
         <div class="card-body text-dark">
             <div class="row row-cols-2 row-cols-md-5 g-3">
                 <div class="col ">
@@ -690,7 +684,7 @@
 </div>
 
 <!--e-commers seaction-->
-<div class="card my-5 mx-auto " style="max-width: 85%; ">
+<div class="card my-5 mx-auto " style="max-width: 98%; ">
     <div class="card-header bg-primary text-white text-center"> <h6>Get Play2learnGames Products in Online Stores</h6> </div>
     <div class="card-body text-dark " style="font-size: 12.5px;">
         <div class="row row-cols-1 row-cols-md-5 g-3">
@@ -751,7 +745,7 @@
 
 <!-- Grid container -->
 {% if not user.is_authenticated %}
-<div class="container bg-primary pb-2 my-5 mx-auto shadow rounded" style="max-width: 85%;">
+<div class="container-fluid bg-primary pb-2 my-5 mx-auto shadow rounded" style="max-width: 98%;">
     <!-- Section: Form -->
     
     <section class="">

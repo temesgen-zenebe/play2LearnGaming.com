@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q_p7g+cxd$=$&tbi&l!*3fi(2f*-zsfgyerfe79t*#x$pj^nj0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['play2learn-gaming.herokuapp.com']
+ALLOWED_HOSTS = ['play2learn-gaming.herokuapp.com', '127.0.0.1']
 
 INTERNAL_IPS = [ 
     # Necessary for the Debug Toolbar
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount', 
-    'debug_toolbar',
+    # 'debug_toolbar',
 
     # Local apps
     'anagram_game.apps.AnagramGameConfig',
@@ -74,10 +74,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     
 ]
-if DEBUG:
-    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+# if DEBUG:
+#     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
 
 
 ROOT_URLCONF = 'play2learnGames.urls'
@@ -105,7 +106,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = { 'default' : dj_database_url.config()}
+#DATABASES = { 'default' : dj_database_url.config()}
 
 """DATABASES = {
     'default': {
@@ -113,7 +114,7 @@ DATABASES = { 'default' : dj_database_url.config()}
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }"""
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -124,7 +125,7 @@ DATABASES = {
         'PORT': 5432
     }
 }
-"""
+
 # EMAIL
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -193,32 +194,34 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'play2learn-game-django' # REPLACE WITH YOUR BUCKET NAME
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_DEFAULT_ACL = None # Use S3 bucket's setting
+#AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+#AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+#AWS_STORAGE_BUCKET_NAME = 'play2learn-game-django' # REPLACE WITH YOUR BUCKET NAME
+#AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+#AWS_S3_SIGNATURE_VERSION = 's3v4'
+#AWS_DEFAULT_ACL = None # Use S3 bucket's setting
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
+#AWS_S3_OBJECT_PARAMETERS = {
+#    'CacheControl': 'max-age=86400',
+#}
 #AWS_LOCATION = '/static/'
 #AWS_HEADERS = {'Access-Control-Allow-Origin':'*'}
 
-STATICFILES_STORAGE = 'play2learnGames.storage_backends.StaticStorage'
-DEFAULT_FILE_STORAGE = 'play2learnGames.storage_backends.PublicMediaStorage'
-PRIVATE_FILE_STORAGE = 'play2learnGames.storage_backends.PrivateMediaStorage'
+# STATICFILES_STORAGE = 'play2learnGames.storage_backends.StaticStorage'
+# DEFAULT_FILE_STORAGE = 'play2learnGames.storage_backends.PublicMediaStorage'
+# PRIVATE_FILE_STORAGE = 'play2learnGames.storage_backends.PrivateMediaStorage'
 
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL =  f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+#STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+#MEDIA_URL =  f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
-#STATIC_URL = '/static/'
-#MEDIA_URL =  '/media/'
+# STATIC_URL = '/static/'
+MEDIA_URL =  '/media/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',
+# ]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

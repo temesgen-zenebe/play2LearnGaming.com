@@ -134,12 +134,12 @@ class PrintGameScore(View):
         Subscribed_users = SubscribedUsers.objects.all().count()
         
         #print(weekly_signup)
-        num_visits = request.session.get('num_visits', 0)
-        request.session['num_visits'] = num_visits + 1
-        numVisits = request.session['num_visits']
-        num = numVisits
-        totalNumVisits = num + numVisits
-        logged_users = num
+        # num_visits = request.session.get('num_visits', 0)
+        # request.session['num_visits'] = num_visits + 1
+        # numVisits = request.session['num_visits']
+        # num = numVisits
+        # totalNumVisits = num + numVisits
+        # logged_users = num
         context = {
             'Addition':operate1,
             'Division':operate2,
@@ -147,10 +147,10 @@ class PrintGameScore(View):
             'Subtraction':operate4,
             'anagramScore':anagramScore,
             'gameComment':comment,
-            'logged_users': logged_users,
+            'logged_users': 1,
             'numbers_users': numbers_users,
             'weekly_signup':weekly_signup,
-            'num_visits': totalNumVisits,
+            'num_visits': 10,
             'Subscribed_users':Subscribed_users,
         }
         return render(request, 'pages/home.html', context)
